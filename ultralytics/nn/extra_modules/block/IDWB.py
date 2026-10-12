@@ -1,37 +1,39 @@
-'''
+"""
 本文件由BiliBili：魔傀面具整理
 ultralytics/nn/module_images/CVPR2024-InceptionDWBlock.png
-论文链接：https://arxiv.org/pdf/2303.16900
-'''
+论文链接：https://arxiv.org/pdf/2303.16900.
+"""
 
-import os, sys
+import os
+import sys
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../../../..')
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../../../..")
 
 import warnings
 
-warnings.filterwarnings('ignore')
+warnings.filterwarnings("ignore")
 
 import torch
-import torch.nn as nn
-from timm.layers import to_2tuple, DropPath
+from timm.layers import DropPath, to_2tuple
+from torch import nn
 
 from ultralytics.nn.modules.conv import Conv
 
 
 class InceptionDWConv2d(nn.Module):
-    """ Inception depthweise convolution
-    """
+    """Inception depthweise convolution."""
 
     def __init__(self, in_channels, square_kernel_size=3, band_kernel_size=11, branch_ratio=0.125):
         super().__init__()
 
         gc = int(in_channels * branch_ratio)  # channel numbers of a convolution branch
         self.dwconv_hw = nn.Conv2d(gc, gc, square_kernel_size, padding=square_kernel_size // 2, groups=gc)
-        self.dwconv_w = nn.Conv2d(gc, gc, kernel_size=(1, band_kernel_size), padding=(0, band_kernel_size // 2),
-                                  groups=gc)
-        self.dwconv_h = nn.Conv2d(gc, gc, kernel_size=(band_kernel_size, 1), padding=(band_kernel_size // 2, 0),
-                                  groups=gc)
+        self.dwconv_w = nn.Conv2d(
+            gc, gc, kernel_size=(1, band_kernel_size), padding=(0, band_kernel_size // 2), groups=gc
+        )
+        self.dwconv_h = nn.Conv2d(
+            gc, gc, kernel_size=(band_kernel_size, 1), padding=(band_kernel_size // 2, 0), groups=gc
+        )
         self.split_indexes = (in_channels - 3 * gc, gc, gc, gc)
 
     def forward(self, x):
@@ -43,13 +45,20 @@ class InceptionDWConv2d(nn.Module):
 
 
 class ConvMlp(nn.Module):
-    """ MLP using 1x1 convs that keeps spatial dims
-    copied from timm: https://github.com/huggingface/pytorch-image-models/blob/v0.6.11/timm/models/layers/mlp.py
+    """MLP using 1x1 convs that keeps spatial dims copied from timm:
+    https://github.com/huggingface/pytorch-image-models/blob/v0.6.11/timm/models/layers/mlp.py.
     """
 
     def __init__(
-            self, in_features, hidden_features=None, out_features=None, act_layer=nn.ReLU,
-            norm_layer=None, bias=True, drop=0.):
+        self,
+        in_features,
+        hidden_features=None,
+        out_features=None,
+        act_layer=nn.ReLU,
+        norm_layer=None,
+        bias=True,
+        drop=0.0,
+    ):
         super().__init__()
         out_features = out_features or in_features
         hidden_features = hidden_features or in_features
@@ -71,7 +80,8 @@ class ConvMlp(nn.Module):
 
 
 class InceptionDWBlock(nn.Module):
-    """ MetaNeXtBlock Block
+    """MetaNeXtBlock Block.
+
     Args:
         dim (int): Number of input channels.
         drop_path (float): Stochastic depth rate. Default: 0.0
@@ -79,24 +89,23 @@ class InceptionDWBlock(nn.Module):
     """
 
     def __init__(
-            self,
-            in_dim,
-            dim,
-            token_mixer=InceptionDWConv2d,
-            norm_layer=nn.BatchNorm2d,
-            mlp_layer=ConvMlp,
-            mlp_ratio=4,
-            act_layer=nn.GELU,
-            ls_init_value=1e-6,
-            drop_path=0.,
-
+        self,
+        in_dim,
+        dim,
+        token_mixer=InceptionDWConv2d,
+        norm_layer=nn.BatchNorm2d,
+        mlp_layer=ConvMlp,
+        mlp_ratio=4,
+        act_layer=nn.GELU,
+        ls_init_value=1e-6,
+        drop_path=0.0,
     ):
         super().__init__()
         self.token_mixer = token_mixer(dim)
         self.norm = norm_layer(dim)
         self.mlp = mlp_layer(dim, int(mlp_ratio * dim), act_layer=act_layer)
         self.gamma = nn.Parameter(ls_init_value * torch.ones(dim)) if ls_init_value else None
-        self.drop_path = DropPath(drop_path) if drop_path > 0. else nn.Identity()
+        self.drop_path = DropPath(drop_path) if drop_path > 0.0 else nn.Identity()
 
         self.conv1x1 = Conv(in_dim, dim) if in_dim != dim else nn.Identity()
 

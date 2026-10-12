@@ -1,20 +1,23 @@
-import os, sys
+import os
+import sys
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../../../..')
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../../../..")
 
 import warnings
 
-warnings.filterwarnings('ignore')
+warnings.filterwarnings("ignore")
 
-import torch
-import torch.nn as nn
-from ultralytics.nn.modules.conv import Conv
-from ultralytics.nn.modules.block import Bottleneck
+from copy import deepcopy
+from functools import partial
 
 import thop
-from functools import partial
-from copy import deepcopy
+import torch
+from torch import nn
+
+from ultralytics.nn.modules.block import Bottleneck
+from ultralytics.nn.modules.conv import Conv
 from ultralytics.utils.torch_utils import get_num_params
+
 # from ultralytics.plugins.torch_utils import CUDABenchmark
 #
 # from ultralytics.nn.extra_modules.block.MANet import MANet
@@ -85,8 +88,9 @@ class C3k_Block(nn.Module):
 
 
 class C3k2_Block(nn.Module):
-    def __init__(self, c1, c2, module=partial(Bottleneck, k=(3, 3), shortcut=True, e=0.5), n=1, c3k=True, e=0.5,
-                 selfatt=False):
+    def __init__(
+        self, c1, c2, module=partial(Bottleneck, k=(3, 3), shortcut=True, e=0.5), n=1, c3k=True, e=0.5, selfatt=False
+    ):
         super().__init__()
         self.c = int(c2 * e)  # hidden channels
         self.cv1 = Conv(c1, 2 * self.c, 1, 1)
@@ -107,10 +111,10 @@ class C3k2_Block(nn.Module):
         return self.cv2(torch.cat(y, 1))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from ultralytics.utils.torch_utils import select_device
 
-    device_id = '0'
+    device_id = "0"
     in_channel, out_channel, height, width = 128, 256, 160, 160
     repeats = 2
 
@@ -128,12 +132,11 @@ if __name__ == '__main__':
         C3k_Block(in_channel, out_channel, module=module_instance, n=repeats, selfatt=selfatt),
         C3k2_Block(in_channel, out_channel, module=module_instance, n=repeats, c3k=True, selfatt=selfatt),
         MANet(in_channel, out_channel, module=module_instance, n=repeats),
-
         # ------ MetaFormer
         MetaFormer_Block(in_channel, out_channel, token_mixer=module_instance, selfatt=selfatt),
         MetaFormer_Mona(in_channel, out_channel, token_mixer=module_instance, selfatt=selfatt),
         MetaFormer_SEFN(in_channel, out_channel, token_mixer=module_instance, selfatt=selfatt),
-        MetaFormer_Mona_SEFN(in_channel, out_channel, token_mixer=module_instance, selfatt=selfatt)
+        MetaFormer_Mona_SEFN(in_channel, out_channel, token_mixer=module_instance, selfatt=selfatt),
     ]
 
     for module_ in module_list:
@@ -144,7 +147,8 @@ if __name__ == '__main__':
         n_flops = thop.profile(deepcopy(module_), inputs=[inputs_tensor], verbose=False)[0] / 1e9 * 2
         n_flops_str, n_p_str = thop.clever_format([n_flops, n_p], format="%.3f")
 
-        benchmark = CUDABenchmark(name=f'Module:{module_name} Flops:{n_flops_str} Parameters:{n_p_str}', warmup=500,
-                                  repeat=1000)
+        benchmark = CUDABenchmark(
+            name=f"Module:{module_name} Flops:{n_flops_str} Parameters:{n_p_str}", warmup=500, repeat=1000
+        )
         benchmark.run(lambda: module_(inputs_tensor))
         benchmark.print_stats()

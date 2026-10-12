@@ -1,0 +1,46 @@
+# --- YOLO11 + RepViT + carfe 融合架构 ---
+# Parameters
+nc: 80 # number of classes
+scales: # model compound scaling constants, i.e. 'model=yolo11n.yaml' will call yolo11.yaml with scale 'n'
+  # [depth, width, max_channels]
+  n: [0.50, 0.25, 1024] # summary: 181 layers, 2624080 parameters, 2624064 gradients, 6.6 GFLOPs
+  s: [0.50, 0.50, 1024] # summary: 181 layers, 9458752 parameters, 9458736 gradients, 21.7 GFLOPs
+  m: [0.50, 1.00, 512] # summary: 231 layers, 20114688 parameters, 20114672 gradients, 68.5 GFLOPs
+  l: [1.00, 1.00, 512] # summary: 357 layers, 25372160 parameters, 25372144 gradients, 87.6 GFLOPs
+  x: [1.00, 1.50, 512] # summary: 357 layers, 56966176 parameters, 56966160 gradients, 196.0 GFLOPs
+
+# YOLO11n backbone
+backbone:
+  # [from, repeats, module, args]
+  - [-1, 1, repvit_m0_9, [False]]   # 0 - 总特征提取
+  
+  # 提取多尺度特征 (P3, P4, P5)
+  - [0, 1, GetIndexOutput, [1]]     # 1 - P3/8
+  - [0, 1, GetIndexOutput, [2]]     # 2 - P4/16
+  - [0, 1, GetIndexOutput, [3]]     # 3 - P5/32
+  
+  # 深层特征提取
+  - [-1, 1, SPPF, [1024, 5]]        # 4 - SPPF
+  - [-1, 2, C2PSA, [1024]]          # 5 - C2PSA (Deepest P5)
+
+head:
+  # --- 1. Top-Down (自顶向下 - CARAFE 升采样) ---
+  - [5, 1, CARAFE, []]              # 6 - CARAFE P5 -> P4
+  - [[-1, 2], 1, Concat, [1]]       # 7 - Concat(P5_up, P4)
+  - [-1, 2, C3k2, [512, False]]     # 8 - C3k2_P4 (注意：通道数需匹配上一层Concat总和)
+
+  - [-1, 1, CARAFE, []]             # 9 - CARAFE P4 -> P3
+  - [[-1, 1], 1, Concat, [1]]       # 10 - Concat(P4_up, P3)
+  - [-1, 2, C3k2, [256, False]]     # 11 - C3k2_P3 (最终输出P3)
+
+  # --- 2. Bottom-Up (自底向上 - Conv 下采样) ---
+  - [-1, 1, Conv, [256, 3, 2]]      # 12 - Downsample P3 -> P4
+  - [[-1, 8], 1, Concat, [1]]       # 13 - Concat(P3_down, P4_C3k2)
+  - [-1, 2, C3k2, [512, False]]     # 14 - C3k2_P4 (最终输出P4)
+
+  - [-1, 1, Conv, [512, 3, 2]]      # 15 - Downsample P4 -> P5
+  - [[-1, 5], 1, Concat, [1]]       # 16 - Concat(P4_down, P5)
+  - [-1, 2, C3k2, [1024, True]]     # 17 - C3k2_P5 (最终输出P5)
+
+  # --- 3. Detect ---
+  - [[11, 14, 17], 1, Detect, [nc]]  # 18 - 输出 P3, P4, P5

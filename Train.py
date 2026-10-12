@@ -1,30 +1,31 @@
-import warnings, os, sys
+import os
+import sys
+import warnings
 
 # 硬件安全配置：指定使用第一张显卡
-os.environ["CUDA_VISIBLE_DEVICES"] = '0'
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-warnings.filterwarnings('ignore')
+warnings.filterwarnings("ignore")
 
 from ultralytics import YOLO
-from ultralytics.models.yolo.detect.afss_train import AFSSDetectionTrainer
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # 核心修改 1：基准模型替换为你论文主打的 YOLO11n
-    yaml_path = 'ultralytics/cfg/models/improve/yolo11s-HS-FPN-LQE.yaml'
+    yaml_path = "ultralytics/cfg/models/improve/yolo11s-HS-FPN-LQE.yaml"
 
     # 初始化 YOLO 模型
     model = YOLO(yaml_path)
     model.train(
-    data="highway_vehicle.yaml",
-    imgsz=640,
-    epochs=150,
-    batch=16,
-    device=0,
-    cos_lr=True,
-    patience=50,
-    project="Baseline_Results",
-    name="YOLO11s+HS-FPN-LQE"
-)
+        data="highway_vehicle.yaml",
+        imgsz=640,
+        epochs=150,
+        batch=16,
+        device=0,
+        cos_lr=True,
+        patience=50,
+        project="Baseline_Results",
+        name="YOLO11s+HS-FPN-LQE",
+    )
 
     # model.train(
     #     # ---------- 基础环境与数据配置 ----------

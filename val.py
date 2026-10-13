@@ -62,7 +62,7 @@ def print_highlight_table(table, header_color_value_cols=None, color_first_col=T
 
 if __name__ == '__main__':
     # 选择训练好的权重路径，'runs/train/你之前跑完的Baseline文件夹名/weights/best.pt'
-    model_path = 'runs/detect/Baseline_Results/YOLO11s+HS-FPN-LQE/weights/best.pt'
+    model_path = 'runs/detect/Baseline_Results/YOLO11s+HSFPN/weights/best.pt'
     # 设置用于计算指标的图像尺寸
     imgsz = 640
 
@@ -75,7 +75,7 @@ if __name__ == '__main__':
                         auto_coco_eval=True, # 一步到位计算COCO指标
                         # iou=0.7,
                         save_json=True,
-                        project='YOLO11s+HS-FPN-LQE',
+                        project='YOLO11s+HSFPN',
                         name='exp',
                         device=os.environ.get("CUDA_VISIBLE_DEVICES", 0), # 训练设备选择，不在这里设置，在头部设置，详细可以看UserGuide.md中的常见问题第4点
                         # end2end=False # 如果训练的是NMSFree类型的模型，不想用一对一的头可以设置False

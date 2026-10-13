@@ -9,8 +9,8 @@ from ultralytics import YOLO
 from ultralytics.models.yolo.detect.afss_train import AFSSDetectionTrainer
 
 if __name__ == '__main__':
-    # 核心修改 1：基准模型替换为你论文主打的 YOLO11n
-    yaml_path = 'ultralytics/cfg/models/improve/yolo11s-HS-FPN-LQE.yaml'
+    
+    yaml_path = 'ultralytics/cfg/models/improve/neck/yolo11/yolo11s-HSFPN.yaml'
 
     # 初始化 YOLO 模型
     model = YOLO(yaml_path)
@@ -23,7 +23,7 @@ if __name__ == '__main__':
     cos_lr=True,
     patience=50,
     project="Baseline_Results",
-    name="YOLO11s+HS-FPN-LQE"
+    name="YOLO11s+HSFPN"
 )
 
     # model.train(

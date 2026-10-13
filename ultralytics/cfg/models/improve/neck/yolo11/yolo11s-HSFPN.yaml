@@ -3,7 +3,8 @@
 # Ultralytics YOLO11 HSFPN neck model with P3/8 - P5/32 outputs
 
 # Parameters
-nc: 80
+nc: 1
+scale: s
 head_channel: 256
 scales:
   n: [0.50, 0.25, 1024]

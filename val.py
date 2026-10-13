@@ -61,21 +61,21 @@ def print_highlight_table(table, header_color_value_cols=None, color_first_col=T
     print(highlighted)
 
 if __name__ == '__main__':
-    # 选择训练好的权重路径，'runs/train/你之前跑完的Baseline文件夹名/weights/best.pt'
-    model_path = 'runs/detect/Baseline_Results/YOLO11s+HSFPN/weights/best.pt'
+    # 选择训练好的权重路径
+    model_path = 'yolo26n.pt'
     # 设置用于计算指标的图像尺寸
     imgsz = 640
 
     model = YOLO(model_path) 
-    result = model.val(data='highway_vehicle.yaml',
+    result = model.val(data='/root/dataset/dataset_visdrone/data.yaml',
                         split='test', # split可以选择train、val、test 根据自己的数据集情况来选择.
                         imgsz=imgsz,
                         batch=16,
                         rect=False, # 验证时统一固定imgsz x imgsz 做 letterbox，避免一些改进在验证的时候会报尺寸问题
                         auto_coco_eval=True, # 一步到位计算COCO指标
                         # iou=0.7,
-                        save_json=True,
-                        project='YOLO11s+HSFPN',
+                        # save_json=True,
+                        project='val',
                         name='exp',
                         device=os.environ.get("CUDA_VISIBLE_DEVICES", 0), # 训练设备选择，不在这里设置，在头部设置，详细可以看UserGuide.md中的常见问题第4点
                         # end2end=False # 如果训练的是NMSFree类型的模型，不想用一对一的头可以设置False
@@ -364,5 +364,3 @@ if __name__ == '__main__':
     
     for _ in range(5):
         LOGGER.info(f'{BOLD}{ORANGE}{"-"*20}结果已保存至 {result.save_dir}/paper_data.txt...{"-"*20}{RESET}')
-        
-    

@@ -10,20 +10,29 @@ from ultralytics.models.yolo.detect.afss_train import AFSSDetectionTrainer
 
 if __name__ == '__main__':
     
-    yaml_path = 'ultralytics/cfg/models/improve/neck/yolo11/yolo11s-HSFPN.yaml'
+    yaml_path = 'ultralytics/cfg/models/11/yolo11s.yaml'
 
     # 初始化 YOLO 模型
     model = YOLO(yaml_path)
     model.train(
-    data="highway_vehicle.yaml",
-    imgsz=640,
+    data='datasets/HighwayVehicle-v1.0/highway_vehicle_v1.0.yaml',
     epochs=150,
+    imgsz=640,
     batch=16,
     device=0,
+    workers=8,
+    optimizer="AdamW",
     cos_lr=True,
-    patience=50,
-    project="Baseline_Results",
-    name="YOLO11s+HSFPN"
+    close_mosaic=10,
+    amp=False,
+    seed=42,
+    deterministic=True,
+    cache=False,
+    patience=150,
+    plots=True,
+    save=True,
+    project="runs/stage2_screening",
+    name="YOLO11s"
 )
 
     # model.train(

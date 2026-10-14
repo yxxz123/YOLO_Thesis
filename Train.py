@@ -9,10 +9,10 @@ from ultralytics import YOLO
 from ultralytics.models.yolo.detect.afss_train import AFSSDetectionTrainer
 
 if __name__ == '__main__':
-    
-    yaml_path = 'ultralytics/cfg/models/11/yolo11s.yaml'
 
-    # 初始化 YOLO 模型
+    yaml_path = 'ultralytics/cfg/models/improve/downsample/yolo11/yolo11s-SPDConv.yaml'
+
+    # 初始化 YOLO 模型，从 yaml 配置文件构建网络结构
     model = YOLO(yaml_path)
     model.train(
     data='datasets/HighwayVehicle-v1.0/highway_vehicle_v1.0.yaml',
@@ -20,19 +20,16 @@ if __name__ == '__main__':
     imgsz=640,
     batch=16,
     device=0,
-    workers=8,
+    workers=4,
     optimizer="AdamW",
     cos_lr=True,
     close_mosaic=10,
-    amp=False,
-    seed=42,
-    deterministic=True,
+    amp=True,
     cache=False,
     patience=150,
-    plots=True,
-    save=True,
-    project="runs/stage2_screening",
-    name="YOLO11s"
+    seed=42,
+    project="stage2_screening",
+    name="YOLO11s-SPDConv",
 )
 
     # model.train(

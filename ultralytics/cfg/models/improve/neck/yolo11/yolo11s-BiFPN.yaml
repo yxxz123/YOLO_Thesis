@@ -3,7 +3,7 @@
 # Ultralytics YOLO11 BiFPN neck model with P3/8 - P5/32 outputs
 
 # Parameters
-nc: 80
+nc: 1
 scales:
   n: [0.50, 0.25, 1024]
   s: [0.50, 0.50, 1024]

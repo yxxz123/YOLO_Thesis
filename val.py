@@ -62,21 +62,21 @@ def print_highlight_table(table, header_color_value_cols=None, color_first_col=T
 
 if __name__ == '__main__':
     # 选择训练好的权重路径
-    model_path = 'yolo26n.pt'
+    model_path = 'runs/detect/stage2_screening/YOLO11s-SPDConv/weights/best.pt'
     # 设置用于计算指标的图像尺寸
     imgsz = 640
 
     model = YOLO(model_path) 
-    result = model.val(data='/root/dataset/dataset_visdrone/data.yaml',
-                        split='test', # split可以选择train、val、test 根据自己的数据集情况来选择.
+    result = model.val(data='datasets/HighwayVehicle-v1.0/highway_vehicle_v1.0.yaml',
+                        split='val', # split可以选择train、val、test 根据自己的数据集情况来选择.
                         imgsz=imgsz,
                         batch=16,
                         rect=False, # 验证时统一固定imgsz x imgsz 做 letterbox，避免一些改进在验证的时候会报尺寸问题
                         auto_coco_eval=True, # 一步到位计算COCO指标
                         # iou=0.7,
-                        # save_json=True,
+                        save_json=True,
                         project='val',
-                        name='exp',
+                        name='yolo11s-SPDConv', # 结果保存的文件夹名称
                         device=os.environ.get("CUDA_VISIBLE_DEVICES", 0), # 训练设备选择，不在这里设置，在头部设置，详细可以看UserGuide.md中的常见问题第4点
                         # end2end=False # 如果训练的是NMSFree类型的模型，不想用一对一的头可以设置False
                         )

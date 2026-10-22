@@ -234,3 +234,4 @@ secrets.json
 /runs/detect/val/**/*.onnx
 /runs/detect/val/**/*.engine
 /runs/detect/val/**/events.out.tfevents.*
+/runs/detect/val/**/predictions.json

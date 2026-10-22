@@ -95,9 +95,10 @@ datasets/
 # ============================================================
 # 训练、验证及推理结果
 # ============================================================
-
-/runs/
-runs/
+/runs/*
+!/runs/detect/
+/runs/detect/*
+!/runs/detect/val/
 
 /tide_result/
 tide_result/
@@ -115,16 +116,6 @@ mlruns/
 tensorboard/
 
 # 训练过程自动生成文件
-args.yaml
-results.csv
-results.png
-confusion_matrix*.png
-PR_curve.png
-P_curve.png
-R_curve.png
-F1_curve.png
-labels.jpg
-labels_correlogram.jpg
 events.out.tfevents.*
 
 
@@ -231,3 +222,15 @@ secrets.json
 # ============================================================
 
 /=1.6.5
+# ============================================================
+# 例外：只上传 runs/detect/val 下的实验结果
+# 必须放在文件末尾，才能覆盖前面的 *.jpg / *.png 等规则
+# ============================================================
+!/runs/detect/val/**
+
+# 白名单内仍然排除权重和事件文件
+/runs/detect/val/**/*.pt
+/runs/detect/val/**/*.pth
+/runs/detect/val/**/*.onnx
+/runs/detect/val/**/*.engine
+/runs/detect/val/**/events.out.tfevents.*

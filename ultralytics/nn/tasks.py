@@ -1664,7 +1664,7 @@ def parse_model(d, ch, verbose=True):
     head_modules = frozenset(
         {
             Detect_LQE, Segment_LQE, Segment26_LQE, OBB_LQE, OBB26_LQE, Pose_LQE, Pose26_LQE,
-            Detect_DyHead, Segment_DyHead, Segment26_DyHead, OBB_DyHead, OBB26_DyHead, Pose_DyHead, Pose26_DyHead
+            Detect_DyHead, Segment_DyHead, Segment26_DyHead, OBB_DyHead, OBB26_DyHead, Pose_DyHead, Pose26_DyHead, Detect_RPL
         } 
     )   
    
@@ -1789,7 +1789,8 @@ def parse_model(d, ch, verbose=True):
                 Pose_DyHead,     
                 Pose26_DyHead,
                 OBB_DyHead,
-                OBB26_DyHead,  
+                OBB26_DyHead,
+                Detect_RPL,  
             }:
                 m.legacy = legacy  
  

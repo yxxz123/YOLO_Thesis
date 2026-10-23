@@ -10,7 +10,7 @@ from ultralytics.models.yolo.detect.afss_train import AFSSDetectionTrainer
 
 if __name__ == '__main__':
 
-    yaml_path = 'ultralytics/cfg/models/improve/yolo11s-DySample-FreqLAWDS.yaml'
+    yaml_path = 'ultralytics/cfg/models/improve/yolo11s-DySample-RPL.yaml'
 
     # 初始化 YOLO 模型，从 yaml 配置文件构建网络结构
     model = YOLO(yaml_path)
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     patience=150,
     seed=42,
     project="stage2_screening",
-    name="YOLO11s-DySample-FreqLAWDS",
+    name="YOLO11s-DySample-RPL",
 )
 
     # model.train(

@@ -294,3 +294,4 @@ from .featurefusion.wfu import WFU
 from .head.LSPCD import Detect_LSPCD, Segment_LSPCD, Segment26_LSPCD, OBB_LSPCD, OBB26_LSPCD, Pose_LSPCD, Pose26_LSPCD    
 from .head.LQE import Detect_LQE, Segment_LQE, Segment26_LQE, OBB_LQE, OBB26_LQE, Pose_LQE, Pose26_LQE  
 from .head.DyHead import Detect_DyHead, Segment_DyHead, Segment26_DyHead, OBB_DyHead, OBB26_DyHead, Pose_DyHead, Pose26_DyHead   
+from .head.RPL import Detect_RPL

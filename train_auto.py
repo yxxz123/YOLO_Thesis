@@ -10,7 +10,6 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Sequence
 
-
 ROOT = Path(__file__).resolve().parent
 
 
@@ -164,14 +163,24 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--swanlab-run-name", help="SwanLab experiment name")
     parser.add_argument("--swanlab-mode", help="SwanLab mode: cloud/online, local, offline, or disabled")
     parser.add_argument("--swanlab-log-interval", type=int, help="steps between SwanLab loss/lr logs; <=0 disables")
-    parser.add_argument("--dry-run", action="store_true", default=None, help="print commands without launching training")
-    parser.add_argument("--stop-on-fail", action="store_true", default=None, help="stop after first failed training job")
+    parser.add_argument(
+        "--dry-run", action="store_true", default=None, help="print commands without launching training"
+    )
+    parser.add_argument(
+        "--stop-on-fail", action="store_true", default=None, help="stop after first failed training job"
+    )
     parser.add_argument("--extra", nargs="+", help="additional YOLO key=value arguments")
-    parser.add_argument("--baseline-monitor", action="store_true", default=None, help="enable baseline results.csv monitor")
+    parser.add_argument(
+        "--baseline-monitor", action="store_true", default=None, help="enable baseline results.csv monitor"
+    )
     parser.add_argument("--baseline-path", help="baseline results.csv path")
     parser.add_argument("--baseline-metric", help="metric column to compare against the baseline")
-    parser.add_argument("--baseline-start-ratio", type=float, help="fraction of epochs to wait before enforcing baseline")
-    parser.add_argument("--baseline-min-gap", type=float, help="minimum allowed current-baseline gap before a bad epoch")
+    parser.add_argument(
+        "--baseline-start-ratio", type=float, help="fraction of epochs to wait before enforcing baseline"
+    )
+    parser.add_argument(
+        "--baseline-min-gap", type=float, help="minimum allowed current-baseline gap before a bad epoch"
+    )
     parser.add_argument("--baseline-patience", type=int, help="consecutive bad comparison epochs before stopping")
     return parser.parse_args(argv)
 
@@ -267,7 +276,9 @@ def run_jobs(config: AutoTrainConfig) -> list[JobResult]:
         completed = subprocess.run(command, cwd=str(ROOT), check=False)
         elapsed_seconds = time.monotonic() - started_at
 
-        result = JobResult(model=model, command=command, returncode=completed.returncode, elapsed_seconds=elapsed_seconds)
+        result = JobResult(
+            model=model, command=command, returncode=completed.returncode, elapsed_seconds=elapsed_seconds
+        )
         results.append(result)
         print(
             f"[train_auto] finish {index}/{total}: {model} "
@@ -301,8 +312,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     failed = [result for result in results if result.returncode != 0]
     print(
-        f"[train_auto] summary: total={len(results)} failed={len(failed)} "
-        f"skipped={len(config.models) - len(results)}",
+        f"[train_auto] summary: total={len(results)} failed={len(failed)} skipped={len(config.models) - len(results)}",
         flush=True,
     )
     return 1 if failed else 0

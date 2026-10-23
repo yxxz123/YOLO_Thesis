@@ -99,6 +99,7 @@ datasets/
 !/runs/detect/
 /runs/detect/*
 !/runs/detect/val/
+!/runs/detect/stage2_screening/
 
 /tide_result/
 tide_result/
@@ -223,15 +224,16 @@ secrets.json
 
 /=1.6.5
 # ============================================================
-# 例外：只上传 runs/detect/val 下的实验结果
-# 必须放在文件末尾，才能覆盖前面的 *.jpg / *.png 等规则
+# 例外：只上传 runs/detect/val 和 runs/detect/stage2_screening
+# 必须放在文件末尾，才能覆盖前面的 *.jpg / *.png / weights/ 等规则
 # ============================================================
 !/runs/detect/val/**
+!/runs/detect/stage2_screening/**
 
-# 白名单内仍然排除权重和事件文件
-/runs/detect/val/**/*.pt
-/runs/detect/val/**/*.pth
-/runs/detect/val/**/*.onnx
-/runs/detect/val/**/*.engine
-/runs/detect/val/**/events.out.tfevents.*
-/runs/detect/val/**/predictions.json
+# 两个目录共同排除：权重、事件文件、大体积的预测结果
+/runs/detect/*/**/*.pt
+/runs/detect/*/**/*.pth
+/runs/detect/*/**/*.onnx
+/runs/detect/*/**/*.engine
+/runs/detect/*/**/events.out.tfevents.*
+/runs/detect/*/**/predictions.json

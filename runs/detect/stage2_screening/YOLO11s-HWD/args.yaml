@@ -10,7 +10,7 @@ imgsz: 640
 save: true
 save_period: -1
 cache: false
-device: '0'
+device: "0"
 workers: 4
 project: stage2_screening
 name: YOLO11s-HWD
@@ -42,17 +42,17 @@ afss_conf: 0.25
 afss_save_refresh_json: false
 afss_thresholds:
   detect:
-  - 0.55
-  - 0.85
+    - 0.55
+    - 0.85
   obb:
-  - 0.55
-  - 0.85
+    - 0.55
+    - 0.85
   segment:
-  - 0.55
-  - 0.85
+    - 0.55
+    - 0.85
   pose:
-  - 0.55
-  - 0.85
+    - 0.55
+    - 0.85
 baseline_monitor: false
 baseline_path: null
 baseline_metric: metrics/mAP50-95(B)

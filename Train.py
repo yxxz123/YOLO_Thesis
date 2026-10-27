@@ -6,14 +6,14 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 warnings.filterwarnings('ignore')
 
 from ultralytics import YOLO
-from ultralytics.models.yolo.detect.afss_train import AFSSDetectionTrainer
 
 if __name__ == '__main__':
 
-    yaml_path = 'ultralytics/cfg/models/improve/yolo11s-DySample-RPL.yaml'
+    yaml_path = 'ultralytics/cfg/models/improve/upsample/yolo11/yolo11s-DySample.yaml'
 
     # 初始化 YOLO 模型，从 yaml 配置文件构建网络结构
     model = YOLO(yaml_path)
+    model.load("yolo11s.pt")
     model.train(
     data='datasets/HighwayVehicle-v1.0/highway_vehicle_v1.0.yaml',
     epochs=150,
@@ -28,8 +28,9 @@ if __name__ == '__main__':
     cache=False,
     patience=150,
     seed=42,
-    project="stage2_screening",
-    name="YOLO11s-DySample-RPL",
+    deterministic=True,
+    project="stage3_targeted",
+    name="YOLO11s-DySample-Pretrained",
 )
 
     # model.train(

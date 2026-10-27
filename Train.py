@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
     # 初始化 YOLO 模型，从 yaml 配置文件构建网络结构
     model = YOLO(yaml_path)
-    model.load("yolo11s.pt")
+    # model.load("yolo11s.pt")
     model.train(
     data='datasets/HighwayVehicle-v1.0/highway_vehicle_v1.0.yaml',
     epochs=150,
@@ -31,8 +31,9 @@ if __name__ == '__main__':
     patience=150,
     seed=42,
     deterministic=True,
+    pretrained=False,
     project="stage3_targeted",
-    name="YOLO11s-DySample-Pretrained-LR003",
+    name="YOLO11s-DySample-NoPT-LR003",
 )
 
     # model.train(

@@ -22,6 +22,8 @@ if __name__ == '__main__':
     device=0,
     workers=4,
     optimizer="AdamW",
+    lr0=0.003,
+    lrf=0.01,
     cos_lr=True,
     close_mosaic=10,
     amp=True,
@@ -30,7 +32,7 @@ if __name__ == '__main__':
     seed=42,
     deterministic=True,
     project="stage3_targeted",
-    name="YOLO11s-DySample-Pretrained",
+    name="YOLO11s-DySample-Pretrained-LR003",
 )
 
     # model.train(

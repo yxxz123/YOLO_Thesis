@@ -55,9 +55,7 @@ AUTO_TRAIN_CONFIG = AutoTrainConfig(
     # ========================================================
 
     models=[
-        # Route 1:
-        # DySample + spatial alignment/context enhancement
-        "ultralytics/cfg/models/improve/yolo11s-DySample-DeformableLKA-TD.yaml",
+        
 
         # Route 2:
         # DySample + channel recalibration after top-down fusion
@@ -119,8 +117,7 @@ AUTO_TRAIN_CONFIG = AutoTrainConfig(
     baseline_monitor=True,
 
     baseline_path=(
-        "runs/detect/stage2_screening/"
-        "YOLO11s-DySample/results.csv"
+        "runs/detect/stage2_screening/YOLO11s-DySample/results.csv"
     ),
 
     baseline_metric="metrics/mAP50-95(B)",

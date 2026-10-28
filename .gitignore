@@ -101,6 +101,7 @@ datasets/
 !/runs/detect/val/
 !/runs/detect/stage2_screening/
 !/runs/detect/stage3_targeted/
+!/runs/detect/stage3_fast_screen/
 
 /tide_result/
 tide_result/
@@ -231,6 +232,7 @@ secrets.json
 !/runs/detect/val/**
 !/runs/detect/stage2_screening/**
 !/runs/detect/stage3_targeted/**
+!/runs/detect/stage3_fast_screen/**
 
 # 两个目录共同排除：权重、事件文件、大体积的预测结果
 /runs/detect/*/**/*.pt

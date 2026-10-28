@@ -1,0 +1,125 @@
+# Ultralytics YOLO11s
+# DySample + DeformableLKA-P4
+#
+# Design:
+# 1. Keep the proven YOLO11s + DySample topology.
+# 2. Perform P5->P4 DySample fusion first.
+# 3. Use C3k2 to compress/refine the concatenated feature.
+# 4. Apply DeformableLKA only on the compressed P4 feature.
+# 5. The enhanced P4 is propagated to P3 through the second DySample.
+# 6. The enhanced P4 is also reused in the bottom-up PAN path.
+#
+# Goal:
+# Improve spatial/context modeling after dynamic upsampling fusion,
+# while avoiding the excessive parameters/FLOPs caused by applying
+# DeformableLKA directly to high-channel Concat features.
+
+# ============================================================
+# Parameters
+# ============================================================
+
+nc: 1
+
+scale: s
+
+scales:
+  # [depth, width, max_channels]
+  s: [0.50, 0.50, 1024]
+
+
+# ============================================================
+# Backbone
+# Same as YOLO11s-DySample
+# ============================================================
+
+backbone:
+
+  # P1/2
+  - [-1, 1, Conv, [64, 3, 2]]                  # 0-P1/2
+
+  # P2/4
+  - [-1, 1, Conv, [128, 3, 2]]                 # 1-P2/4
+  - [-1, 2, C3k2, [256, False, 0.25]]          # 2-P2/4
+
+  # P3/8
+  - [-1, 1, Conv, [256, 3, 2]]                 # 3-P3/8
+  - [-1, 2, C3k2, [512, False, 0.25]]          # 4-P3/8
+
+  # P4/16
+  - [-1, 1, Conv, [512, 3, 2]]                 # 5-P4/16
+  - [-1, 2, C3k2, [512, True]]                 # 6-P4/16
+
+  # P5/32
+  - [-1, 1, Conv, [1024, 3, 2]]                # 7-P5/32
+  - [-1, 2, C3k2, [1024, True]]                # 8-P5/32
+
+  - [-1, 1, SPPF, [1024, 5]]                   # 9-P5/32
+  - [-1, 2, C2PSA, [1024]]                     # 10-P5/32
+
+
+# ============================================================
+# Head
+# ============================================================
+
+head:
+
+  # ==========================================================
+  # Top-down: P5 -> P4
+  # ==========================================================
+
+  # Dynamic upsampling
+  - [-1, 1, DySample, []]                      # 11-P4/16
+
+  # Fuse with backbone P4
+  - [[-1, 6], 1, Concat, [1]]                  # 12-P4/16
+
+  # First perform feature fusion/channel compression
+  - [-1, 2, C3k2, [512, False]]                # 13-P4/16
+
+  # Spatial/context enhancement on compressed P4
+  - [-1, 1, DeformableLKA, []]                 # 14-P4/16
+
+
+  # ==========================================================
+  # Top-down: enhanced P4 -> P3
+  # ==========================================================
+
+  # Enhanced P4 is propagated downward
+  - [-1, 1, DySample, []]                      # 15-P3/8
+
+  # Fuse with backbone P3
+  - [[-1, 4], 1, Concat, [1]]                  # 16-P3/8
+
+  - [-1, 2, C3k2, [256, False]]                # 17-P3/8
+
+
+  # ==========================================================
+  # Bottom-up PAN: P3 -> P4
+  # ==========================================================
+
+  - [-1, 1, Conv, [256, 3, 2]]                 # 18-P4/16
+
+  # IMPORTANT:
+  # Reuse enhanced P4 layer 14,
+  # not the unenhanced layer 13.
+  - [[-1, 14], 1, Concat, [1]]                 # 19-P4/16
+
+  - [-1, 2, C3k2, [512, False]]                # 20-P4/16
+
+
+  # ==========================================================
+  # Bottom-up PAN: P4 -> P5
+  # ==========================================================
+
+  - [-1, 1, Conv, [512, 3, 2]]                 # 21-P5/32
+
+  - [[-1, 10], 1, Concat, [1]]                 # 22-P5/32
+
+  - [-1, 2, C3k2, [1024, True]]                # 23-P5/32
+
+
+  # ==========================================================
+  # Detect
+  # ==========================================================
+
+  - [[17, 20, 23], 1, Detect, [nc]]            # 24-P3/8,P4/16,P5/32

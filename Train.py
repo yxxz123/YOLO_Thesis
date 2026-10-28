@@ -9,7 +9,7 @@ from ultralytics import YOLO
 
 if __name__ == '__main__':
 
-    yaml_path = 'ultralytics/cfg/models/improve/upsample/yolo11/yolo11s-DySample.yaml'
+    yaml_path = 'ultralytics/cfg/models/improve/yolo11s-DySample-ASF-P3.yaml'
 
     # 初始化 YOLO 模型，从 yaml 配置文件构建网络结构
     model = YOLO(yaml_path)
@@ -22,8 +22,6 @@ if __name__ == '__main__':
     device=0,
     workers=4,
     optimizer="AdamW",
-    lr0=0.003,
-    lrf=0.01,
     cos_lr=True,
     close_mosaic=10,
     amp=True,
@@ -31,9 +29,8 @@ if __name__ == '__main__':
     patience=150,
     seed=42,
     deterministic=True,
-    pretrained=False,
-    project="stage3_targeted",
-    name="YOLO11s-DySample-NoPT-LR003",
+    project="stage2_screening",
+    name="YOLO11s-DySample-ASF-P3",
 )
 
     # model.train(

@@ -1,0 +1,163 @@
+# Ultralytics YOLO11s
+# DySample + ASF-P3
+#
+# Design:
+# 1. Keep the proven YOLO11s + DySample structure unchanged.
+# 2. Preserve the original P3/P4/P5 PAN features.
+# 3. Use ScalSeq to align and aggregate final P3/P4/P5 features at P3 resolution.
+# 4. Use ASF attention only to refine P3.
+# 5. P4/P5 detection features remain unchanged.
+#
+# Goal:
+# - DySample: alleviate small-object feature loss during upsampling.
+# - ASF-P3: improve multi-scale information fusion for P3 small-object detection.
+# - Avoid rebuilding the whole neck.
+
+# ============================================================
+# Parameters
+# ============================================================
+
+nc: 1
+
+# Explicitly lock YOLO11s
+scale: s
+
+scales:
+  # [depth, width, max_channels]
+  s: [0.50, 0.50, 1024]
+
+
+# ============================================================
+# Backbone
+# Exactly the same as current YOLO11s-DySample
+# ============================================================
+
+backbone:
+
+  # P1/2
+  - [-1, 1, Conv, [64, 3, 2]]                  # 0-P1/2
+
+  # P2/4
+  - [-1, 1, Conv, [128, 3, 2]]                 # 1-P2/4
+  - [-1, 2, C3k2, [256, False, 0.25]]          # 2-P2/4
+
+  # P3/8
+  - [-1, 1, Conv, [256, 3, 2]]                 # 3-P3/8
+  - [-1, 2, C3k2, [512, False, 0.25]]          # 4-P3/8
+
+  # P4/16
+  - [-1, 1, Conv, [512, 3, 2]]                 # 5-P4/16
+  - [-1, 2, C3k2, [512, True]]                 # 6-P4/16
+
+  # P5/32
+  - [-1, 1, Conv, [1024, 3, 2]]                # 7-P5/32
+  - [-1, 2, C3k2, [1024, True]]                # 8-P5/32
+
+  - [-1, 1, SPPF, [1024, 5]]                   # 9-P5/32
+  - [-1, 2, C2PSA, [1024]]                     # 10-P5/32
+
+
+# ============================================================
+# DySample Neck
+# Keep exactly the proven DySample topology
+# ============================================================
+
+head:
+
+  # ----------------------------------------------------------
+  # P5/32 -> P4/16
+  # Dynamic upsampling
+  # ----------------------------------------------------------
+
+  - [-1, 1, DySample, []]                      # 11-P4/16
+
+  - [[-1, 6], 1, Concat, [1]]                  # 12-P4/16
+
+  - [-1, 2, C3k2, [512, False]]                # 13-P4/16
+
+
+  # ----------------------------------------------------------
+  # P4/16 -> P3/8
+  # Dynamic upsampling
+  # ----------------------------------------------------------
+
+  - [-1, 1, DySample, []]                      # 14-P3/8
+
+  - [[-1, 4], 1, Concat, [1]]                  # 15-P3/8
+
+  - [-1, 2, C3k2, [256, False]]                # 16-P3/8
+
+
+  # ----------------------------------------------------------
+  # Bottom-up PAN: P3 -> P4
+  # ----------------------------------------------------------
+
+  - [-1, 1, Conv, [256, 3, 2]]                 # 17-P4/16
+
+  - [[-1, 13], 1, Concat, [1]]                 # 18-P4/16
+
+  - [-1, 2, C3k2, [512, False]]                # 19-P4/16
+
+
+  # ----------------------------------------------------------
+  # Bottom-up PAN: P4 -> P5
+  # ----------------------------------------------------------
+
+  - [-1, 1, Conv, [512, 3, 2]]                 # 20-P5/32
+
+  - [[-1, 10], 1, Concat, [1]]                 # 21-P5/32
+
+  - [-1, 2, C3k2, [1024, True]]                # 22-P5/32
+
+
+  # ==========================================================
+  # ASF-P3
+  #
+  # Inputs:
+  #   16 = final DySample-PAN P3/8
+  #   19 = final PAN P4/16
+  #   22 = final PAN P5/32
+  #
+  # ScalSeq:
+  #   P3 unchanged resolution
+  #   P4 -> upsample to P3
+  #   P5 -> upsample to P3
+  #   fuse information across scale dimension
+  #
+  # YAML nominal output = 256
+  # Under scale=s (width=0.50), actual channel = 128,
+  # matching layer 16 P3 channels.
+  # ==========================================================
+
+  - [[16, 19, 22], 1, ScalSeq, [256]]           # 23-ASF multi-scale feature @ P3/8
+
+
+  # ----------------------------------------------------------
+  # ASF attention
+  #
+  # input1 = original final P3 feature
+  # input2 = ScalSeq multi-scale feature
+  #
+  # asf_attention_model performs:
+  #   channel attention on P3
+  #   + multi-scale feature
+  #   + local spatial attention
+  #
+  # Output remains P3/8 with 128 actual channels.
+  # ----------------------------------------------------------
+
+  - [[16, 23], 1, asf_attention_model, []]      # 24-Enhanced P3/8
+
+
+  # ==========================================================
+  # Detect
+  #
+  # P3 = ASF-enhanced
+  # P4 = original layer 19
+  # P5 = original layer 22
+  #
+  # IMPORTANT:
+  # P4/P5 are untouched.
+  # ==========================================================
+
+  - [[24, 19, 22], 1, Detect, [nc]]             # 25-P3/8,P4/16,P5/32

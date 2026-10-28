@@ -52,8 +52,8 @@ AUTO_TRAIN_CONFIG = AutoTrainConfig(
     models=[
         # "ultralytics/cfg/models/26/yolo26n.yaml",
     ],
-    data="/root/dataset/dataset_visdrone/data.yaml",
-    epochs=300,
+    data="datasets/HighwayVehicle-v1.0/highway_vehicle_v1.0.yaml",
+    epochs=150,
     batch=16,
     imgsz=640,
     device="0",
@@ -65,10 +65,18 @@ AUTO_TRAIN_CONFIG = AutoTrainConfig(
     swanlab_mode="cloud",
     swanlab_log_interval=10,
     extra={
-        "cache": False,
         "workers": 4,
-        "patience": 50,
-        "amp": True,
+        "optimizer": "AdamW",
+        "lr0": 0.003,
+        "lrf": 0.01,
+        "cos_lr": True,
+        "close_mosaic": 10,
+        "amp":True,
+        "cache":False,
+        "patience": 150,
+        "seed": 42,
+        "deterministic": True,
+        "pretrained": False,
     },
 )
 

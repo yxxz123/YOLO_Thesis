@@ -49,31 +49,98 @@ class AutoTrainConfig:
 
 
 AUTO_TRAIN_CONFIG = AutoTrainConfig(
+
+    # ========================================================
+    # Candidate models
+    # ========================================================
+
     models=[
-         # Route 1
+        # Route 1:
+        # DySample + spatial alignment/context enhancement
         "ultralytics/cfg/models/improve/yolo11s-DySample-DeformableLKA-TD.yaml",
 
-    # Route 2
+        # Route 2:
+        # DySample + channel recalibration after top-down fusion
         "ultralytics/cfg/models/improve/yolo11s-DySample-MLCA-TD.yaml",
 
-    # Route 3
+        # Route 3:
+        # Detection-scale enhancement
         "ultralytics/cfg/models/improve/yolo11s-DySample-MultiSEAM-Detect.yaml",
 
-    # Route 4
+        # Route 4:
+        # P5 semantic/context enhancement
         "ultralytics/cfg/models/improve/yolo11s-DySample-LSKBlock-P5.yaml",
     ],
+
+
+    # ========================================================
+    # Dataset / basic training settings
+    # ========================================================
+
     data="datasets/HighwayVehicle-v1.0/highway_vehicle_v1.0.yaml",
+
     epochs=150,
     batch=16,
     imgsz=640,
     device="0",
-    project="train_auto",
-    name_template="{stem}",
+
+
+    # ========================================================
+    # Output
+    # ========================================================
+
+    project="stage3_fast_screen",
+
+    name_template="{index}-{stem}",
+
     swanlab=False,
     swanlab_project="Ultralytics-YOLO",
     swanlab_run_name=None,
     swanlab_mode="cloud",
     swanlab_log_interval=10,
+
+
+    # ========================================================
+    # Sequential training behavior
+    # ========================================================
+
+    # Keep False:
+    # if one YAML has a construction/runtime problem,
+    # continue trying the remaining candidates.
+    stop_on_fail=False,
+
+    dry_run=False,
+
+
+    # ========================================================
+    # Automatic baseline elimination
+    # ========================================================
+
+    baseline_monitor=True,
+
+    baseline_path=(
+        "runs/detect/stage2_screening/"
+        "YOLO11s-DySample/results.csv"
+    ),
+
+    baseline_metric="metrics/mAP50-95(B)",
+
+    # 150 * 0.45 = 67.5
+    # Monitoring begins around epoch 67.
+    baseline_start_ratio=0.45,
+
+    # Candidate must be >1 percentage point below
+    # the same-epoch DySample baseline to count as bad.
+    baseline_min_gap=0.01,
+
+    # Require 5 consecutive bad epochs.
+    baseline_patience=5,
+
+
+    # ========================================================
+    # Keep training protocol identical to raw DySample
+    # ========================================================
+
     extra={
         "workers": 4,
         "optimizer": "AdamW",

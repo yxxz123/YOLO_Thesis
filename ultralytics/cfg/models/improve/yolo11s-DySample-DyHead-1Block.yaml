@@ -1,0 +1,53 @@
+# Ultralytics YOLO11s
+# DySample + DyHead (1 block)
+#
+# Purpose:
+# - Keep the complete proven DySample neck unchanged.
+# - Replace only the standard Detect head with a single lightweight DyHead block.
+# - Use hidc=128 and block_num=1 to control complexity.
+#
+# Target:
+# Improve cross-scale interaction and localization quality without changing the neck.
+
+nc: 1
+scale: s
+
+scales:
+  s: [0.50, 0.50, 1024]
+
+backbone:
+  - [-1, 1, Conv, [64, 3, 2]]                  # 0-P1/2
+  - [-1, 1, Conv, [128, 3, 2]]                 # 1-P2/4
+  - [-1, 2, C3k2, [256, False, 0.25]]          # 2-P2/4
+  - [-1, 1, Conv, [256, 3, 2]]                 # 3-P3/8
+  - [-1, 2, C3k2, [512, False, 0.25]]          # 4-P3/8
+  - [-1, 1, Conv, [512, 3, 2]]                 # 5-P4/16
+  - [-1, 2, C3k2, [512, True]]                 # 6-P4/16
+  - [-1, 1, Conv, [1024, 3, 2]]                # 7-P5/32
+  - [-1, 2, C3k2, [1024, True]]                # 8-P5/32
+  - [-1, 1, SPPF, [1024, 5]]                   # 9-P5/32
+  - [-1, 2, C2PSA, [1024]]                     # 10-P5/32
+
+head:
+  # Original DySample P5 -> P4
+  - [-1, 1, DySample, []]                      # 11-P4/16
+  - [[-1, 6], 1, Concat, [1]]                  # 12-P4/16
+  - [-1, 2, C3k2, [512, False]]                # 13-P4/16
+
+  # Original DySample P4 -> P3
+  - [-1, 1, DySample, []]                      # 14-P3/8
+  - [[-1, 4], 1, Concat, [1]]                  # 15-P3/8
+  - [-1, 2, C3k2, [256, False]]                # 16-P3/8
+
+  # Original bottom-up P3 -> P4
+  - [-1, 1, Conv, [256, 3, 2]]                 # 17-P4/16
+  - [[-1, 13], 1, Concat, [1]]                 # 18-P4/16
+  - [-1, 2, C3k2, [512, False]]                # 19-P4/16
+
+  # Original bottom-up P4 -> P5
+  - [-1, 1, Conv, [512, 3, 2]]                 # 20-P5/32
+  - [[-1, 10], 1, Concat, [1]]                 # 21-P5/32
+  - [-1, 2, C3k2, [1024, True]]                # 22-P5/32
+
+  # hidc=128, block_num=1
+  - [[16, 19, 22], 1, Detect_DyHead, [nc, 128, 1]]  # 23-P3/8,P4/16,P5/32

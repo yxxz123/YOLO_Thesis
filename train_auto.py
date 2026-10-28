@@ -55,10 +55,9 @@ AUTO_TRAIN_CONFIG = AutoTrainConfig(
     # ========================================================
 
     models=[
-        
-        # Route 4:
-        # P5 semantic/context enhancement
-        "ultralytics/cfg/models/improve/yolo11s-DySample-LSKBlock-P5.yaml",
+        "ultralytics/cfg/models/improve/yolo11s-DySample-MLCA-P4.yaml",
+        "ultralytics/cfg/models/improve/yolo11s-DySample-MinimalP2.yaml",
+        "ultralytics/cfg/models/improve/yolo11s-DySample-DyHead-1Block.yaml"
     ],
 
 

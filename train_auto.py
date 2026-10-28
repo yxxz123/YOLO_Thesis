@@ -122,16 +122,15 @@ AUTO_TRAIN_CONFIG = AutoTrainConfig(
 
     baseline_metric="metrics/mAP50-95(B)",
 
-    # 150 * 0.45 = 67.5
-    # Monitoring begins around epoch 67.
     baseline_start_ratio=0.45,
 
-    # Candidate must be >1 percentage point below
-    # the same-epoch DySample baseline to count as bad.
-    baseline_min_gap=0.01,
+    # 因为已经使用5轮滑动平均，
+    # 0.8pt差距已经足够说明趋势。
+    baseline_min_gap=0.008,
 
-    # Require 5 consecutive bad epochs.
-    baseline_patience=5,
+    # 滑动均值本身已经消除大量单轮噪声，
+    # 连续4次即可判定。
+    baseline_patience=4,
 
 
     # ========================================================

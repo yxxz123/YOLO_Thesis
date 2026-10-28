@@ -808,13 +808,20 @@ class BaseTrainer:
             return decision
 
         color = self._baseline_log_color(decision)
-        LOGGER.info(    
-            f"{BOLD}{color}Baseline: epoch={decision.epoch}, metric={decision.metric}, "
+        LOGGER.info(
+            f"{BOLD}{color}Baseline: "
+            f"epoch={decision.epoch}, "
             f"current={self._format_baseline_value(decision.current)}, "
             f"baseline={self._format_baseline_value(decision.baseline)}, "
-            f"diff={self._format_baseline_value(decision.diff)}, "   
-            f"bad_epochs={decision.bad_epochs}/{decision.patience}{RESET}"     
-        )    
+            f"raw_diff={self._format_baseline_value(decision.diff)}, "
+            f"rolling_diff={self._format_baseline_value(decision.rolling_diff)}, "
+            f"best20_diff={self._format_baseline_value(decision.recent_best_diff)}, "
+            f"recall_diff={self._format_baseline_value(decision.recall_diff)}, "
+            f"map50_diff={self._format_baseline_value(decision.map50_diff)}, "
+            f"score_diff={self._format_baseline_value(decision.score_diff)}, "
+            f"bad={decision.bad_epochs}/{decision.patience}"
+            f"{RESET}"
+)   
         if decision.should_stop: 
             LOGGER.warning(f"{colorstr('Baseline monitor:')} {decision.reason}")    
             self.stop = True

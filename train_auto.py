@@ -56,15 +56,6 @@ AUTO_TRAIN_CONFIG = AutoTrainConfig(
 
     models=[
         
-
-        # Route 2:
-        # DySample + channel recalibration after top-down fusion
-        "ultralytics/cfg/models/improve/yolo11s-DySample-MLCA-TD.yaml",
-
-        # Route 3:
-        # Detection-scale enhancement
-        "ultralytics/cfg/models/improve/yolo11s-DySample-MultiSEAM-Detect.yaml",
-
         # Route 4:
         # P5 semantic/context enhancement
         "ultralytics/cfg/models/improve/yolo11s-DySample-LSKBlock-P5.yaml",

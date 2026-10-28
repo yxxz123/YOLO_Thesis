@@ -694,9 +694,17 @@ class BaselineLogMonitor:
 
         recall_protected = (
             recall_diff is not None
-            and recall_diff
-            >= self.recall_protection_gain
-        )
+            and recall_diff >= self.recall_protection_gain
+
+            # Recall gain cannot compensate for a large
+            # mAP50-95 degradation.
+            and rolling_diff is not None
+            and rolling_diff >= -0.005
+
+            # Recent best must also remain reasonably competitive.
+            and recent_best_diff is not None
+            and recent_best_diff >= -0.005
+)
 
         # =====================================================
         # Layer 2:

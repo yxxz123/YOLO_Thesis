@@ -50,7 +50,17 @@ class AutoTrainConfig:
 
 AUTO_TRAIN_CONFIG = AutoTrainConfig(
     models=[
-        # "ultralytics/cfg/models/26/yolo26n.yaml",
+         # Route 1
+        "ultralytics/cfg/models/improve/yolo11s-DySample-DeformableLKA-TD.yaml",
+
+    # Route 2
+        "ultralytics/cfg/models/improve/yolo11s-DySample-MLCA-TD.yaml",
+
+    # Route 3
+        "ultralytics/cfg/models/improve/yolo11s-DySample-MultiSEAM-Detect.yaml",
+
+    # Route 4
+        "ultralytics/cfg/models/improve/yolo11s-DySample-LSKBlock-P5.yaml",
     ],
     data="datasets/HighwayVehicle-v1.0/highway_vehicle_v1.0.yaml",
     epochs=150,
@@ -67,16 +77,13 @@ AUTO_TRAIN_CONFIG = AutoTrainConfig(
     extra={
         "workers": 4,
         "optimizer": "AdamW",
-        "lr0": 0.003,
-        "lrf": 0.01,
         "cos_lr": True,
         "close_mosaic": 10,
-        "amp":True,
-        "cache":False,
+        "amp": True,
+        "cache": False,
         "patience": 150,
         "seed": 42,
         "deterministic": True,
-        "pretrained": False,
     },
 )
 

@@ -1,21 +1,4 @@
-# Ultralytics YOLO11s
-# DySample + ASF-P3
-#
-# Design:
-# 1. Keep the proven YOLO11s + DySample structure unchanged.
-# 2. Preserve the original P3/P4/P5 PAN features.
-# 3. Use ScalSeq to align and aggregate final P3/P4/P5 features at P3 resolution.
-# 4. Use ASF attention only to refine P3.
-# 5. P4/P5 detection features remain unchanged.
-#
-# Goal:
-# - DySample: alleviate small-object feature loss during upsampling.
-# - ASF-P3: improve multi-scale information fusion for P3 small-object detection.
-# - Avoid rebuilding the whole neck.
 
-# ============================================================
-# Parameters
-# ============================================================
 
 nc: 1
 
@@ -110,54 +93,6 @@ head:
   - [-1, 2, C3k2, [1024, True]]                # 22-P5/32
 
 
-  # ==========================================================
-  # ASF-P3
-  #
-  # Inputs:
-  #   16 = final DySample-PAN P3/8
-  #   19 = final PAN P4/16
-  #   22 = final PAN P5/32
-  #
-  # ScalSeq:
-  #   P3 unchanged resolution
-  #   P4 -> upsample to P3
-  #   P5 -> upsample to P3
-  #   fuse information across scale dimension
-  #
-  # YAML nominal output = 256
-  # Under scale=s (width=0.50), actual channel = 128,
-  # matching layer 16 P3 channels.
-  # ==========================================================
-
-  - [[16, 19, 22], 1, ScalSeq, [256]]           # 23-ASF multi-scale feature @ P3/8
-
-
-  # ----------------------------------------------------------
-  # ASF attention
-  #
-  # input1 = original final P3 feature
-  # input2 = ScalSeq multi-scale feature
-  #
-  # asf_attention_model performs:
-  #   channel attention on P3
-  #   + multi-scale feature
-  #   + local spatial attention
-  #
-  # Output remains P3/8 with 128 actual channels.
-  # ----------------------------------------------------------
-
-  - [[16, 23], 1, asf_attention_model, []]      # 24-Enhanced P3/8
-
-
-  # ==========================================================
-  # Detect
-  #
-  # P3 = ASF-enhanced
-  # P4 = original layer 19
-  # P5 = original layer 22
-  #
-  # IMPORTANT:
-  # P4/P5 are untouched.
-  # ==========================================================
-
-  - [[24, 19, 22], 1, Detect, [nc]]             # 25-P3/8,P4/16,P5/32
+  - [[4, 6, 8], 1, ScalSeq, [256]]          # 23
+  - [[16, 23], 1, asf_attention_model, []]  # 24
+  - [[24, 19, 22], 1, Detect, [nc]]         # 25

@@ -55,7 +55,7 @@ AUTO_TRAIN_CONFIG = AutoTrainConfig(
     # ========================================================
 
     models=[
-        "ultralytics/cfg/models/improve/yolo11s-DySample-EMA-P3.yaml"
+        "ultralytics/cfg/models/improve/YOLO11s-DySample-PKI-BB-P3.yaml"
     ],
 
 

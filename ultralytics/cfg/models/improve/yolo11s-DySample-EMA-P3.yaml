@@ -1,98 +1,67 @@
-# Ultralytics YOLO11s
-# DySample + EMA-P3
-# Purpose:
-#   DySample: dynamic upsampling for small-object feature reconstruction
-#   EMA-P3: refine only P3/8 feature before Detect
+
+# YOLO11s + DySample + EMA-P3
+# Final candidate architecture
 #
-# P4/P5 remain unchanged to avoid disturbing medium/large-object features.
+# DySample: Dynamic feature upsampling
+# EMA: P3-only feature refinement
+# P4/P5: Preserve original detection branches
 
 nc: 1
+scale: s
 
 scales:
-  # [depth, width, max_channels]
   s: [0.50, 0.50, 1024]
 
 
-# =========================================================
-# Backbone
-# =========================================================
+# ================= Backbone =================
+
 backbone:
 
-  - [-1, 1, Conv, [64, 3, 2]]                # 0-P1/2
+  - [-1, 1, Conv, [64, 3, 2]]
+  - [-1, 1, Conv, [128, 3, 2]]
+  - [-1, 2, C3k2, [256, False, 0.25]]
 
-  - [-1, 1, Conv, [128, 3, 2]]               # 1-P2/4
-  - [-1, 2, C3k2, [256, False, 0.25]]        # 2-P2/4
+  - [-1, 1, Conv, [256, 3, 2]]
+  - [-1, 2, C3k2, [512, False, 0.25]]
 
-  - [-1, 1, Conv, [256, 3, 2]]               # 3-P3/8
-  - [-1, 2, C3k2, [512, False, 0.25]]        # 4-P3/8
+  - [-1, 1, Conv, [512, 3, 2]]
+  - [-1, 2, C3k2, [512, True]]
 
-  - [-1, 1, Conv, [512, 3, 2]]               # 5-P4/16
-  - [-1, 2, C3k2, [512, True]]               # 6-P4/16
+  - [-1, 1, Conv, [1024, 3, 2]]
+  - [-1, 2, C3k2, [1024, True]]
 
-  - [-1, 1, Conv, [1024, 3, 2]]              # 7-P5/32
-  - [-1, 2, C3k2, [1024, True]]              # 8-P5/32
-
-  - [-1, 1, SPPF, [1024, 5]]                 # 9
-  - [-1, 2, C2PSA, [1024]]                   # 10
+  - [-1, 1, SPPF, [1024, 5]]
+  - [-1, 2, C2PSA, [1024]]
 
 
-# =========================================================
-# Neck / Head
-# =========================================================
+# ================= Neck / Head =================
+
 head:
 
-  # -------------------------------------------------------
-  # P5 -> P4
-  # DySample replaces nearest-neighbor upsampling
-  # -------------------------------------------------------
-  - [-1, 1, DySample, []]                     # 11-P4/16
-  - [[-1, 6], 1, Concat, [1]]                # 12
-  - [-1, 2, C3k2, [512, False]]              # 13-P4/16
+  # Top-down P5 -> P4
+  - [-1, 1, DySample, []]
+  - [[-1, 6], 1, Concat, [1]]
+  - [-1, 2, C3k2, [512, False]]
 
+  # Top-down P4 -> P3
+  - [-1, 1, DySample, []]
+  - [[-1, 4], 1, Concat, [1]]
+  - [-1, 2, C3k2, [256, False]]
 
-  # -------------------------------------------------------
-  # P4 -> P3
-  # DySample replaces nearest-neighbor upsampling
-  # -------------------------------------------------------
-  - [-1, 1, DySample, []]                     # 14-P3/8
-  - [[-1, 4], 1, Concat, [1]]                # 15
-  - [-1, 2, C3k2, [256, False]]              # 16-P3/8
-
-
-  # -------------------------------------------------------
   # Bottom-up P3 -> P4
-  # -------------------------------------------------------
-  - [-1, 1, Conv, [256, 3, 2]]               # 17
-  - [[-1, 13], 1, Concat, [1]]               # 18
-  - [-1, 2, C3k2, [512, False]]              # 19-P4/16
+  - [-1, 1, Conv, [256, 3, 2]]
+  - [[-1, 13], 1, Concat, [1]]
+  - [-1, 2, C3k2, [512, False]]
 
-
-  # -------------------------------------------------------
   # Bottom-up P4 -> P5
-  # -------------------------------------------------------
-  - [-1, 1, Conv, [512, 3, 2]]               # 20
-  - [[-1, 10], 1, Concat, [1]]               # 21
-  - [-1, 2, C3k2, [1024, True]]              # 22-P5/32
+  - [-1, 1, Conv, [512, 3, 2]]
+  - [[-1, 10], 1, Concat, [1]]
+  - [-1, 2, C3k2, [1024, True]]
 
+  # P3-only EMA refinement
+  # Layer 16 output channels = 128
+  # EMA factor = 8
+  - [16, 1, EMA, []]
 
-  # =======================================================
-  # EMA only on P3
-  #
-  # Original P3 feature = layer 16
-  # Only refine the high-resolution small-object feature.
-  #
-  # EMA default factor=8.
-  # YOLO11s layer16 output channel = 128 after width scaling.
-  # 128 / 8 = 16 -> valid.
-  # =======================================================
-  - [16, 1, EMA, []]                          # 23-P3/8 EMA
-
-
-  # =======================================================
-  # Detect
-  #
-  # P3 = EMA-enhanced feature
-  # P4 = original layer19
-  # P5 = original layer22
-  # =======================================================
-  - [[23, 19, 22], 1, Detect, [nc]]           # 24
+  # Three-scale detection
+  - [[23, 19, 22], 1, Detect, [nc]]

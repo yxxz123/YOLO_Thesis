@@ -226,7 +226,7 @@ secrets.json
 
 /=1.6.5
 # ============================================================
-# 例外：只上传 runs/detect/val 和 runs/detect/stage2_screening
+# 例外：上传 runs/detect/val 和 runs/detect/stage2_screening
 # 必须放在文件末尾，才能覆盖前面的 *.jpg / *.png / weights/ 等规则
 # ============================================================
 !/runs/detect/val/**

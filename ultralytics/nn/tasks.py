@@ -1758,6 +1758,15 @@ def parse_model(d, ch, verbose=True):
         elif m is Concat: # 拼接层：输出通道为所有输入层通道之和
             c2 = sum(ch[x] for x in f)
         
+        elif m is P2ResidualGate:
+            # 两路输入分别为P3主干和P2 Bridge
+            c_main = ch[f[0]]
+            c_bridge = ch[f[1]]
+            # 将实际通道数传入模块
+            args = [c_main, c_bridge, *args]
+            # 输出通道与P3主干保持一致
+            c2 = c_main
+        
         # 检测头和分割头处理 (Detect, Segment, Pose, OBB 等) 
         elif m in (frozenset({Detect, WorldDetect, YOLOEDetect, Segment, Segment26, YOLOESegment, YOLOESegment26, Pose, Pose26, OBB, OBB26}) | head_modules):     
             # 添加参数: reg_max, end2end, 以及来自 backbone 不同层的通道列表     

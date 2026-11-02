@@ -253,6 +253,7 @@ from .block.MANet import MANet
 from .block.ResBlock import ResidualBlock
 from .block.PartialBlock import PartialBlock, PartialBlock_SFMB 
 from .block.RepHMS import RepHMS, DepthBottleneckUniv2   
+from .block.P2ResidualGate import P2ResidualGate
     
 # ----------------------- featurepreprocess -----------------------  
 from .featurepreprocess.FAENet import FAENet

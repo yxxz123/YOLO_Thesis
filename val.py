@@ -67,16 +67,16 @@ if __name__ == '__main__':
     imgsz = 640
 
     model = YOLO(model_path) 
-    result = model.val(data='datasets/HighwayVehicle-v1.0/highway_vehicle_uavdt_val.yaml',
+    result = model.val(data='datasets/HighwayVehicle-v1.0/highway_vehicle_visdrone_val.yaml',
                         split='val', # split可以选择train、val、test 根据自己的数据集情况来选择.
                         imgsz=imgsz,
                         batch=16,
                         rect=False, # 验证时统一固定imgsz x imgsz 做 letterbox，避免一些改进在验证的时候会报尺寸问题
                         auto_coco_eval=True, # 一步到位计算COCO指标
-                        #iou=0.8,
+                        iou=0.8,
                         save_json=True,
-                        project='val_recheck',
-                        name='DySample-uavdt-val', # 结果保存的文件夹名称
+                        project='source_validation',
+                        name='DySample-visdrone-val', # 结果保存的文件夹名称
                         device=os.environ.get("CUDA_VISIBLE_DEVICES", 0), # 训练设备选择，不在这里设置，在头部设置，详细可以看UserGuide.md中的常见问题第4点
                         # end2end=False # 如果训练的是NMSFree类型的模型，不想用一对一的头可以设置False
                         )

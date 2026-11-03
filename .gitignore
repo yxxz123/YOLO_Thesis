@@ -104,7 +104,7 @@ datasets/
 !/runs/detect/stage3_fast_screen/
 !/runs/detect/stage4_smallobj/
 !/runs/detect/source_validation/
-!/runs/detect/val_recheck/
+!/runs/detect/slice_ablation/
 
 /tide_result/
 tide_result/
@@ -238,7 +238,7 @@ secrets.json
 !/runs/detect/stage3_fast_screen/**
 !/runs/detect/stage4_smallobj/**
 !/runs/detect/source_validation/**
-!/runs/detect/val_recheck/**
+!/runs/detect/slice_ablation/**
 
 # 两个目录共同排除：权重、事件文件、大体积的预测结果
 /runs/detect/*/**/*.pt

@@ -1,0 +1,76 @@
+WARNING ⚠️ FlashAttention is not available on this device. Using scaled_dot_product_attention instead.
+验证图片: 247
+真实标注: 7974
+模型权重: runs/detect/stage2_screening/YOLO11s-DySample/weights/best.pt
+模型类别: {0: 'vehicle'}
+进度: 20/247 | 原图预测: 4134 | 切片预测: 5456
+进度: 40/247 | 原图预测: 8894 | 切片预测: 11058
+进度: 60/247 | 原图预测: 13377 | 切片预测: 16593
+进度: 80/247 | 原图预测: 18445 | 切片预测: 22495
+进度: 100/247 | 原图预测: 23567 | 切片预测: 28324
+进度: 120/247 | 原图预测: 28203 | 切片预测: 33659
+进度: 140/247 | 原图预测: 32351 | 切片预测: 38475
+进度: 160/247 | 原图预测: 37186 | 切片预测: 44231
+进度: 180/247 | 原图预测: 42311 | 切片预测: 49780
+进度: 200/247 | 原图预测: 47261 | 切片预测: 55496
+进度: 220/247 | 原图预测: 52947 | 切片预测: 61362
+进度: 240/247 | 原图预测: 57397 | 切片预测: 67085
+进度: 247/247 | 原图预测: 59057 | 切片预测: 69118
+
+推理耗时: 16.95 秒
+
+========== A组：原图推理 ==========
+Evaluate annotation type *bbox*
+COCOeval_opt.evaluate() finished...
+DONE (t=0.29s).
+Accumulating evaluation results...
+COCOeval_opt.accumulate() finished...
+DONE (t=0.00s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.384
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.650
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.407
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.246
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.575
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.691
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.025
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.192
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.445
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.314
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.639
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.743
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.716
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.473
+
+========== B组：2×2切片推理 ==========
+Evaluate annotation type *bbox*
+COCOeval_opt.evaluate() finished...
+DONE (t=0.31s).
+Accumulating evaluation results...
+COCOeval_opt.accumulate() finished...
+DONE (t=0.00s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.433
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.687
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.477
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.341
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.574
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.586
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.026
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.196
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.521
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.429
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.664
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.675
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.787
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.570
+
+========== 最终对比 ==========
+AP50         | 原图: 0.6499 | 切片: 0.6872 | 变化: +0.0373
+AP75         | 原图: 0.4071 | 切片: 0.4772 | 变化: +0.0701
+AP50-95      | 原图: 0.3842 | 切片: 0.4327 | 变化: +0.0485
+APs          | 原图: 0.2459 | 切片: 0.3408 | 变化: +0.0949
+APm          | 原图: 0.5747 | 切片: 0.5736 | 变化: -0.0010
+APl          | 原图: 0.6915 | 切片: 0.5858 | 变化: -0.1057
+
+结果保存目录: runs/detect/slice_ablation/YOLO11s-DySample-VisDrone
+指标文件: runs/detect/slice_ablation/YOLO11s-DySample-VisDrone/metrics_summary.json
+实验完成

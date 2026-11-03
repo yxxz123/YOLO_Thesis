@@ -22,16 +22,16 @@ if __name__ == '__main__':
     workers=4,
     optimizer="AdamW",
     cos_lr=True,
+    mosaic=0.5,
     close_mosaic=10,
     amp=True,
     cache=False,
     patience=150,
     seed=42,
     deterministic=True,
-    scale=0.25,
     # 保存中间权重
     save=True,
     save_period=10,
     project="stage4_smallobj",
-    name="YOLO11s-DySample-Scale025",
+    name="YOLO11s-DySample-Mosaic050",
 )

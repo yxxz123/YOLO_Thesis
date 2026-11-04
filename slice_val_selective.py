@@ -104,7 +104,7 @@ IMGSZ = 640
 
 CONF = 0.001
 
-NMS_IOU = 0.8
+NMS_IOU = 0.7
 
 MAX_DET = 300
 

@@ -1,0 +1,101 @@
+{
+  "experiment": "Stage6.3A_Corrected_Scene_Features",
+  "feature_protocol": {
+    "feature_conf": 0.25,
+    "feature_imgsz": 640,
+    "tiny_area_threshold": 1024,
+    "scale_formula": "min(640/image_width,640/image_height)",
+    "area_formula": "(bbox_width*scale)*(bbox_height*scale)",
+    "sequence_id": "filename stem with final underscore segment removed"
+  },
+  "input": {
+    "prediction": "runs/detect/stage6_selective_oracle/all_original_predictions.json",
+    "prediction_sha256": "4979c79d6966539b51f67592f8bdf10efc21d71f126065d13c730dc20a79fc23",
+    "gt": "runs/detect/source_validation/Stage5-Baseline-Unified/annotations_auto_detect_val.json",
+    "gt_sha256": "75098d09c3a02e8f8e32eab99df6c977474748dd177a97b1692f766bbdcf0de4",
+    "mapping": "runs/detect/stage6_selective_oracle/image_source_mapping.csv",
+    "mapping_sha256": "6219ae6ece660c482db9fc522bf5eb0193ddf137244be4511b0a1d9c645ecea9"
+  },
+  "image_count": {
+    "total": 1567,
+    "uavdt": 1320,
+    "visdrone": 247
+  },
+  "prediction_count_conf025": 39744,
+  "source_summary": {
+    "uavdt": {
+      "images": 1320,
+      "sequence_count": 3,
+      "zero_detection_images": 0,
+      "n_det_conf025": {
+        "count": 1320,
+        "mean": 24.464394,
+        "std": 13.259254,
+        "min": 6.0,
+        "p25": 14.0,
+        "median": 20.0,
+        "p75": 32.0,
+        "max": 78.0
+      },
+      "median_box_area_640": {
+        "count": 1320,
+        "mean": 372.391418,
+        "std": 212.319753,
+        "min": 54.9099,
+        "p25": 191.14585,
+        "median": 383.5577,
+        "p75": 460.080875,
+        "max": 1705.6564
+      },
+      "tiny_ratio": {
+        "count": 1320,
+        "mean": 0.863523,
+        "std": 0.149509,
+        "min": 0.357143,
+        "p25": 0.75,
+        "median": 0.928571,
+        "p75": 0.981565,
+        "max": 1.0
+      }
+    },
+    "visdrone": {
+      "images": 247,
+      "sequence_count": 94,
+      "zero_detection_images": 1,
+      "n_det_conf025": {
+        "count": 247,
+        "mean": 30.165992,
+        "std": 27.858099,
+        "min": 0.0,
+        "p25": 11.0,
+        "median": 19.0,
+        "p75": 40.0,
+        "max": 150.0
+      },
+      "median_box_area_640": {
+        "count": 246,
+        "mean": 313.11369,
+        "std": 367.06091,
+        "min": 26.3113,
+        "p25": 92.273525,
+        "median": 181.70045,
+        "p75": 347.00325,
+        "max": 2366.3807
+      },
+      "tiny_ratio": {
+        "count": 246,
+        "mean": 0.868474,
+        "std": 0.192772,
+        "min": 0.0,
+        "p25": 0.82598,
+        "median": 0.943126,
+        "p75": 1.0,
+        "max": 1.0
+      }
+    }
+  },
+  "output": {
+    "features": "runs/detect/stage6_scene_selector/corrected_scene_features.csv",
+    "summary": "runs/detect/stage6_scene_selector/feature_summary.json"
+  }
+}

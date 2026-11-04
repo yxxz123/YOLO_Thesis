@@ -109,6 +109,7 @@ datasets/
 !/runs/detect/stage6_selective_oracle/
 !/runs/detect/stage6_size_aware_fusion_iou07
 !/runs/detect/stage6_original_priority_fusion_iou07
+!/runs/detect/stage6_scene_selector
 
 /tide_result/
 tide_result/
@@ -247,7 +248,7 @@ secrets.json
 !/runs/detect/stage6_selective_oracle/**
 !/runs/detect/stage6_size_aware_fusion_iou07/**
 !/runs/detect/stage6_original_priority_fusion_iou07/**
-
+!/runs/detect/stage6_scene_selector/**
 # 两个目录共同排除：权重、事件文件、大体积的预测结果
 /runs/detect/*/**/*.pt
 /runs/detect/*/**/*.pth

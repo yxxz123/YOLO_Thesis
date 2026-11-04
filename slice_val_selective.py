@@ -1461,9 +1461,10 @@ def calculate_features(
     )
 
     if image_width <= 0 or image_height <= 0:
-    raise ValueError(
-        f"非法图片尺寸：{image_width}×{image_height}"
-    )
+        raise ValueError(
+            f"非法图片尺寸：{image_width}×{image_height}"
+        )
+    
     # YOLO LetterBox等比例缩放
     scale = min(
         FEATURE_IMGSZ / image_width,

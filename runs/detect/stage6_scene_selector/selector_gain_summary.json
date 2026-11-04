@@ -1,0 +1,57 @@
+{
+  "experiment": "Stage6.3B_PerImage_Slice_Gain",
+  "protocol": {
+    "top_k": 100,
+    "small_area_threshold": 1024,
+    "iou_thresholds": [
+      0.5,
+      0.75
+    ],
+    "match_method": "score-descending greedy class-aware matching",
+    "selector_target": "C2_area2048 gain relative to A_Original",
+    "uavdt_label": "not_measured because C2 uses original prediction for UAVDT"
+  },
+  "input": {
+    "features": "runs/detect/stage6_scene_selector/corrected_scene_features.csv",
+    "features_sha256": "db33bd0a0cd47b32298d36fab9fd99e7f8835def5a03a28bed8c7cadc566106d",
+    "original_predictions": "runs/detect/stage6_selective_oracle/all_original_predictions.json",
+    "original_sha256": "4979c79d6966539b51f67592f8bdf10efc21d71f126065d13c730dc20a79fc23",
+    "c2_predictions": "runs/detect/stage6_size_aware_fusion_iou07/C2_area2048_predictions.json",
+    "c2_sha256": "7e018f981f2cbcf39b512226892b58a067655c5e49c4ace8a6c07282ca3ef5b6",
+    "ground_truth": "runs/detect/source_validation/Stage5-Baseline-Unified/annotations_auto_detect_val.json",
+    "gt_sha256": "75098d09c3a02e8f8e32eab99df6c977474748dd177a97b1692f766bbdcf0de4"
+  },
+  "image_count": {
+    "total": 1567,
+    "uavdt": 1320,
+    "visdrone": 247,
+    "visdrone_labeled": 210
+  },
+  "visdrone_label_counts": {
+    "beneficial": 165,
+    "neutral": 34,
+    "no_small_gt": 37,
+    "harmful": 11
+  },
+  "visdrone_aggregate_small_recall": {
+    "small_gt_count": 4853,
+    "A_recall50": 0.607459,
+    "C2_recall50": 0.726561,
+    "delta_recall50": 0.119102,
+    "A_recall75": 0.293839,
+    "C2_recall75": 0.447764,
+    "delta_recall75": 0.153925
+  },
+  "feature_gain_correlation": {
+    "n_det_conf025": 0.56836,
+    "median_box_area_640": -0.320739,
+    "tiny_ratio": 0.310795
+  },
+  "sequence_count": {
+    "visdrone": 94
+  },
+  "output": {
+    "analysis_csv": "runs/detect/stage6_scene_selector/selector_gain_analysis.csv",
+    "summary_json": "runs/detect/stage6_scene_selector/selector_gain_summary.json"
+  }
+}

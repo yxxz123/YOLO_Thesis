@@ -1,0 +1,106 @@
+{
+  "experiment": "Stage6.1_Size_Aware_Fusion",
+  "timestamp": "2026-11-04T13:30:24",
+  "input": {
+    "original_predictions": "runs/detect/stage6_selective_oracle/all_original_predictions.json",
+    "tile_predictions": "runs/detect/stage6_selective_oracle/selective_tile_predictions.json",
+    "ground_truth": "runs/detect/source_validation/Stage5-Baseline-Unified/annotations_auto_detect_val.json",
+    "source_mapping": "runs/detect/stage6_selective_oracle/image_source_mapping.csv",
+    "input_sha256": {
+      "original": "4979c79d6966539b51f67592f8bdf10efc21d71f126065d13c730dc20a79fc23",
+      "tile": "93a02e305969c2e547390aa0da50c7e7a19f47eb13c7ea1ee82cc49cef0525c4",
+      "ground_truth": "75098d09c3a02e8f8e32eab99df6c977474748dd177a97b1692f766bbdcf0de4"
+    }
+  },
+  "inference_protocol": {
+    "imgsz": 640,
+    "conf": 0.001,
+    "nms_iou": 0.7,
+    "max_det": 300,
+    "overlap": 0.15,
+    "rect": false,
+    "half": false,
+    "augment": false
+  },
+  "fusion_protocol": {
+    "uavdt": "original_only",
+    "visdrone": "original_plus_filtered_tiles",
+    "area_unit": "original_image_pixel_squared",
+    "area_comparison": "strict_less_than",
+    "global_nms_iou": 0.7,
+    "global_max_det": 300
+  },
+  "image_count": {
+    "full": 1567,
+    "uavdt": 1320,
+    "visdrone": 247
+  },
+  "thresholds": {
+    "512": {
+      "prediction_count": 348756,
+      "source_summary": {
+        "uavdt": {
+          "images": 1320,
+          "original": 282589,
+          "tile_candidates": 0,
+          "tile_selected": 0,
+          "final": 282589
+        },
+        "visdrone": {
+          "images": 247,
+          "original": 55680,
+          "tile_candidates": 66130,
+          "tile_selected": 37858,
+          "final": 66167
+        }
+      },
+      "prediction_file": "runs/detect/stage6_size_aware_fusion_iou07/C2_area512_predictions.json"
+    },
+    "1024": {
+      "prediction_count": 350682,
+      "source_summary": {
+        "uavdt": {
+          "images": 1320,
+          "original": 282589,
+          "tile_candidates": 0,
+          "tile_selected": 0,
+          "final": 282589
+        },
+        "visdrone": {
+          "images": 247,
+          "original": 55680,
+          "tile_candidates": 66130,
+          "tile_selected": 49622,
+          "final": 68093
+        }
+      },
+      "prediction_file": "runs/detect/stage6_size_aware_fusion_iou07/C2_area1024_predictions.json"
+    },
+    "2048": {
+      "prediction_count": 351883,
+      "source_summary": {
+        "uavdt": {
+          "images": 1320,
+          "original": 282589,
+          "tile_candidates": 0,
+          "tile_selected": 0,
+          "final": 282589
+        },
+        "visdrone": {
+          "images": 247,
+          "original": 55680,
+          "tile_candidates": 66130,
+          "tile_selected": 58173,
+          "final": 69294
+        }
+      },
+      "prediction_file": "runs/detect/stage6_size_aware_fusion_iou07/C2_area2048_predictions.json"
+    }
+  },
+  "environment": {
+    "python": "3.10.8",
+    "torch": "2.12.0+cu130",
+    "torchvision": "0.27.0+cu130",
+    "numpy": "1.26.4"
+  }
+}

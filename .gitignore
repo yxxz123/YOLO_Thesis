@@ -107,6 +107,7 @@ datasets/
 !/runs/detect/slice_ablation/
 !/runs/detect/stage5_smallobj_crop/
 !/runs/detect/stage6_selective_oracle/
+!/runs/detect/stage6_size_aware_fusion_iou07
 
 /tide_result/
 tide_result/
@@ -243,7 +244,7 @@ secrets.json
 !/runs/detect/slice_ablation/**
 !/runs/detect/stage5_smallobj_crop/**
 !/runs/detect/stage6_selective_oracle/**
-
+!/runs/detect/stage6_size_aware_fusion_iou07/**
 # 两个目录共同排除：权重、事件文件、大体积的预测结果
 /runs/detect/*/**/*.pt
 /runs/detect/*/**/*.pth

@@ -1,0 +1,534 @@
+{
+  "experiment": "Stage6.3C_5Fold_GroupKFold_OOF_Rule_Selector",
+  "status": "completed",
+  "purpose": "Per-image adaptive choice between A_Original and C2_area2048 using out-of-fold scene rules",
+  "important_interpretation": "These are internal sequence-grouped OOF estimates on the 247 VisDrone development images. They are not an independent external test; final deployment/generalization requires a separate holdout or new source data.",
+  "protocol": {
+    "n_images": 1567,
+    "source_counts": {
+      "uavdt": 1320,
+      "visdrone": 247
+    },
+    "visdrone_label_counts": {
+      "beneficial": 158,
+      "harmful": 89
+    },
+    "splitter": "GroupKFold",
+    "n_splits": 5,
+    "group_key": "sequence_id",
+    "feature_columns": [
+      "n_det_conf025",
+      "median_box_area_640",
+      "tiny_ratio"
+    ],
+    "policy_budgets": {
+      "Loose": 0.7,
+      "Medium": 0.5,
+      "Strict": 0.3
+    },
+    "quantile_grid": [
+      0.1,
+      0.2,
+      0.30000000000000004,
+      0.4,
+      0.5,
+      0.6,
+      0.7000000000000001,
+      0.8,
+      0.9
+    ],
+    "max_rule_conditions": 2,
+    "rule_logic": "AND",
+    "target": "Stage6.3B2 selector_label; beneficial=+1, harmful=-1, neutral=0",
+    "prediction_policy": "UAVDT always A_Original; VisDrone uses C2_area2048 only when selected by its held-out fold rule",
+    "evaluator": "faster_coco_eval",
+    "evaluator_version": "1.8.0",
+    "imgsz": 640,
+    "conf": 0.001,
+    "nms_iou": 0.7,
+    "nms_max_det": 300,
+    "iou_thresholds": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.8999999999999999,
+      0.95
+    ],
+    "recall_thresholds": [
+      0.0,
+      0.01,
+      0.02,
+      0.03,
+      0.04,
+      0.05,
+      0.06,
+      0.07,
+      0.08,
+      0.09,
+      0.1,
+      0.11,
+      0.12,
+      0.13,
+      0.14,
+      0.15,
+      0.16,
+      0.17,
+      0.18,
+      0.19,
+      0.2,
+      0.21,
+      0.22,
+      0.23,
+      0.24,
+      0.25,
+      0.26,
+      0.27,
+      0.28,
+      0.29,
+      0.3,
+      0.31,
+      0.32,
+      0.33,
+      0.34,
+      0.35000000000000003,
+      0.36,
+      0.37,
+      0.38,
+      0.39,
+      0.4,
+      0.41000000000000003,
+      0.42,
+      0.43,
+      0.44,
+      0.45,
+      0.46,
+      0.47000000000000003,
+      0.48,
+      0.49,
+      0.5,
+      0.51,
+      0.52,
+      0.53,
+      0.54,
+      0.55,
+      0.56,
+      0.5700000000000001,
+      0.58,
+      0.59,
+      0.6,
+      0.61,
+      0.62,
+      0.63,
+      0.64,
+      0.65,
+      0.66,
+      0.67,
+      0.68,
+      0.6900000000000001,
+      0.7000000000000001,
+      0.71,
+      0.72,
+      0.73,
+      0.74,
+      0.75,
+      0.76,
+      0.77,
+      0.78,
+      0.79,
+      0.8,
+      0.81,
+      0.8200000000000001,
+      0.8300000000000001,
+      0.84,
+      0.85,
+      0.86,
+      0.87,
+      0.88,
+      0.89,
+      0.9,
+      0.91,
+      0.92,
+      0.93,
+      0.9400000000000001,
+      0.9500000000000001,
+      0.96,
+      0.97,
+      0.98,
+      0.99,
+      1.0
+    ],
+    "max_dets": [
+      1,
+      10,
+      100
+    ],
+    "area_ranges": [
+      [
+        0,
+        10000000000.0
+      ],
+      [
+        0,
+        1024
+      ],
+      [
+        1024,
+        9216
+      ],
+      [
+        9216,
+        10000000000.0
+      ]
+    ],
+    "area_labels": [
+      "all",
+      "small",
+      "medium",
+      "large"
+    ]
+  },
+  "input_sha256": {
+    "features": "db33bd0a0cd47b32298d36fab9fd99e7f8835def5a03a28bed8c7cadc566106d",
+    "original": "4979c79d6966539b51f67592f8bdf10efc21d71f126065d13c730dc20a79fc23",
+    "c2": "7e018f981f2cbcf39b512226892b58a067655c5e49c4ace8a6c07282ca3ef5b6",
+    "gt": "75098d09c3a02e8f8e32eab99df6c977474748dd177a97b1692f766bbdcf0de4"
+  },
+  "uavdt_original_only_check": {
+    "checked_images": 1320,
+    "mismatch_images": 0,
+    "passed": true
+  },
+  "reference_metrics": {
+    "A_Original": {
+      "full": {
+        "AP50-95": 0.4195917126873353,
+        "AP50": 0.7814417490972088,
+        "APs": 0.3228465280757667,
+        "APm": 0.5409698505744146,
+        "APl": 0.5752975085698577
+      },
+      "uavdt": {
+        "AP50-95": 0.43674357071986447,
+        "AP50": 0.8228439391007577,
+        "APs": 0.35747096704334647,
+        "APm": 0.5385187177459128,
+        "APl": 0.5129236882623374
+      },
+      "visdrone": {
+        "AP50-95": 0.3855486752799357,
+        "AP50": 0.6612913349322725,
+        "APs": 0.24804127404841333,
+        "APm": 0.5736221671010119,
+        "APl": 0.6956970999093309
+      }
+    },
+    "C2_area2048": {
+      "full": {
+        "AP50-95": 0.4344434276763761,
+        "AP50": 0.7961902452758238,
+        "APs": 0.3474104509524997,
+        "APm": 0.543949733060706,
+        "APl": 0.5756366229378795
+      },
+      "uavdt": {
+        "AP50-95": 0.43674357071986447,
+        "AP50": 0.8228439391007577,
+        "APs": 0.35747096704334647,
+        "APm": 0.5385187177459128,
+        "APl": 0.5129236882623374
+      },
+      "visdrone": {
+        "AP50-95": 0.441907771179159,
+        "AP50": 0.7099882574556355,
+        "APs": 0.33830640453107597,
+        "APm": 0.5809849657636534,
+        "APl": 0.6917083752109996
+      }
+    }
+  },
+  "policies": {
+    "Loose": {
+      "prediction": {
+        "path": "runs/detect/stage6_scene_selector/selector_oof_predictions_loose.json",
+        "sha256": "b15cd7ad0c6e762d01efef2d5fb72cfd60c68bd0e1ddb763d2ca3f0239d8d3f4",
+        "prediction_count": 344991,
+        "selected_visdrone_images": 154,
+        "visdrone_images": 247,
+        "visdrone_trigger_rate": 0.6234817813765182,
+        "uavdt_images_using_original": 1320,
+        "detections_from_selected_c2_images": 45335,
+        "detections_from_original_path_images": 299656
+      },
+      "oof_selection_diagnostics": {
+        "images": 247,
+        "selected_images": 154,
+        "trigger_rate": 0.6234817813765182,
+        "beneficial_selected": 125,
+        "harmful_selected": 29,
+        "neutral_selected": 0,
+        "beneficial_precision_among_selected": 0.8116883116883117,
+        "beneficial_recall": 0.7911392405063291,
+        "harmful_capture_rate": 0.3258426966292135,
+        "net_label_utility": 96,
+        "mean_selected_delta_f1_when_small_gt_exists": 0.045573239514748856,
+        "mean_selected_delta_small_fp_when_no_small_gt": 18.96666666666667
+      },
+      "coco_metrics": {
+        "full": {
+          "AP50-95": 0.43342715372507884,
+          "AP50": 0.7966113709885241,
+          "APs": 0.34565915714013085,
+          "APm": 0.5443639417090917,
+          "APl": 0.5754645026102034
+        },
+        "visdrone": {
+          "AP50-95": 0.4391249308297705,
+          "AP50": 0.7097025775352268,
+          "APs": 0.3321069714962847,
+          "APm": 0.5837682750714897,
+          "APl": 0.6928420088701792
+        },
+        "uavdt_reference_unchanged": {
+          "AP50-95": 0.43674357071986447,
+          "AP50": 0.8228439391007577,
+          "APs": 0.35747096704334647,
+          "APm": 0.5385187177459128,
+          "APl": 0.5129236882623374
+        }
+      },
+      "delta_vs_A_Original": {
+        "full": {
+          "AP50-95": 0.013835441037743534,
+          "AP50": 0.015169621891315321,
+          "APs": 0.022812629064364154,
+          "APm": 0.0033940911346771463,
+          "APl": 0.00016699404034570264
+        },
+        "visdrone": {
+          "AP50-95": 0.053576255549834806,
+          "AP50": 0.04841124260295426,
+          "APs": 0.08406569744787137,
+          "APm": 0.010146107970477769,
+          "APl": -0.0028550910391517137
+        },
+        "uavdt": {
+          "AP50-95": 0.0,
+          "AP50": 0.0,
+          "APs": 0.0,
+          "APm": 0.0,
+          "APl": 0.0
+        }
+      },
+      "delta_vs_C2_area2048": {
+        "full": {
+          "AP50-95": -0.0010162739512972752,
+          "AP50": 0.00042112571270025434,
+          "APs": -0.0017512938123688815,
+          "APm": 0.0004142086483857055,
+          "APl": -0.0001721203276761063
+        },
+        "visdrone": {
+          "AP50-95": -0.0027828403493885268,
+          "AP50": -0.00028567992040873236,
+          "APs": -0.006199433034791257,
+          "APm": 0.0027833093078362126,
+          "APl": 0.0011336336591796226
+        }
+      }
+    },
+    "Medium": {
+      "prediction": {
+        "path": "runs/detect/stage6_scene_selector/selector_oof_predictions_medium.json",
+        "sha256": "98f409b3e1507413028728a9ddf4004dff9893e68912c2b94b7e8e5aefdc8944",
+        "prediction_count": 342672,
+        "selected_visdrone_images": 120,
+        "visdrone_images": 247,
+        "visdrone_trigger_rate": 0.48582995951417,
+        "uavdt_images_using_original": 1320,
+        "detections_from_selected_c2_images": 35762,
+        "detections_from_original_path_images": 306910
+      },
+      "oof_selection_diagnostics": {
+        "images": 247,
+        "selected_images": 120,
+        "trigger_rate": 0.48582995951417,
+        "beneficial_selected": 111,
+        "harmful_selected": 9,
+        "neutral_selected": 0,
+        "beneficial_precision_among_selected": 0.925,
+        "beneficial_recall": 0.7025316455696202,
+        "harmful_capture_rate": 0.10112359550561797,
+        "net_label_utility": 102,
+        "mean_selected_delta_f1_when_small_gt_exists": 0.053949822632008385,
+        "mean_selected_delta_small_fp_when_no_small_gt": null
+      },
+      "coco_metrics": {
+        "full": {
+          "AP50-95": 0.43182470654020083,
+          "AP50": 0.7963383366563267,
+          "APs": 0.34361900428820474,
+          "APm": 0.5431724613374396,
+          "APl": 0.5754594767756678
+        },
+        "visdrone": {
+          "AP50-95": 0.4330184812544906,
+          "AP50": 0.7093485606307283,
+          "APs": 0.32486509405003366,
+          "APm": 0.580032512686715,
+          "APl": 0.6928262155335692
+        },
+        "uavdt_reference_unchanged": {
+          "AP50-95": 0.43674357071986447,
+          "AP50": 0.8228439391007577,
+          "APs": 0.35747096704334647,
+          "APm": 0.5385187177459128,
+          "APl": 0.5129236882623374
+        }
+      },
+      "delta_vs_A_Original": {
+        "full": {
+          "AP50-95": 0.012232993852865526,
+          "AP50": 0.014896587559117935,
+          "APs": 0.02077247621243805,
+          "APm": 0.0022026107630249703,
+          "APl": 0.000161968205810048
+        },
+        "visdrone": {
+          "AP50-95": 0.04746980597455491,
+          "AP50": 0.04805722569845572,
+          "APs": 0.07682382000162033,
+          "APm": 0.006410345585703081,
+          "APl": -0.002870884375761773
+        },
+        "uavdt": {
+          "AP50-95": 0.0,
+          "AP50": 0.0,
+          "APs": 0.0,
+          "APm": 0.0,
+          "APl": 0.0
+        }
+      },
+      "delta_vs_C2_area2048": {
+        "full": {
+          "AP50-95": -0.002618721136175284,
+          "AP50": 0.0001480913805028683,
+          "APs": -0.003791446664294984,
+          "APm": -0.0007772717232664705,
+          "APl": -0.00017714616221176094
+        },
+        "visdrone": {
+          "AP50-95": -0.00888928992466842,
+          "AP50": -0.0006396968249072765,
+          "APs": -0.013441310481042301,
+          "APm": -0.0009524530769384754,
+          "APl": 0.0011178403225695632
+        }
+      }
+    },
+    "Strict": {
+      "prediction": {
+        "path": "runs/detect/stage6_scene_selector/selector_oof_predictions_strict.json",
+        "sha256": "6d5389499f95e38f005f834ddf663992d3711f245858e587ea3625292d63ed25",
+        "prediction_count": 341055,
+        "selected_visdrone_images": 75,
+        "visdrone_images": 247,
+        "visdrone_trigger_rate": 0.30364372469635625,
+        "uavdt_images_using_original": 1320,
+        "detections_from_selected_c2_images": 22368,
+        "detections_from_original_path_images": 318687
+      },
+      "oof_selection_diagnostics": {
+        "images": 247,
+        "selected_images": 75,
+        "trigger_rate": 0.30364372469635625,
+        "beneficial_selected": 71,
+        "harmful_selected": 4,
+        "neutral_selected": 0,
+        "beneficial_precision_among_selected": 0.9466666666666667,
+        "beneficial_recall": 0.44936708860759494,
+        "harmful_capture_rate": 0.0449438202247191,
+        "net_label_utility": 67,
+        "mean_selected_delta_f1_when_small_gt_exists": 0.061125454779393414,
+        "mean_selected_delta_small_fp_when_no_small_gt": 65.0
+      },
+      "coco_metrics": {
+        "full": {
+          "AP50-95": 0.4284298430880148,
+          "AP50": 0.7908954871622913,
+          "APs": 0.33799336312125805,
+          "APm": 0.5420315981152728,
+          "APl": 0.5753012105128547
+        },
+        "visdrone": {
+          "AP50-95": 0.4198154835770459,
+          "AP50": 0.6928095440229232,
+          "APs": 0.30428666260289045,
+          "APm": 0.5771213697632058,
+          "APl": 0.6957053986510074
+        },
+        "uavdt_reference_unchanged": {
+          "AP50-95": 0.43674357071986447,
+          "AP50": 0.8228439391007577,
+          "APs": 0.35747096704334647,
+          "APm": 0.5385187177459128,
+          "APl": 0.5129236882623374
+        }
+      },
+      "delta_vs_A_Original": {
+        "full": {
+          "AP50-95": 0.00883813040067949,
+          "AP50": 0.00945373806508254,
+          "APs": 0.015146835045491358,
+          "APm": 0.0010617475408581933,
+          "APl": 3.701942996925389e-06
+        },
+        "visdrone": {
+          "AP50-95": 0.03426680829711021,
+          "AP50": 0.03151820909065062,
+          "APs": 0.05624538855447711,
+          "APm": 0.0034992026621939454,
+          "APl": 8.298741676515675e-06
+        },
+        "uavdt": {
+          "AP50-95": 0.0,
+          "AP50": 0.0,
+          "APs": 0.0,
+          "APm": 0.0,
+          "APl": 0.0
+        }
+      },
+      "delta_vs_C2_area2048": {
+        "full": {
+          "AP50-95": -0.00601358458836132,
+          "AP50": -0.005294758113532527,
+          "APs": -0.009417087831241677,
+          "APm": -0.0019181349454332475,
+          "APl": -0.00033541242502488355
+        },
+        "visdrone": {
+          "AP50-95": -0.022092287602113125,
+          "AP50": -0.017178713432712378,
+          "APs": -0.03401974192818552,
+          "APm": -0.003863596000447611,
+          "APl": 0.003997023440007852
+        }
+      }
+    }
+  },
+  "outputs": {
+    "assignments_csv": "runs/detect/stage6_scene_selector/selector_oof_assignments.csv",
+    "fold_rules_json": "runs/detect/stage6_scene_selector/selector_fold_rules.json",
+    "summary_json": "runs/detect/stage6_scene_selector/selector_oof_summary.json"
+  },
+  "environment": {
+    "python": "3.10.8",
+    "numpy": "1.26.4",
+    "scikit_learn": "1.5.2",
+    "faster_coco_eval": "1.8.0"
+  }
+}

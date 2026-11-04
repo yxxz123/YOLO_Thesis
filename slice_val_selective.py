@@ -1,19 +1,17 @@
-# ============================================================
-# Stage 6.0
-# YOLO11s-DySample 选择性切片与原图融合实验
-#
-# A组：全部原图推理
-# B组：UAVDT原图 + VisDrone 2×2切片
-# C组：UAVDT原图 + VisDrone原图/切片融合
-#
-# 评价：
-# 1. 完整验证集COCO指标
-# 2. UAVDT来源COCO指标
-# 3. VisDrone来源COCO指标
-# 4. 单张图片预测特征统计
-# 5. 推理时间统计
-# ============================================================
 
+# 使用原图推理结果提取场景特征。
+
+# 置信度阈值：0.25。
+
+# 按照YOLO LetterBox等比例缩放，
+# 将原图预测框面积换算到640输入尺度。
+
+# 不计入LetterBox填充区域。
+
+# 统计：
+# 1. 预测目标数量
+# 2. 中位框面积
+# 3. 小框比例
 
 import os
 import json
@@ -1462,25 +1460,25 @@ def calculate_features(
 
     )
 
+    if image_width <= 0 or image_height <= 0:
+    raise ValueError(
+        f"非法图片尺寸：{image_width}×{image_height}"
+    )
+    # YOLO LetterBox等比例缩放
+    scale = min(
+        FEATURE_IMGSZ / image_width,
+        FEATURE_IMGSZ / image_height
+    )
 
-    scale_x = FEATURE_IMGSZ / image_width
+    # 宽高使用相同缩放比例
+    scaled_width = box_width * scale
+    scaled_height = box_height * scale
 
-    scale_y = FEATURE_IMGSZ / image_height
-
-
-    scaled_width = box_width * scale_x
-
-    scaled_height = box_height * scale_y
-
-
+    # 计算640输入尺度下的预测框面积
     areas = (
-
         scaled_width
-
         *
-
         scaled_height
-
     )
 
 

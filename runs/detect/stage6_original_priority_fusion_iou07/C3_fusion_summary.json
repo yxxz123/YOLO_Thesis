@@ -1,0 +1,65 @@
+{
+  "experiment": "Stage6.2_C3_Original_Priority_Fusion",
+  "input": {
+    "original_predictions": "runs/detect/stage6_selective_oracle/all_original_predictions.json",
+    "tile_predictions": "runs/detect/stage6_selective_oracle/selective_tile_predictions.json",
+    "ground_truth": "runs/detect/source_validation/Stage5-Baseline-Unified/annotations_auto_detect_val.json",
+    "source_mapping": "runs/detect/stage6_selective_oracle/image_source_mapping.csv",
+    "sha256": {
+      "original": "4979c79d6966539b51f67592f8bdf10efc21d71f126065d13c730dc20a79fc23",
+      "tile": "93a02e305969c2e547390aa0da50c7e7a19f47eb13c7ea1ee82cc49cef0525c4",
+      "ground_truth": "75098d09c3a02e8f8e32eab99df6c977474748dd177a97b1692f766bbdcf0de4",
+      "source_mapping": "6219ae6ece660c482db9fc522bf5eb0193ddf137244be4511b0a1d9c645ecea9"
+    }
+  },
+  "protocol": {
+    "area_threshold": 2048,
+    "area_comparison": "strict_less_than",
+    "overlap_iou": 0.7,
+    "overlap_comparison": "greater_than_or_equal",
+    "max_det": 300,
+    "original_priority": true,
+    "global_nms_after_fusion": false,
+    "uavdt": "original_only",
+    "visdrone": "original_plus_residual_tiles"
+  },
+  "image_count": {
+    "full": 1567,
+    "uavdt": 1320,
+    "visdrone": 247
+  },
+  "prediction_count": 351876,
+  "source_summary": {
+    "uavdt": {
+      "images": 1320,
+      "original": 282589,
+      "tile_candidates": 0,
+      "tile_area_selected": 0,
+      "tile_overlap_removed": 0,
+      "tile_remaining": 0,
+      "tile_added": 0,
+      "capacity_removed": 0,
+      "final": 282589,
+      "original_top100": 128736,
+      "original_top100_retained": 128736
+    },
+    "visdrone": {
+      "images": 247,
+      "original": 55680,
+      "tile_candidates": 66130,
+      "tile_area_selected": 58173,
+      "tile_overlap_removed": 7955,
+      "tile_remaining": 50218,
+      "tile_added": 13607,
+      "capacity_removed": 36611,
+      "final": 69287,
+      "original_top100": 23542,
+      "original_top100_retained": 18117
+    }
+  },
+  "output": {
+    "prediction_file": "runs/detect/stage6_original_priority_fusion_iou07/C3_original_priority_predictions.json",
+    "prediction_sha256": "a5725cd3d788865d28a09bceb9036fdf3ebf6adc24154478e260cacdba08b2da",
+    "audit_file": "runs/detect/stage6_original_priority_fusion_iou07/C3_fusion_audit.csv"
+  }
+}

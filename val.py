@@ -62,7 +62,7 @@ def print_highlight_table(table, header_color_value_cols=None, color_first_col=T
 
 if __name__ == '__main__':
     # 选择训练好的权重路径
-    model_path = 'runs/detect/stage4_smallobj/YOLO11s-DySample-Mosaic050/weights/best.pt'
+    model_path = 'runs/detect/stage2_screening/YOLO11s-DySample/weights/best.pt'
     # 设置用于计算指标的图像尺寸
     imgsz = 640
 

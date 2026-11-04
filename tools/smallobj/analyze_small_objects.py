@@ -129,6 +129,71 @@ def main():
 
             examples += 1
 
+
+    # Correct per-image small-object grouping
+    group_counts = {
+        "0个": 0,
+        "1个": 0,
+        "2个": 0,
+        "3-5个": 0,
+        "6-10个": 0,
+        "11-20个": 0,
+        "20个以上": 0
+    }
+
+    for record in image_records:
+
+        n = int(record["small_objects"])
+
+        if n == 0:
+            group_counts["0个"] += 1
+        elif n == 1:
+            group_counts["1个"] += 1
+        elif n == 2:
+            group_counts["2个"] += 1
+        elif n <= 5:
+            group_counts["3-5个"] += 1
+        elif n <= 10:
+            group_counts["6-10个"] += 1
+        elif n <= 20:
+            group_counts["11-20个"] += 1
+        else:
+            group_counts["20个以上"] += 1
+
+    print("\\n========== Correct Image Distribution ==========")
+
+    for name, count in group_counts.items():
+
+        ratio = count / len(image_records) * 100
+
+        print(
+            f"{name:>12}: {count:>6} "
+            f"({ratio:.2f}%)"
+        )
+
+    with open(
+        OUT / "image_smallobj_groups.csv",
+        "w",
+        newline="",
+        encoding="utf-8-sig"
+    ) as f:
+
+        writer = csv.writer(f)
+
+        writer.writerow([
+            "small_object_count_group",
+            "image_count",
+            "percentage"
+        ])
+
+        for name, count in group_counts.items():
+
+            writer.writerow([
+                name,
+                count,
+                round(count / len(image_records) * 100, 2)
+            ])
+
     # Per-image statistics
     with open(
         OUT / "image_smallobj_count.csv",

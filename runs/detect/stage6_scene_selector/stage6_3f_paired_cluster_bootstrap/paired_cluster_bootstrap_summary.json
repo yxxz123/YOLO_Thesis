@@ -1,0 +1,449 @@
+{
+  "experiment": "Stage6.3F_A_Paired_VisDrone_Sequence_Cluster_Bootstrap",
+  "created_at": "2026-11-05T17:03:35",
+  "status": "completed",
+  "bootstrap": {
+    "replicates": 1000,
+    "seed": 42,
+    "resampling_unit": "VisDrone sequence_id cluster",
+    "number_of_sequence_groups": 94,
+    "sampling": "sample 94 sequence groups with replacement; include every image in each sampled group",
+    "uavdt_handling": "all 1320 UAVDT images held fixed in every replicate",
+    "confidence_interval": "paired percentile 95% CI (2.5th, 97.5th percentile)",
+    "paired_policy_comparisons": "all policies use the same sampled sequence groups in each replicate"
+  },
+  "interpretation_limit": "Conditional cluster bootstrap of fixed OOF prediction files. It quantifies sequence-sampling uncertainty conditional on the already-fitted OOF selectors; it does not include selector retraining/split uncertainty and is not an independent test.",
+  "point_metrics_reproduction": {
+    "A_Original": {
+      "full": {
+        "AP50-95": 0.4195917126873353,
+        "APs": 0.3228465280757667
+      },
+      "visdrone": {
+        "AP50-95": 0.3855486752799357,
+        "APs": 0.24804127404841333
+      }
+    },
+    "C2_area2048": {
+      "full": {
+        "AP50-95": 0.4344434276763761,
+        "APs": 0.3474104509524997
+      },
+      "visdrone": {
+        "AP50-95": 0.441907771179159,
+        "APs": 0.33830640453107597
+      }
+    },
+    "B80": {
+      "full": {
+        "AP50-95": 0.43395126724454375,
+        "APs": 0.3462299925992445
+      },
+      "visdrone": {
+        "AP50-95": 0.44039625537948696,
+        "APs": 0.33458302216109564
+      }
+    },
+    "M3_Logistic_F0": {
+      "full": {
+        "AP50-95": 0.43432006499575226,
+        "APs": 0.34676865495436776
+      },
+      "visdrone": {
+        "AP50-95": 0.44194792489183427,
+        "APs": 0.3366827441800847
+      }
+    },
+    "M4_Logistic_F1": {
+      "full": {
+        "AP50-95": 0.43453668211098223,
+        "APs": 0.34712169110418273
+      },
+      "visdrone": {
+        "AP50-95": 0.44301062988888645,
+        "APs": 0.33805027701293056
+      }
+    }
+  },
+  "m1_b80_prediction_identity": {
+    "status": "passed",
+    "checked": "M1_Rule_F0 == Stage 6.3E-A B80 prediction records",
+    "prediction_records_equal": true
+  },
+  "input_sha256": {
+    "corrected_scene_features.csv": "db33bd0a0cd47b32298d36fab9fd99e7f8835def5a03a28bed8c7cadc566106d",
+    "ground_truth": "75098d09c3a02e8f8e32eab99df6c977474748dd177a97b1692f766bbdcf0de4",
+    "stage6_3e_a_summary": "622efcfeac679e5d50444b848f0681c8ae89d4b32fe8452143385a7cdc6e818d",
+    "stage6_3e_b_summary": "b528376014bd5124d0d9be31d08f5df3a436db34b3cf80afab63ee9a4be9d5c0",
+    "m1_rule_f0_prediction": "01888fb960f94c851baa1747c3010a8f7b2fb8240225b0d8eded9fe8e565657f",
+    "A_Original_prediction": "4979c79d6966539b51f67592f8bdf10efc21d71f126065d13c730dc20a79fc23",
+    "C2_area2048_prediction": "7e018f981f2cbcf39b512226892b58a067655c5e49c4ace8a6c07282ca3ef5b6",
+    "B80_prediction": "01888fb960f94c851baa1747c3010a8f7b2fb8240225b0d8eded9fe8e565657f",
+    "M3_Logistic_F0_prediction": "f5840f2c9650f41268c2f7902aa5f62c35c6405958ebf2d8c9bc684f28cd8c52",
+    "M4_Logistic_F1_prediction": "bc2e0936a8e79b9d5e74176c0089a9f9c1ca2d12324f6436a7abf50f2c60d0e2"
+  },
+  "metric_distributions": {
+    "A_Original_full_AP50-95": {
+      "mean": 0.41960954007323314,
+      "median": 0.41984478257171054,
+      "std": 0.00446976217529194,
+      "ci95_percentile_low": 0.41070358300942045,
+      "ci95_percentile_high": 0.4276146199995605
+    },
+    "A_Original_full_APs": {
+      "mean": 0.3230564450883693,
+      "median": 0.32304927415680296,
+      "std": 0.005710295750650855,
+      "ci95_percentile_low": 0.31188610475293815,
+      "ci95_percentile_high": 0.3338228949193952
+    },
+    "A_Original_visdrone_AP50-95": {
+      "mean": 0.384472350770683,
+      "median": 0.384303279166252,
+      "std": 0.01737540383593329,
+      "ci95_percentile_low": 0.34871154632348383,
+      "ci95_percentile_high": 0.4163439390100592
+    },
+    "A_Original_visdrone_APs": {
+      "mean": 0.2456702446179966,
+      "median": 0.24759642827215828,
+      "std": 0.016982725466766182,
+      "ci95_percentile_low": 0.20851600349275404,
+      "ci95_percentile_high": 0.27356089688840407
+    },
+    "C2_area2048_full_AP50-95": {
+      "mean": 0.4344215903198607,
+      "median": 0.43447243128172464,
+      "std": 0.0030350460171625292,
+      "ci95_percentile_low": 0.42824691294102435,
+      "ci95_percentile_high": 0.4402062236373138
+    },
+    "C2_area2048_full_APs": {
+      "mean": 0.34742930360500973,
+      "median": 0.3476382177506798,
+      "std": 0.003656613920574714,
+      "ci95_percentile_low": 0.3397597175214364,
+      "ci95_percentile_high": 0.35387509603839473
+    },
+    "C2_area2048_visdrone_AP50-95": {
+      "mean": 0.44049300400890756,
+      "median": 0.44209559736889437,
+      "std": 0.014865159382677712,
+      "ci95_percentile_low": 0.40893303239180745,
+      "ci95_percentile_high": 0.46678205765560504
+    },
+    "C2_area2048_visdrone_APs": {
+      "mean": 0.3350197119780521,
+      "median": 0.3377132516474353,
+      "std": 0.021340397142495016,
+      "ci95_percentile_low": 0.28642551140600436,
+      "ci95_percentile_high": 0.36824415378557895
+    },
+    "B80_full_AP50-95": {
+      "mean": 0.433828783009379,
+      "median": 0.4339249262797853,
+      "std": 0.003069868701722653,
+      "ci95_percentile_low": 0.4275200909162286,
+      "ci95_percentile_high": 0.4395901507319379
+    },
+    "B80_full_APs": {
+      "mean": 0.3461743446539787,
+      "median": 0.34638255524174,
+      "std": 0.0037814747843468548,
+      "ci95_percentile_low": 0.3381881826216749,
+      "ci95_percentile_high": 0.3528551823492315
+    },
+    "B80_visdrone_AP50-95": {
+      "mean": 0.4390660020356771,
+      "median": 0.4405653059702307,
+      "std": 0.015176233582237221,
+      "ci95_percentile_low": 0.40759325261052026,
+      "ci95_percentile_high": 0.46510897961251446
+    },
+    "B80_visdrone_APs": {
+      "mean": 0.3311817672208788,
+      "median": 0.3343347924795378,
+      "std": 0.02238267721194537,
+      "ci95_percentile_low": 0.28049309355268043,
+      "ci95_percentile_high": 0.3660684605252819
+    },
+    "M3_Logistic_F0_full_AP50-95": {
+      "mean": 0.4341735960078013,
+      "median": 0.4342698283737598,
+      "std": 0.0030595701371075343,
+      "ci95_percentile_low": 0.4278026110919711,
+      "ci95_percentile_high": 0.43975342618523167
+    },
+    "M3_Logistic_F0_full_APs": {
+      "mean": 0.34672688099730165,
+      "median": 0.3468926824423155,
+      "std": 0.003757687988542701,
+      "ci95_percentile_low": 0.3390389114129266,
+      "ci95_percentile_high": 0.3532793957436709
+    },
+    "M3_Logistic_F0_visdrone_AP50-95": {
+      "mean": 0.44046321700720736,
+      "median": 0.4420624359020928,
+      "std": 0.015113124554856177,
+      "ci95_percentile_low": 0.4090798805794263,
+      "ci95_percentile_high": 0.46627842571219663
+    },
+    "M3_Logistic_F0_visdrone_APs": {
+      "mean": 0.33339893466778875,
+      "median": 0.33639303055445063,
+      "std": 0.022073084161333325,
+      "ci95_percentile_low": 0.283151210338099,
+      "ci95_percentile_high": 0.3675322133054181
+    },
+    "M4_Logistic_F1_full_AP50-95": {
+      "mean": 0.43443489666236745,
+      "median": 0.43451941519376736,
+      "std": 0.0031075837356906435,
+      "ci95_percentile_low": 0.4280351260072366,
+      "ci95_percentile_high": 0.4401508006403695
+    },
+    "M4_Logistic_F1_full_APs": {
+      "mean": 0.347051114519056,
+      "median": 0.3472150450570821,
+      "std": 0.0037878865452608927,
+      "ci95_percentile_low": 0.33919896504670854,
+      "ci95_percentile_high": 0.35362210107761194
+    },
+    "M4_Logistic_F1_visdrone_AP50-95": {
+      "mean": 0.44159514570405434,
+      "median": 0.4430643212092872,
+      "std": 0.015201363785339012,
+      "ci95_percentile_low": 0.40928321603087603,
+      "ci95_percentile_high": 0.4675475780392928
+    },
+    "M4_Logistic_F1_visdrone_APs": {
+      "mean": 0.33468394607961144,
+      "median": 0.33770368314870985,
+      "std": 0.02196899160412203,
+      "ci95_percentile_low": 0.2842162732665831,
+      "ci95_percentile_high": 0.3687763313772859
+    }
+  },
+  "paired_delta_distributions": {
+    "delta_M3_Logistic_F0_vs_B80_full_AP50-95": {
+      "mean": 0.00034481299842234643,
+      "median": 0.0003273497551435356,
+      "std": 0.0001470966572251567,
+      "ci95_percentile_low": 0.00010254879053264166,
+      "ci95_percentile_high": 0.0006618731055026943,
+      "probability_delta_gt_zero": 0.996,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_M3_Logistic_F0_vs_B80_full_APs": {
+      "mean": 0.0005525363433229471,
+      "median": 0.000534788187286861,
+      "std": 0.0002246262026015238,
+      "ci95_percentile_low": 0.00015950288441647366,
+      "ci95_percentile_high": 0.001041432550539864,
+      "probability_delta_gt_zero": 0.998,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_M3_Logistic_F0_vs_B80_visdrone_AP50-95": {
+      "mean": 0.0013972149715303034,
+      "median": 0.0013327415738996484,
+      "std": 0.0005852723843357278,
+      "ci95_percentile_low": 0.00041227595079604273,
+      "ci95_percentile_high": 0.002750369348437163,
+      "probability_delta_gt_zero": 0.996,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_M3_Logistic_F0_vs_B80_visdrone_APs": {
+      "mean": 0.0022171674469099703,
+      "median": 0.002047693007045659,
+      "std": 0.0010984062787580406,
+      "ci95_percentile_low": 0.0005415558075209826,
+      "ci95_percentile_high": 0.004808462467276661,
+      "probability_delta_gt_zero": 0.998,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_M4_Logistic_F1_vs_B80_full_AP50-95": {
+      "mean": 0.0006061136529885048,
+      "median": 0.0005930562600021116,
+      "std": 0.00019934701637237777,
+      "ci95_percentile_low": 0.0002862884882658123,
+      "ci95_percentile_high": 0.001059308055925684,
+      "probability_delta_gt_zero": 1.0,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_M4_Logistic_F1_vs_B80_full_APs": {
+      "mean": 0.0008767698650772739,
+      "median": 0.0008631856264076365,
+      "std": 0.0002515269376392767,
+      "ci95_percentile_low": 0.0004443933654649346,
+      "ci95_percentile_high": 0.0014055918554154278,
+      "probability_delta_gt_zero": 1.0,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_M4_Logistic_F1_vs_B80_visdrone_AP50-95": {
+      "mean": 0.0025291436683772947,
+      "median": 0.0024807493063933317,
+      "std": 0.0008179360836025971,
+      "ci95_percentile_low": 0.0011056852371003913,
+      "ci95_percentile_high": 0.004310968864498183,
+      "probability_delta_gt_zero": 1.0,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_M4_Logistic_F1_vs_B80_visdrone_APs": {
+      "mean": 0.0035021788587326482,
+      "median": 0.0033509408261045703,
+      "std": 0.0012815586582557391,
+      "ci95_percentile_low": 0.001437732690715933,
+      "ci95_percentile_high": 0.006419193095372439,
+      "probability_delta_gt_zero": 1.0,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_M3_Logistic_F0_vs_C2_area2048_full_AP50-95": {
+      "mean": -0.00024799431205939604,
+      "median": -0.00023903562340438222,
+      "std": 0.00032675732234033455,
+      "ci95_percentile_low": -0.0009212754016909934,
+      "ci95_percentile_high": 0.0003825497837803809,
+      "probability_delta_gt_zero": 0.224,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_M3_Logistic_F0_vs_C2_area2048_full_APs": {
+      "mean": -0.0007024226077080949,
+      "median": -0.0006867064491968833,
+      "std": 0.00035919424333062476,
+      "ci95_percentile_low": -0.0014335159557083547,
+      "ci95_percentile_high": -1.8816392551374128e-05,
+      "probability_delta_gt_zero": 0.019,
+      "probability_delta_ge_minus_0_002": 0.999
+    },
+    "delta_M3_Logistic_F0_vs_C2_area2048_visdrone_AP50-95": {
+      "mean": -2.9787001700189443e-05,
+      "median": 1.4399406316312202e-05,
+      "std": 0.0015476817742786377,
+      "ci95_percentile_low": -0.0030163647726106357,
+      "ci95_percentile_high": 0.0029136098599906067,
+      "probability_delta_gt_zero": 0.504,
+      "probability_delta_ge_minus_0_002": 0.888
+    },
+    "delta_M3_Logistic_F0_vs_C2_area2048_visdrone_APs": {
+      "mean": -0.0016207773102633897,
+      "median": -0.001444614191246557,
+      "std": 0.0017275615062871707,
+      "ci95_percentile_low": -0.0052991219236254005,
+      "ci95_percentile_high": 0.0012917454428202676,
+      "probability_delta_gt_zero": 0.176,
+      "probability_delta_ge_minus_0_002": 0.615
+    },
+    "delta_M4_Logistic_F1_vs_C2_area2048_full_AP50-95": {
+      "mean": 1.3306342506762326e-05,
+      "median": 2.698528266192879e-05,
+      "std": 0.0003039311927947188,
+      "ci95_percentile_low": -0.0006359657237840529,
+      "ci95_percentile_high": 0.0005965175926501489,
+      "probability_delta_gt_zero": 0.533,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_M4_Logistic_F1_vs_C2_area2048_full_APs": {
+      "mean": -0.00037818908595376794,
+      "median": -0.00036711106652131953,
+      "std": 0.00032909871653388973,
+      "ci95_percentile_low": -0.0010413054999816886,
+      "ci95_percentile_high": 0.00023909252551275597,
+      "probability_delta_gt_zero": 0.117,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_M4_Logistic_F1_vs_C2_area2048_visdrone_AP50-95": {
+      "mean": 0.001102141695146802,
+      "median": 0.0011549598449310527,
+      "std": 0.0014504344715857364,
+      "ci95_percentile_low": -0.0017974820989760927,
+      "ci95_percentile_high": 0.003874380443156973,
+      "probability_delta_gt_zero": 0.785,
+      "probability_delta_ge_minus_0_002": 0.983
+    },
+    "delta_M4_Logistic_F1_vs_C2_area2048_visdrone_APs": {
+      "mean": -0.00033576589844071106,
+      "median": -0.00025048134837257763,
+      "std": 0.001540564908468631,
+      "ci95_percentile_low": -0.0033901716557733245,
+      "ci95_percentile_high": 0.00234350950109938,
+      "probability_delta_gt_zero": 0.451,
+      "probability_delta_ge_minus_0_002": 0.846
+    },
+    "delta_M4_Logistic_F1_vs_M3_Logistic_F0_full_AP50-95": {
+      "mean": 0.00026130065456615834,
+      "median": 0.00024059572332688073,
+      "std": 0.00017712806303437847,
+      "ci95_percentile_low": -2.5729993607929987e-05,
+      "ci95_percentile_high": 0.0006565059450557076,
+      "probability_delta_gt_zero": 0.956,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_M4_Logistic_F1_vs_M3_Logistic_F0_full_APs": {
+      "mean": 0.00032423352175432686,
+      "median": 0.00030875975432842484,
+      "std": 0.00019409814641149127,
+      "ci95_percentile_low": -5.703061893924664e-06,
+      "ci95_percentile_high": 0.0007225486080549916,
+      "probability_delta_gt_zero": 0.971,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_M4_Logistic_F1_vs_M3_Logistic_F0_visdrone_AP50-95": {
+      "mean": 0.0011319286968469915,
+      "median": 0.0010866669603952772,
+      "std": 0.0007153886467769736,
+      "ci95_percentile_low": -0.00010353680893938066,
+      "ci95_percentile_high": 0.0026977177717294205,
+      "probability_delta_gt_zero": 0.957,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_M4_Logistic_F1_vs_M3_Logistic_F0_visdrone_APs": {
+      "mean": 0.0012850114118226788,
+      "median": 0.001220549242320429,
+      "std": 0.000820443428250925,
+      "ci95_percentile_low": -0.0001310904755685363,
+      "ci95_percentile_high": 0.002989547088210971,
+      "probability_delta_gt_zero": 0.957,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_B80_vs_C2_area2048_full_AP50-95": {
+      "mean": -0.0005928073104817424,
+      "median": -0.0005703117361519072,
+      "std": 0.00034387864028565635,
+      "ci95_percentile_low": -0.0012985527878356952,
+      "ci95_percentile_high": 4.655211368133058e-05,
+      "probability_delta_gt_zero": 0.035,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_B80_vs_C2_area2048_full_APs": {
+      "mean": -0.0012549589510310417,
+      "median": -0.0012441083495354777,
+      "std": 0.0004046024903425584,
+      "ci95_percentile_low": -0.0020882360258505954,
+      "ci95_percentile_high": -0.0005244652971341429,
+      "probability_delta_gt_zero": 0.0,
+      "probability_delta_ge_minus_0_002": 0.964
+    },
+    "delta_B80_vs_C2_area2048_visdrone_AP50-95": {
+      "mean": -0.0014270019732304927,
+      "median": -0.0013849699372167623,
+      "std": 0.001553450772350433,
+      "ci95_percentile_low": -0.00459578932794322,
+      "ci95_percentile_high": 0.0014951299272328033,
+      "probability_delta_gt_zero": 0.176,
+      "probability_delta_ge_minus_0_002": 0.659
+    },
+    "delta_B80_vs_C2_area2048_visdrone_APs": {
+      "mean": -0.00383794475717336,
+      "median": -0.0037239825419993766,
+      "std": 0.0020335206618994155,
+      "ci95_percentile_low": -0.00829690054743242,
+      "ci95_percentile_high": -0.00045828112280092204,
+      "probability_delta_gt_zero": 0.011,
+      "probability_delta_ge_minus_0_002": 0.19
+    }
+  },
+  "outputs": {
+    "samples_csv": "runs/detect/stage6_scene_selector/stage6_3f_paired_cluster_bootstrap/paired_cluster_bootstrap_samples.csv",
+    "summary_json": "runs/detect/stage6_scene_selector/stage6_3f_paired_cluster_bootstrap/paired_cluster_bootstrap_summary.json"
+  }
+}

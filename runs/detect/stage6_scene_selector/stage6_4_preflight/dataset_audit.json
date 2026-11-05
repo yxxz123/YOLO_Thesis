@@ -1,0 +1,155 @@
+{
+  "experiment": "Stage6.4_Dataset_Preflight",
+  "created_at": "2026-11-05T17:54:40",
+  "dataset_root": "/root/autodl-tmp/YOLO_Thesis/datasets/HighwayVehicle-v1.0",
+  "status": "TEST_NOT_SEQUENCE_INDEPENDENT",
+  "split_audit": {
+    "train": {
+      "split": "train",
+      "found": true,
+      "image_dir": "/root/autodl-tmp/YOLO_Thesis/datasets/HighwayVehicle-v1.0/images/train",
+      "label_dir": "/root/autodl-tmp/YOLO_Thesis/datasets/HighwayVehicle-v1.0/labels/train",
+      "images": 5048,
+      "source_counts": {
+        "uavdt": 3893,
+        "visdrone": 1155
+      },
+      "sequence_groups": 385,
+      "missing_label_files": 0,
+      "invalid_label_files": 0,
+      "empty_label_files": 2,
+      "unreadable_images": 0,
+      "unknown_source_images": 0,
+      "total_objects": 96418,
+      "status": "passed"
+    },
+    "val": {
+      "split": "val",
+      "found": true,
+      "image_dir": "/root/autodl-tmp/YOLO_Thesis/datasets/HighwayVehicle-v1.0/images/val",
+      "label_dir": "/root/autodl-tmp/YOLO_Thesis/datasets/HighwayVehicle-v1.0/labels/val",
+      "images": 1567,
+      "source_counts": {
+        "uavdt": 1320,
+        "visdrone": 247
+      },
+      "sequence_groups": 97,
+      "missing_label_files": 0,
+      "invalid_label_files": 0,
+      "empty_label_files": 1,
+      "unreadable_images": 0,
+      "unknown_source_images": 0,
+      "total_objects": 34364,
+      "status": "passed"
+    },
+    "test": {
+      "split": "test",
+      "found": true,
+      "image_dir": "/root/autodl-tmp/YOLO_Thesis/datasets/HighwayVehicle-v1.0/images/test",
+      "label_dir": "/root/autodl-tmp/YOLO_Thesis/datasets/HighwayVehicle-v1.0/labels/test",
+      "images": 1536,
+      "source_counts": {
+        "uavdt": 1288,
+        "visdrone": 248
+      },
+      "sequence_groups": 107,
+      "missing_label_files": 0,
+      "invalid_label_files": 0,
+      "empty_label_files": 0,
+      "unreadable_images": 0,
+      "unknown_source_images": 0,
+      "total_objects": 23805,
+      "status": "passed"
+    }
+  },
+  "sequence_overlap": {
+    "train_vs_val": {
+      "groups_a": 385,
+      "groups_b": 97,
+      "overlap_groups": 21,
+      "overlap_preview": [
+        "visdrone:visdrone_train_9999937_00000_d",
+        "visdrone:visdrone_train_9999940_00000_d",
+        "visdrone:visdrone_train_9999942_00000_d",
+        "visdrone:visdrone_train_9999943_00000_d",
+        "visdrone:visdrone_train_9999945_00000_d",
+        "visdrone:visdrone_train_9999948_00000_d",
+        "visdrone:visdrone_train_9999950_00000_d",
+        "visdrone:visdrone_train_9999951_00000_d",
+        "visdrone:visdrone_train_9999953_00000_d",
+        "visdrone:visdrone_train_9999955_00000_d",
+        "visdrone:visdrone_train_9999956_00000_d",
+        "visdrone:visdrone_train_9999960_00000_d",
+        "visdrone:visdrone_train_9999965_00000_d",
+        "visdrone:visdrone_train_9999970_00000_d",
+        "visdrone:visdrone_train_9999977_00000_d",
+        "visdrone:visdrone_train_9999981_00000_d",
+        "visdrone:visdrone_train_9999982_00000_d",
+        "visdrone:visdrone_train_9999984_00000_d",
+        "visdrone:visdrone_train_9999985_00000_d",
+        "visdrone:visdrone_train_9999994_00000_d",
+        "visdrone:visdrone_train_9999997_00000_d"
+      ],
+      "passed": false
+    },
+    "train_vs_test": {
+      "groups_a": 385,
+      "groups_b": 107,
+      "overlap_groups": 18,
+      "overlap_preview": [
+        "visdrone:visdrone_train_9999940_00000_d",
+        "visdrone:visdrone_train_9999942_00000_d",
+        "visdrone:visdrone_train_9999943_00000_d",
+        "visdrone:visdrone_train_9999945_00000_d",
+        "visdrone:visdrone_train_9999948_00000_d",
+        "visdrone:visdrone_train_9999950_00000_d",
+        "visdrone:visdrone_train_9999951_00000_d",
+        "visdrone:visdrone_train_9999953_00000_d",
+        "visdrone:visdrone_train_9999955_00000_d",
+        "visdrone:visdrone_train_9999956_00000_d",
+        "visdrone:visdrone_train_9999960_00000_d",
+        "visdrone:visdrone_train_9999977_00000_d",
+        "visdrone:visdrone_train_9999981_00000_d",
+        "visdrone:visdrone_train_9999982_00000_d",
+        "visdrone:visdrone_train_9999984_00000_d",
+        "visdrone:visdrone_train_9999990_00000_d",
+        "visdrone:visdrone_train_9999994_00000_d",
+        "visdrone:visdrone_train_9999997_00000_d"
+      ],
+      "passed": false
+    },
+    "val_vs_test": {
+      "groups_a": 97,
+      "groups_b": 107,
+      "overlap_groups": 17,
+      "overlap_preview": [
+        "visdrone:visdrone_train_9999940_00000_d",
+        "visdrone:visdrone_train_9999942_00000_d",
+        "visdrone:visdrone_train_9999943_00000_d",
+        "visdrone:visdrone_train_9999945_00000_d",
+        "visdrone:visdrone_train_9999948_00000_d",
+        "visdrone:visdrone_train_9999950_00000_d",
+        "visdrone:visdrone_train_9999951_00000_d",
+        "visdrone:visdrone_train_9999953_00000_d",
+        "visdrone:visdrone_train_9999955_00000_d",
+        "visdrone:visdrone_train_9999956_00000_d",
+        "visdrone:visdrone_train_9999960_00000_d",
+        "visdrone:visdrone_train_9999977_00000_d",
+        "visdrone:visdrone_train_9999981_00000_d",
+        "visdrone:visdrone_train_9999982_00000_d",
+        "visdrone:visdrone_train_9999984_00000_d",
+        "visdrone:visdrone_train_9999994_00000_d",
+        "visdrone:visdrone_train_9999997_00000_d"
+      ],
+      "passed": false
+    }
+  },
+  "test_manifest": "/root/autodl-tmp/YOLO_Thesis/runs/detect/stage6_scene_selector/stage6_4_preflight/test_manifest.csv",
+  "requirements_before_stage6_4": [
+    "A test split must exist and must not be the Stage 6.3 validation split.",
+    "YOLO test labels must be present and valid.",
+    "Test source must be identifiable as uavdt or visdrone.",
+    "Test sequence IDs must not overlap either train or val sequence IDs.",
+    "Do not refit the frozen M3 selector or change its probability threshold on test."
+  ]
+}

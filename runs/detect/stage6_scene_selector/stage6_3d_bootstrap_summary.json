@@ -1,0 +1,354 @@
+{
+  "experiment": "Stage6.3D_A_Paired_VisDrone_Sequence_Cluster_Bootstrap",
+  "created_at": "2026-11-04T22:52:35",
+  "status": "completed",
+  "bootstrap": {
+    "replicates": 1000,
+    "seed": 42,
+    "resampling_unit": "VisDrone sequence_id cluster",
+    "number_of_sequence_groups": 94,
+    "sampling": "sample 94 sequence groups with replacement; include all images in each sampled group",
+    "uavdt_handling": "all 1320 UAVDT images held fixed in every replicate",
+    "confidence_interval": "percentile 2.5th and 97.5th percentiles",
+    "paired_comparison": "all four prediction policies evaluated on the same sampled sequence groups"
+  },
+  "input_sha256": {
+    "features": "db33bd0a0cd47b32298d36fab9fd99e7f8835def5a03a28bed8c7cadc566106d",
+    "original": "4979c79d6966539b51f67592f8bdf10efc21d71f126065d13c730dc20a79fc23",
+    "c2": "7e018f981f2cbcf39b512226892b58a067655c5e49c4ace8a6c07282ca3ef5b6",
+    "gt": "75098d09c3a02e8f8e32eab99df6c977474748dd177a97b1692f766bbdcf0de4"
+  },
+  "interpretation_limit": "This is a conditional cluster bootstrap for VisDrone sequence-sampling uncertainty. UAVDT is fixed, and the 247 VisDrone development images are resampled; this is not an independent external test.",
+  "samples_csv": "runs/detect/stage6_scene_selector/stage6_3d_bootstrap_samples.csv",
+  "metric_distributions": {
+    "A_Original_full_AP50-95": {
+      "mean": 0.41960954007323314,
+      "median": 0.41984478257171054,
+      "std": 0.00446976217529194,
+      "ci95_percentile_low": 0.41070358300942045,
+      "ci95_percentile_high": 0.4276146199995605
+    },
+    "A_Original_full_APs": {
+      "mean": 0.3230564450883693,
+      "median": 0.32304927415680296,
+      "std": 0.005710295750650855,
+      "ci95_percentile_low": 0.31188610475293815,
+      "ci95_percentile_high": 0.3338228949193952
+    },
+    "A_Original_visdrone_AP50-95": {
+      "mean": 0.384472350770683,
+      "median": 0.384303279166252,
+      "std": 0.01737540383593329,
+      "ci95_percentile_low": 0.34871154632348383,
+      "ci95_percentile_high": 0.4163439390100592
+    },
+    "A_Original_visdrone_APs": {
+      "mean": 0.2456702446179966,
+      "median": 0.24759642827215828,
+      "std": 0.016982725466766182,
+      "ci95_percentile_low": 0.20851600349275404,
+      "ci95_percentile_high": 0.27356089688840407
+    },
+    "C2_area2048_full_AP50-95": {
+      "mean": 0.4344215903198607,
+      "median": 0.43447243128172464,
+      "std": 0.0030350460171625292,
+      "ci95_percentile_low": 0.42824691294102435,
+      "ci95_percentile_high": 0.4402062236373138
+    },
+    "C2_area2048_full_APs": {
+      "mean": 0.34742930360500973,
+      "median": 0.3476382177506798,
+      "std": 0.003656613920574714,
+      "ci95_percentile_low": 0.3397597175214364,
+      "ci95_percentile_high": 0.35387509603839473
+    },
+    "C2_area2048_visdrone_AP50-95": {
+      "mean": 0.44049300400890756,
+      "median": 0.44209559736889437,
+      "std": 0.014865159382677712,
+      "ci95_percentile_low": 0.40893303239180745,
+      "ci95_percentile_high": 0.46678205765560504
+    },
+    "C2_area2048_visdrone_APs": {
+      "mean": 0.3350197119780521,
+      "median": 0.3377132516474353,
+      "std": 0.021340397142495016,
+      "ci95_percentile_low": 0.28642551140600436,
+      "ci95_percentile_high": 0.36824415378557895
+    },
+    "Loose_full_AP50-95": {
+      "mean": 0.4334414530921876,
+      "median": 0.43354958012989864,
+      "std": 0.003008750959307059,
+      "ci95_percentile_low": 0.42742439090312057,
+      "ci95_percentile_high": 0.43913292659127623
+    },
+    "Loose_full_APs": {
+      "mean": 0.3455660466551325,
+      "median": 0.345698426314325,
+      "std": 0.003763604240053614,
+      "ci95_percentile_low": 0.3376388092844851,
+      "ci95_percentile_high": 0.3521551724328366
+    },
+    "Loose_visdrone_AP50-95": {
+      "mean": 0.4377135760671935,
+      "median": 0.43945498543451944,
+      "std": 0.015115415436328569,
+      "ci95_percentile_low": 0.4055798123049349,
+      "ci95_percentile_high": 0.4635375827815037
+    },
+    "Loose_visdrone_APs": {
+      "mean": 0.3288611036375368,
+      "median": 0.33172030845897915,
+      "std": 0.022701280828064715,
+      "ci95_percentile_low": 0.27716344982982943,
+      "ci95_percentile_high": 0.36428823493469553
+    },
+    "Medium_full_AP50-95": {
+      "mean": 0.43177474357926326,
+      "median": 0.4318067410834651,
+      "std": 0.0029325647248625293,
+      "ci95_percentile_low": 0.42556389105925535,
+      "ci95_percentile_high": 0.4373501414665006
+    },
+    "Medium_full_APs": {
+      "mean": 0.34354650586112234,
+      "median": 0.34371431389990004,
+      "std": 0.00374710796983637,
+      "ci95_percentile_low": 0.33575613439506313,
+      "ci95_percentile_high": 0.35028746198858723
+    },
+    "Medium_visdrone_AP50-95": {
+      "mean": 0.4317317786281769,
+      "median": 0.43370418617902434,
+      "std": 0.01538896356743508,
+      "ci95_percentile_low": 0.3970330865899144,
+      "ci95_percentile_high": 0.45825077129154396
+    },
+    "Medium_visdrone_APs": {
+      "mean": 0.3212308427017589,
+      "median": 0.3243005739797316,
+      "std": 0.02317044865969075,
+      "ci95_percentile_low": 0.26981254442422004,
+      "ci95_percentile_high": 0.3581964233953099
+    }
+  },
+  "paired_delta_distributions": {
+    "delta_Loose_vs_C2_full_AP50-95": {
+      "mean": -0.0009801372276730998,
+      "median": -0.0009773560146590365,
+      "std": 0.0004332305571736294,
+      "ci95_percentile_low": -0.001835122927074348,
+      "ci95_percentile_high": -0.00017422659996154259,
+      "probability_delta_gt_zero": 0.005,
+      "probability_delta_ge_minus_0_002": 0.99
+    },
+    "delta_Loose_vs_C2_full_APs": {
+      "mean": -0.0018632569498772025,
+      "median": -0.0018352292902756862,
+      "std": 0.0005646955141221135,
+      "ci95_percentile_low": -0.003012633722489601,
+      "ci95_percentile_high": -0.0008144611377938941,
+      "probability_delta_gt_zero": 0.0,
+      "probability_delta_ge_minus_0_002": 0.622
+    },
+    "delta_Loose_vs_C2_visdrone_AP50-95": {
+      "mean": -0.0027794279417140727,
+      "median": -0.002691753558859422,
+      "std": 0.0019386888691303413,
+      "ci95_percentile_low": -0.006734418481909121,
+      "ci95_percentile_high": 0.000851743516556016,
+      "probability_delta_gt_zero": 0.074,
+      "probability_delta_ge_minus_0_002": 0.363
+    },
+    "delta_Loose_vs_C2_visdrone_APs": {
+      "mean": -0.0061586083405153445,
+      "median": -0.005848641584913855,
+      "std": 0.002879207910641904,
+      "ci95_percentile_low": -0.012336604992174984,
+      "ci95_percentile_high": -0.0014444164548353554,
+      "probability_delta_gt_zero": 0.001,
+      "probability_delta_ge_minus_0_002": 0.055
+    },
+    "delta_Medium_vs_C2_full_AP50-95": {
+      "mean": -0.0026468467405974024,
+      "median": -0.002582449823969768,
+      "std": 0.0007616894390013392,
+      "ci95_percentile_low": -0.004263011998999343,
+      "ci95_percentile_high": -0.0013546795603758053,
+      "probability_delta_gt_zero": 0.0,
+      "probability_delta_ge_minus_0_002": 0.211
+    },
+    "delta_Medium_vs_C2_full_APs": {
+      "mean": -0.0038827977438874186,
+      "median": -0.003806044938440084,
+      "std": 0.0010321769239632433,
+      "ci95_percentile_low": -0.00613041128422423,
+      "ci95_percentile_high": -0.0021626311364784452,
+      "probability_delta_gt_zero": 0.0,
+      "probability_delta_ge_minus_0_002": 0.011
+    },
+    "delta_Medium_vs_C2_visdrone_AP50-95": {
+      "mean": -0.008761225380730667,
+      "median": -0.008440846707128108,
+      "std": 0.0029638922914603724,
+      "ci95_percentile_low": -0.01535562096921219,
+      "ci95_percentile_high": -0.0038265458868603653,
+      "probability_delta_gt_zero": 0.0,
+      "probability_delta_ge_minus_0_002": 0.002
+    },
+    "delta_Medium_vs_C2_visdrone_APs": {
+      "mean": -0.01378886927629327,
+      "median": -0.013214780360068568,
+      "std": 0.004713025054934653,
+      "ci95_percentile_low": -0.024292237132318817,
+      "ci95_percentile_high": -0.005971980664034549,
+      "probability_delta_gt_zero": 0.0,
+      "probability_delta_ge_minus_0_002": 0.0
+    },
+    "delta_A_Original_vs_C2_full_AP50-95": {
+      "mean": -0.01481205024662759,
+      "median": -0.014708028691064495,
+      "std": 0.003714668253785512,
+      "ci95_percentile_low": -0.022252152543246317,
+      "ci95_percentile_high": -0.008326548718861706,
+      "probability_delta_gt_zero": 0.0,
+      "probability_delta_ge_minus_0_002": 0.0
+    },
+    "delta_A_Original_vs_C2_full_APs": {
+      "mean": -0.024372858516640478,
+      "median": -0.024089597836711246,
+      "std": 0.005830138407360182,
+      "ci95_percentile_low": -0.035889348298035514,
+      "ci95_percentile_high": -0.014308924166153928,
+      "probability_delta_gt_zero": 0.0,
+      "probability_delta_ge_minus_0_002": 0.0
+    },
+    "delta_A_Original_vs_C2_visdrone_AP50-95": {
+      "mean": -0.056020653238224624,
+      "median": -0.05593492529918101,
+      "std": 0.008806226969882574,
+      "ci95_percentile_low": -0.07387492408864847,
+      "ci95_percentile_high": -0.039214464733150566,
+      "probability_delta_gt_zero": 0.0,
+      "probability_delta_ge_minus_0_002": 0.0
+    },
+    "delta_A_Original_vs_C2_visdrone_APs": {
+      "mean": -0.08934946736005554,
+      "median": -0.0895742457642687,
+      "std": 0.010596332904425285,
+      "ci95_percentile_low": -0.11005890050972222,
+      "ci95_percentile_high": -0.06897399566116179,
+      "probability_delta_gt_zero": 0.0,
+      "probability_delta_ge_minus_0_002": 0.0
+    },
+    "delta_Loose_vs_Medium_full_AP50-95": {
+      "mean": 0.0016667095129243028,
+      "median": 0.0016223188202429684,
+      "std": 0.0006893138036425265,
+      "ci95_percentile_low": 0.0005043977693676274,
+      "ci95_percentile_high": 0.00322419905770241,
+      "probability_delta_gt_zero": 0.999,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_Loose_vs_Medium_full_APs": {
+      "mean": 0.002019540794010216,
+      "median": 0.0019277890778500728,
+      "std": 0.0009560281751550793,
+      "ci95_percentile_low": 0.0004368387950215519,
+      "ci95_percentile_high": 0.004090241117465898,
+      "probability_delta_gt_zero": 0.994,
+      "probability_delta_ge_minus_0_002": 1.0
+    },
+    "delta_Loose_vs_Medium_visdrone_AP50-95": {
+      "mean": 0.005981797439016593,
+      "median": 0.005598069420132579,
+      "std": 0.002758234869133283,
+      "ci95_percentile_low": 0.0013746899220226996,
+      "ci95_percentile_high": 0.012260089360593,
+      "probability_delta_gt_zero": 0.995,
+      "probability_delta_ge_minus_0_002": 0.999
+    },
+    "delta_Loose_vs_Medium_visdrone_APs": {
+      "mean": 0.007630260935777923,
+      "median": 0.007126521078083287,
+      "std": 0.004116135563584429,
+      "ci95_percentile_low": 0.0010036606558073396,
+      "ci95_percentile_high": 0.01713795308090243,
+      "probability_delta_gt_zero": 0.991,
+      "probability_delta_ge_minus_0_002": 0.995
+    }
+  },
+  "stage6_3c_point_estimates": {
+    "Loose": {
+      "full": {
+        "AP50-95": 0.43342715372507884,
+        "AP50": 0.7966113709885241,
+        "APs": 0.34565915714013085,
+        "APm": 0.5443639417090917,
+        "APl": 0.5754645026102034
+      },
+      "visdrone": {
+        "AP50-95": 0.4391249308297705,
+        "AP50": 0.7097025775352268,
+        "APs": 0.3321069714962847,
+        "APm": 0.5837682750714897,
+        "APl": 0.6928420088701792
+      },
+      "uavdt_reference_unchanged": {
+        "AP50-95": 0.43674357071986447,
+        "AP50": 0.8228439391007577,
+        "APs": 0.35747096704334647,
+        "APm": 0.5385187177459128,
+        "APl": 0.5129236882623374
+      }
+    },
+    "Medium": {
+      "full": {
+        "AP50-95": 0.43182470654020083,
+        "AP50": 0.7963383366563267,
+        "APs": 0.34361900428820474,
+        "APm": 0.5431724613374396,
+        "APl": 0.5754594767756678
+      },
+      "visdrone": {
+        "AP50-95": 0.4330184812544906,
+        "AP50": 0.7093485606307283,
+        "APs": 0.32486509405003366,
+        "APm": 0.580032512686715,
+        "APl": 0.6928262155335692
+      },
+      "uavdt_reference_unchanged": {
+        "AP50-95": 0.43674357071986447,
+        "AP50": 0.8228439391007577,
+        "APs": 0.35747096704334647,
+        "APm": 0.5385187177459128,
+        "APl": 0.5129236882623374
+      }
+    },
+    "Strict": {
+      "full": {
+        "AP50-95": 0.4284298430880148,
+        "AP50": 0.7908954871622913,
+        "APs": 0.33799336312125805,
+        "APm": 0.5420315981152728,
+        "APl": 0.5753012105128547
+      },
+      "visdrone": {
+        "AP50-95": 0.4198154835770459,
+        "AP50": 0.6928095440229232,
+        "APs": 0.30428666260289045,
+        "APm": 0.5771213697632058,
+        "APl": 0.6957053986510074
+      },
+      "uavdt_reference_unchanged": {
+        "AP50-95": 0.43674357071986447,
+        "AP50": 0.8228439391007577,
+        "APs": 0.35747096704334647,
+        "APm": 0.5385187177459128,
+        "APl": 0.5129236882623374
+      }
+    }
+  }
+}

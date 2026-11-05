@@ -1,0 +1,1195 @@
+{
+  "experiment": "Stage6.3F_C_Final_Selector_Live_Runtime_Benchmark",
+  "created_at": "2026-11-05T17:43:24",
+  "status": "completed",
+  "protocol": {
+    "images": 1567,
+    "source_counts": {
+      "uavdt": 1320,
+      "visdrone": 247
+    },
+    "imgsz": 640,
+    "conf": 0.001,
+    "nms_iou": 0.7,
+    "max_det": 300,
+    "feature_conf": 0.25,
+    "feature_imgsz": 640,
+    "tiny_area_threshold": 1024,
+    "overlap": 0.15,
+    "tile_layout": "2x2",
+    "tile_area_filter": "tile box area < 2048 in original-image pixels",
+    "half": false,
+    "augment": false,
+    "warmup": 3,
+    "repeats": 3,
+    "source_policy": "UAVDT always original-only; VisDrone uses C2_area2048 only when the final selector triggers",
+    "timing_method": "same component-sum method as Stage 6.3D-B: read/original inference are measured once per image; F0/F1 feature and selector costs are measured online; tile/fusion costs are measured for each VisDrone image and included in each policy total only when that policy selects it",
+    "runtime_only": true,
+    "no_yolo_training": true,
+    "no_accuracy_evaluation": true,
+    "independent_test_used": false
+  },
+  "environment": {
+    "numpy": "1.26.4",
+    "scikit_learn": "1.5.2",
+    "joblib": "1.6.0"
+  },
+  "hardware": {
+    "torch": "2.12.0+cu130",
+    "cuda": "13.0",
+    "gpu_name": "NVIDIA GeForce RTX 3090"
+  },
+  "input_sha256": {
+    "expanded_scene_features.csv": "72c7bd62fd1a422dfbfd009d1b1dcb9fe85b392e3f5fbb7e64484a5a21ffc622",
+    "feature_audit.json": "9ad38e554ceaa1772e8f150f7302a7ea327ba7e14a3af907da5b1e93f09f0a5c",
+    "utility_csv": "55eb418fe6d57220d1a454c14626f25692de098bd56c869e87c5829749fa1bee",
+    "original_predictions": "4979c79d6966539b51f67592f8bdf10efc21d71f126065d13c730dc20a79fc23",
+    "c2_predictions": "7e018f981f2cbcf39b512226892b58a067655c5e49c4ace8a6c07282ca3ef5b6",
+    "ground_truth": "75098d09c3a02e8f8e32eab99df6c977474748dd177a97b1692f766bbdcf0de4",
+    "stage6_3f_b_summary": "fdb649dae3289c8428c6d5346748ef6f7b12f90c2e57c653e8d12e6d94de8651",
+    "stage6_3d_runtime_summary": "23373d748f0c5e79a55a21f53c66a0f3c932fc57cb6034d6f954f7fc0739a7d1",
+    "yolo_weights": "1a63af9a02c3970a71a2971890b84773851875971620c6eb9336becb090030bb"
+  },
+  "final_selector_metadata": "runs/detect/stage6_scene_selector/stage6_3f_c_runtime/final_selector_metadata.json",
+  "final_selectors": {
+    "M3_Logistic_F0": {
+      "model": "M3_Logistic_F0",
+      "feature_set": "F0",
+      "feature_names": [
+        "n_det_conf025",
+        "median_box_area_640",
+        "tiny_ratio"
+      ],
+      "training_images": 247,
+      "training_sequences": 94,
+      "label_counts": {
+        "beneficial": 158,
+        "harmful": 89
+      },
+      "final_config": {
+        "C": 0.01,
+        "class_weight": "balanced"
+      },
+      "probability_threshold": 0.5071783812207581,
+      "budget": 0.8,
+      "minimum_trigger_fraction": 0.1,
+      "minimum_trigger_absolute": 5,
+      "finalization_cv": {
+        "splitter": "StratifiedGroupKFold(n_splits=4, shuffle=True, random_state=42)",
+        "group_key": "sequence_id",
+        "split_audit": [
+          {
+            "fold": 1,
+            "train_images": 148,
+            "validation_images": 99,
+            "train_groups": 66,
+            "validation_groups": 28,
+            "train_beneficial": 96,
+            "train_harmful": 52,
+            "validation_beneficial": 62,
+            "validation_harmful": 37,
+            "group_overlap": 0
+          },
+          {
+            "fold": 2,
+            "train_images": 213,
+            "validation_images": 34,
+            "train_groups": 71,
+            "validation_groups": 23,
+            "train_beneficial": 136,
+            "train_harmful": 77,
+            "validation_beneficial": 22,
+            "validation_harmful": 12,
+            "group_overlap": 0
+          },
+          {
+            "fold": 3,
+            "train_images": 195,
+            "validation_images": 52,
+            "train_groups": 67,
+            "validation_groups": 27,
+            "train_beneficial": 125,
+            "train_harmful": 70,
+            "validation_beneficial": 33,
+            "validation_harmful": 19,
+            "group_overlap": 0
+          },
+          {
+            "fold": 4,
+            "train_images": 185,
+            "validation_images": 62,
+            "train_groups": 78,
+            "validation_groups": 16,
+            "train_beneficial": 117,
+            "train_harmful": 68,
+            "validation_beneficial": 41,
+            "validation_harmful": 21,
+            "group_overlap": 0
+          }
+        ],
+        "objective": "maximize (beneficial_selected - harmful_selected)/n on OOF scores; tie-break by beneficial precision, then fewer selected images"
+      },
+      "oof_diagnostics_for_finalization_only": {
+        "images": 247,
+        "selected_images": 177,
+        "trigger_rate": 0.7165991902834008,
+        "beneficial_total": 158,
+        "harmful_total": 89,
+        "beneficial_selected": 148,
+        "harmful_selected": 29,
+        "beneficial_precision": 0.8361581920903954,
+        "beneficial_recall": 0.9367088607594937,
+        "harmful_capture_rate": 0.3258426966292135,
+        "net_label_utility": 119,
+        "net_label_utility_per_image": 0.4817813765182186
+      },
+      "tested_config_count": 8,
+      "all_config_oof_results": [
+        {
+          "config": {
+            "C": 0.01,
+            "class_weight": null
+          },
+          "threshold": 0.6416324151564071,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 174,
+            "trigger_rate": 0.7044534412955465,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 145,
+            "harmful_selected": 29,
+            "beneficial_precision": 0.8333333333333334,
+            "beneficial_recall": 0.9177215189873418,
+            "harmful_capture_rate": 0.3258426966292135,
+            "net_label_utility": 116,
+            "net_label_utility_per_image": 0.46963562753036436
+          },
+          "ranking": [
+            0.46963562753036436,
+            0.8333333333333334,
+            -174
+          ]
+        },
+        {
+          "config": {
+            "C": 0.01,
+            "class_weight": "balanced"
+          },
+          "threshold": 0.5071783812207581,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 177,
+            "trigger_rate": 0.7165991902834008,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 148,
+            "harmful_selected": 29,
+            "beneficial_precision": 0.8361581920903954,
+            "beneficial_recall": 0.9367088607594937,
+            "harmful_capture_rate": 0.3258426966292135,
+            "net_label_utility": 119,
+            "net_label_utility_per_image": 0.4817813765182186
+          },
+          "ranking": [
+            0.4817813765182186,
+            0.8361581920903954,
+            -177
+          ]
+        },
+        {
+          "config": {
+            "C": 0.1,
+            "class_weight": null
+          },
+          "threshold": 0.6218148380451872,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 176,
+            "trigger_rate": 0.7125506072874493,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 146,
+            "harmful_selected": 30,
+            "beneficial_precision": 0.8295454545454546,
+            "beneficial_recall": 0.9240506329113924,
+            "harmful_capture_rate": 0.33707865168539325,
+            "net_label_utility": 116,
+            "net_label_utility_per_image": 0.46963562753036436
+          },
+          "ranking": [
+            0.46963562753036436,
+            0.8295454545454546,
+            -176
+          ]
+        },
+        {
+          "config": {
+            "C": 0.1,
+            "class_weight": "balanced"
+          },
+          "threshold": 0.4834605813192177,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 177,
+            "trigger_rate": 0.7165991902834008,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 147,
+            "harmful_selected": 30,
+            "beneficial_precision": 0.8305084745762712,
+            "beneficial_recall": 0.930379746835443,
+            "harmful_capture_rate": 0.33707865168539325,
+            "net_label_utility": 117,
+            "net_label_utility_per_image": 0.47368421052631576
+          },
+          "ranking": [
+            0.47368421052631576,
+            0.8305084745762712,
+            -177
+          ]
+        },
+        {
+          "config": {
+            "C": 1.0,
+            "class_weight": null
+          },
+          "threshold": 0.6067024751677818,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 173,
+            "trigger_rate": 0.7004048582995951,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 144,
+            "harmful_selected": 29,
+            "beneficial_precision": 0.8323699421965318,
+            "beneficial_recall": 0.9113924050632911,
+            "harmful_capture_rate": 0.3258426966292135,
+            "net_label_utility": 115,
+            "net_label_utility_per_image": 0.46558704453441296
+          },
+          "ranking": [
+            0.46558704453441296,
+            0.8323699421965318,
+            -173
+          ]
+        },
+        {
+          "config": {
+            "C": 1.0,
+            "class_weight": "balanced"
+          },
+          "threshold": 0.5155808200501059,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 162,
+            "trigger_rate": 0.6558704453441295,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 138,
+            "harmful_selected": 24,
+            "beneficial_precision": 0.8518518518518519,
+            "beneficial_recall": 0.8734177215189873,
+            "harmful_capture_rate": 0.2696629213483146,
+            "net_label_utility": 114,
+            "net_label_utility_per_image": 0.46153846153846156
+          },
+          "ranking": [
+            0.46153846153846156,
+            0.8518518518518519,
+            -162
+          ]
+        },
+        {
+          "config": {
+            "C": 10.0,
+            "class_weight": null
+          },
+          "threshold": 0.649781401179102,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 160,
+            "trigger_rate": 0.6477732793522267,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 137,
+            "harmful_selected": 23,
+            "beneficial_precision": 0.85625,
+            "beneficial_recall": 0.8670886075949367,
+            "harmful_capture_rate": 0.25842696629213485,
+            "net_label_utility": 114,
+            "net_label_utility_per_image": 0.46153846153846156
+          },
+          "ranking": [
+            0.46153846153846156,
+            0.85625,
+            -160
+          ]
+        },
+        {
+          "config": {
+            "C": 10.0,
+            "class_weight": "balanced"
+          },
+          "threshold": 0.5015355406200463,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 163,
+            "trigger_rate": 0.659919028340081,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 139,
+            "harmful_selected": 24,
+            "beneficial_precision": 0.852760736196319,
+            "beneficial_recall": 0.879746835443038,
+            "harmful_capture_rate": 0.2696629213483146,
+            "net_label_utility": 115,
+            "net_label_utility_per_image": 0.46558704453441296
+          },
+          "ranking": [
+            0.46558704453441296,
+            0.852760736196319,
+            -163
+          ]
+        }
+      ],
+      "input_sha256": {
+        "expanded_scene_features.csv": "72c7bd62fd1a422dfbfd009d1b1dcb9fe85b392e3f5fbb7e64484a5a21ffc622",
+        "feature_audit.json": "9ad38e554ceaa1772e8f150f7302a7ea327ba7e14a3af907da5b1e93f09f0a5c",
+        "utility_csv": "55eb418fe6d57220d1a454c14626f25692de098bd56c869e87c5829749fa1bee",
+        "original_predictions": "4979c79d6966539b51f67592f8bdf10efc21d71f126065d13c730dc20a79fc23",
+        "c2_predictions": "7e018f981f2cbcf39b512226892b58a067655c5e49c4ace8a6c07282ca3ef5b6",
+        "ground_truth": "75098d09c3a02e8f8e32eab99df6c977474748dd177a97b1692f766bbdcf0de4",
+        "stage6_3f_b_summary": "fdb649dae3289c8428c6d5346748ef6f7b12f90c2e57c653e8d12e6d94de8651",
+        "stage6_3d_runtime_summary": "23373d748f0c5e79a55a21f53c66a0f3c932fc57cb6034d6f954f7fc0739a7d1",
+        "yolo_weights": "1a63af9a02c3970a71a2971890b84773851875971620c6eb9336becb090030bb"
+      },
+      "model_file": "runs/detect/stage6_scene_selector/stage6_3f_c_runtime/final_selector_m3_logistic_f0.joblib",
+      "model_sha256": "cbc403801df42769fac96ae30cf5751f83ffd59513d7c5f37733b452f76affda",
+      "interpretation_limit": "The 247 VisDrone development labels are used to finalize this selector. OOF diagnostics are for threshold/configuration selection only; they are not an independent test result. Do not report accuracy on these same images."
+    },
+    "M4_Logistic_F1": {
+      "model": "M4_Logistic_F1",
+      "feature_set": "F1",
+      "feature_names": [
+        "n_det_conf025",
+        "median_box_area_640",
+        "tiny_ratio",
+        "tiny_count",
+        "det_density_per_mp",
+        "mean_confidence_025",
+        "box_area_cv_640",
+        "grid_occupancy_4x4"
+      ],
+      "training_images": 247,
+      "training_sequences": 94,
+      "label_counts": {
+        "beneficial": 158,
+        "harmful": 89
+      },
+      "final_config": {
+        "C": 0.01,
+        "class_weight": "balanced"
+      },
+      "probability_threshold": 0.5012683253313027,
+      "budget": 0.8,
+      "minimum_trigger_fraction": 0.1,
+      "minimum_trigger_absolute": 5,
+      "finalization_cv": {
+        "splitter": "StratifiedGroupKFold(n_splits=4, shuffle=True, random_state=42)",
+        "group_key": "sequence_id",
+        "split_audit": [
+          {
+            "fold": 1,
+            "train_images": 148,
+            "validation_images": 99,
+            "train_groups": 66,
+            "validation_groups": 28,
+            "train_beneficial": 96,
+            "train_harmful": 52,
+            "validation_beneficial": 62,
+            "validation_harmful": 37,
+            "group_overlap": 0
+          },
+          {
+            "fold": 2,
+            "train_images": 213,
+            "validation_images": 34,
+            "train_groups": 71,
+            "validation_groups": 23,
+            "train_beneficial": 136,
+            "train_harmful": 77,
+            "validation_beneficial": 22,
+            "validation_harmful": 12,
+            "group_overlap": 0
+          },
+          {
+            "fold": 3,
+            "train_images": 195,
+            "validation_images": 52,
+            "train_groups": 67,
+            "validation_groups": 27,
+            "train_beneficial": 125,
+            "train_harmful": 70,
+            "validation_beneficial": 33,
+            "validation_harmful": 19,
+            "group_overlap": 0
+          },
+          {
+            "fold": 4,
+            "train_images": 185,
+            "validation_images": 62,
+            "train_groups": 78,
+            "validation_groups": 16,
+            "train_beneficial": 117,
+            "train_harmful": 68,
+            "validation_beneficial": 41,
+            "validation_harmful": 21,
+            "group_overlap": 0
+          }
+        ],
+        "objective": "maximize (beneficial_selected - harmful_selected)/n on OOF scores; tie-break by beneficial precision, then fewer selected images"
+      },
+      "oof_diagnostics_for_finalization_only": {
+        "images": 247,
+        "selected_images": 170,
+        "trigger_rate": 0.6882591093117408,
+        "beneficial_total": 158,
+        "harmful_total": 89,
+        "beneficial_selected": 145,
+        "harmful_selected": 25,
+        "beneficial_precision": 0.8529411764705882,
+        "beneficial_recall": 0.9177215189873418,
+        "harmful_capture_rate": 0.2808988764044944,
+        "net_label_utility": 120,
+        "net_label_utility_per_image": 0.48582995951417
+      },
+      "tested_config_count": 8,
+      "all_config_oof_results": [
+        {
+          "config": {
+            "C": 0.01,
+            "class_weight": null
+          },
+          "threshold": 0.6200865743497043,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 180,
+            "trigger_rate": 0.728744939271255,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 150,
+            "harmful_selected": 30,
+            "beneficial_precision": 0.8333333333333334,
+            "beneficial_recall": 0.9493670886075949,
+            "harmful_capture_rate": 0.33707865168539325,
+            "net_label_utility": 120,
+            "net_label_utility_per_image": 0.48582995951417
+          },
+          "ranking": [
+            0.48582995951417,
+            0.8333333333333334,
+            -180
+          ]
+        },
+        {
+          "config": {
+            "C": 0.01,
+            "class_weight": "balanced"
+          },
+          "threshold": 0.5012683253313027,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 170,
+            "trigger_rate": 0.6882591093117408,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 145,
+            "harmful_selected": 25,
+            "beneficial_precision": 0.8529411764705882,
+            "beneficial_recall": 0.9177215189873418,
+            "harmful_capture_rate": 0.2808988764044944,
+            "net_label_utility": 120,
+            "net_label_utility_per_image": 0.48582995951417
+          },
+          "ranking": [
+            0.48582995951417,
+            0.8529411764705882,
+            -170
+          ]
+        },
+        {
+          "config": {
+            "C": 0.1,
+            "class_weight": null
+          },
+          "threshold": 0.6031884281921188,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 173,
+            "trigger_rate": 0.7004048582995951,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 145,
+            "harmful_selected": 28,
+            "beneficial_precision": 0.838150289017341,
+            "beneficial_recall": 0.9177215189873418,
+            "harmful_capture_rate": 0.3146067415730337,
+            "net_label_utility": 117,
+            "net_label_utility_per_image": 0.47368421052631576
+          },
+          "ranking": [
+            0.47368421052631576,
+            0.838150289017341,
+            -173
+          ]
+        },
+        {
+          "config": {
+            "C": 0.1,
+            "class_weight": "balanced"
+          },
+          "threshold": 0.4894092481440537,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 167,
+            "trigger_rate": 0.6761133603238867,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 142,
+            "harmful_selected": 25,
+            "beneficial_precision": 0.8502994011976048,
+            "beneficial_recall": 0.8987341772151899,
+            "harmful_capture_rate": 0.2808988764044944,
+            "net_label_utility": 117,
+            "net_label_utility_per_image": 0.47368421052631576
+          },
+          "ranking": [
+            0.47368421052631576,
+            0.8502994011976048,
+            -167
+          ]
+        },
+        {
+          "config": {
+            "C": 1.0,
+            "class_weight": null
+          },
+          "threshold": 0.6014365306430446,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 166,
+            "trigger_rate": 0.6720647773279352,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 141,
+            "harmful_selected": 25,
+            "beneficial_precision": 0.8493975903614458,
+            "beneficial_recall": 0.8924050632911392,
+            "harmful_capture_rate": 0.2808988764044944,
+            "net_label_utility": 116,
+            "net_label_utility_per_image": 0.46963562753036436
+          },
+          "ranking": [
+            0.46963562753036436,
+            0.8493975903614458,
+            -166
+          ]
+        },
+        {
+          "config": {
+            "C": 1.0,
+            "class_weight": "balanced"
+          },
+          "threshold": 0.49735629951178467,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 161,
+            "trigger_rate": 0.6518218623481782,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 138,
+            "harmful_selected": 23,
+            "beneficial_precision": 0.8571428571428571,
+            "beneficial_recall": 0.8734177215189873,
+            "harmful_capture_rate": 0.25842696629213485,
+            "net_label_utility": 115,
+            "net_label_utility_per_image": 0.46558704453441296
+          },
+          "ranking": [
+            0.46558704453441296,
+            0.8571428571428571,
+            -161
+          ]
+        },
+        {
+          "config": {
+            "C": 10.0,
+            "class_weight": null
+          },
+          "threshold": 0.6618049018188473,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 149,
+            "trigger_rate": 0.6032388663967612,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 132,
+            "harmful_selected": 17,
+            "beneficial_precision": 0.8859060402684564,
+            "beneficial_recall": 0.8354430379746836,
+            "harmful_capture_rate": 0.19101123595505617,
+            "net_label_utility": 115,
+            "net_label_utility_per_image": 0.46558704453441296
+          },
+          "ranking": [
+            0.46558704453441296,
+            0.8859060402684564,
+            -149
+          ]
+        },
+        {
+          "config": {
+            "C": 10.0,
+            "class_weight": "balanced"
+          },
+          "threshold": 0.4917328757943037,
+          "oof_diagnostics": {
+            "images": 247,
+            "selected_images": 157,
+            "trigger_rate": 0.6356275303643725,
+            "beneficial_total": 158,
+            "harmful_total": 89,
+            "beneficial_selected": 136,
+            "harmful_selected": 21,
+            "beneficial_precision": 0.8662420382165605,
+            "beneficial_recall": 0.8607594936708861,
+            "harmful_capture_rate": 0.23595505617977527,
+            "net_label_utility": 115,
+            "net_label_utility_per_image": 0.46558704453441296
+          },
+          "ranking": [
+            0.46558704453441296,
+            0.8662420382165605,
+            -157
+          ]
+        }
+      ],
+      "input_sha256": {
+        "expanded_scene_features.csv": "72c7bd62fd1a422dfbfd009d1b1dcb9fe85b392e3f5fbb7e64484a5a21ffc622",
+        "feature_audit.json": "9ad38e554ceaa1772e8f150f7302a7ea327ba7e14a3af907da5b1e93f09f0a5c",
+        "utility_csv": "55eb418fe6d57220d1a454c14626f25692de098bd56c869e87c5829749fa1bee",
+        "original_predictions": "4979c79d6966539b51f67592f8bdf10efc21d71f126065d13c730dc20a79fc23",
+        "c2_predictions": "7e018f981f2cbcf39b512226892b58a067655c5e49c4ace8a6c07282ca3ef5b6",
+        "ground_truth": "75098d09c3a02e8f8e32eab99df6c977474748dd177a97b1692f766bbdcf0de4",
+        "stage6_3f_b_summary": "fdb649dae3289c8428c6d5346748ef6f7b12f90c2e57c653e8d12e6d94de8651",
+        "stage6_3d_runtime_summary": "23373d748f0c5e79a55a21f53c66a0f3c932fc57cb6034d6f954f7fc0739a7d1",
+        "yolo_weights": "1a63af9a02c3970a71a2971890b84773851875971620c6eb9336becb090030bb"
+      },
+      "model_file": "runs/detect/stage6_scene_selector/stage6_3f_c_runtime/final_selector_m4_logistic_f1.joblib",
+      "model_sha256": "9731b99311e64915c3879e1bc758f4669da4a9974cc703b807a740fdbce1a363",
+      "interpretation_limit": "The 247 VisDrone development labels are used to finalize this selector. OOF diagnostics are for threshold/configuration selection only; they are not an independent test result. Do not report accuracy on these same images."
+    }
+  },
+  "repeat_results": [
+    {
+      "repeat": 1,
+      "status": "completed",
+      "measurement_pass_wall_seconds": 42.727456911467016,
+      "feature_parity": {
+        "M3_Logistic_F0": 247,
+        "M4_Logistic_F1": 247
+      },
+      "prediction_verification": {
+        "original_images": 40,
+        "c2_visdrone_images": 20
+      },
+      "selected_images": {
+        "M3_Logistic_F0": 173,
+        "M4_Logistic_F1": 166
+      },
+      "repeat_metrics": [
+        {
+          "repeat": 1,
+          "policy": "A_Original",
+          "images": 1567,
+          "selected_visdrone_images": 0,
+          "trigger_rate_visdrone": 0.0,
+          "tile_crops": 0,
+          "total_seconds": 35.557120122015476,
+          "images_per_second": 44.0699357715919,
+          "mean_image_ms": 22.691206204221746,
+          "p95_image_ms": 30.079270806163535,
+          "read_seconds": 14.352341409772635,
+          "original_seconds": 21.20477871224284,
+          "feature_seconds": 0.0,
+          "selector_seconds": 0.0,
+          "tile_seconds": 0.0,
+          "fusion_seconds": 0.0,
+          "measurement_pass_wall_seconds": 42.727456911467016,
+          "verified_original_images": 40,
+          "verified_c2_visdrone_images": 20,
+          "feature_parity_M3": 247,
+          "feature_parity_M4": 247
+        },
+        {
+          "repeat": 1,
+          "policy": "C2_area2048",
+          "images": 1567,
+          "selected_visdrone_images": 247,
+          "trigger_rate_visdrone": 1.0,
+          "tile_crops": 988,
+          "total_seconds": 41.97942123748362,
+          "images_per_second": 37.327813338236744,
+          "mean_image_ms": 26.789675327047622,
+          "p95_image_ms": 56.65206052362907,
+          "read_seconds": 14.352341409772635,
+          "original_seconds": 21.20477871224284,
+          "feature_seconds": 0.0,
+          "selector_seconds": 0.0,
+          "tile_seconds": 6.185273538343608,
+          "fusion_seconds": 0.23702757712453604,
+          "measurement_pass_wall_seconds": 42.727456911467016,
+          "verified_original_images": 40,
+          "verified_c2_visdrone_images": 20,
+          "feature_parity_M3": 247,
+          "feature_parity_M4": 247
+        },
+        {
+          "repeat": 1,
+          "policy": "M3_Logistic_F0",
+          "images": 1567,
+          "selected_visdrone_images": 173,
+          "trigger_rate_visdrone": 0.7004048582995951,
+          "tile_crops": 692,
+          "total_seconds": 40.34787438530475,
+          "images_per_second": 38.83723799265923,
+          "mean_image_ms": 25.748483972753508,
+          "p95_image_ms": 55.86683107540009,
+          "read_seconds": 14.352341409772635,
+          "original_seconds": 21.20477871224284,
+          "feature_seconds": 0.05222317297011614,
+          "selector_seconds": 0.19007735047489405,
+          "tile_seconds": 4.367635830305517,
+          "fusion_seconds": 0.18081790953874588,
+          "measurement_pass_wall_seconds": 42.727456911467016,
+          "verified_original_images": 40,
+          "verified_c2_visdrone_images": 20,
+          "feature_parity_M3": 247,
+          "feature_parity_M4": 247
+        },
+        {
+          "repeat": 1,
+          "policy": "M4_Logistic_F1",
+          "images": 1567,
+          "selected_visdrone_images": 166,
+          "trigger_rate_visdrone": 0.6720647773279352,
+          "tile_crops": 664,
+          "total_seconds": 40.17165119480342,
+          "images_per_second": 39.00760743941505,
+          "mean_image_ms": 25.63602501263779,
+          "p95_image_ms": 55.720226466655724,
+          "read_seconds": 14.352341409772635,
+          "original_seconds": 21.20477871224284,
+          "feature_seconds": 0.07465127017349005,
+          "selector_seconds": 0.15276985429227352,
+          "tile_seconds": 4.209044962190092,
+          "fusion_seconds": 0.17806498613208532,
+          "measurement_pass_wall_seconds": 42.727456911467016,
+          "verified_original_images": 40,
+          "verified_c2_visdrone_images": 20,
+          "feature_parity_M3": 247,
+          "feature_parity_M4": 247
+        }
+      ]
+    },
+    {
+      "repeat": 2,
+      "status": "completed",
+      "measurement_pass_wall_seconds": 41.68293257150799,
+      "feature_parity": {
+        "M3_Logistic_F0": 247,
+        "M4_Logistic_F1": 247
+      },
+      "prediction_verification": {
+        "original_images": 40,
+        "c2_visdrone_images": 20
+      },
+      "selected_images": {
+        "M3_Logistic_F0": 173,
+        "M4_Logistic_F1": 166
+      },
+      "repeat_metrics": [
+        {
+          "repeat": 2,
+          "policy": "A_Original",
+          "images": 1567,
+          "selected_visdrone_images": 0,
+          "trigger_rate_visdrone": 0.0,
+          "tile_crops": 0,
+          "total_seconds": 34.63406524527818,
+          "images_per_second": 45.24447213754777,
+          "mean_image_ms": 22.102147571970757,
+          "p95_image_ms": 29.790682718157758,
+          "read_seconds": 14.031281475909054,
+          "original_seconds": 20.602783769369125,
+          "feature_seconds": 0.0,
+          "selector_seconds": 0.0,
+          "tile_seconds": 0.0,
+          "fusion_seconds": 0.0,
+          "measurement_pass_wall_seconds": 41.68293257150799,
+          "verified_original_images": 40,
+          "verified_c2_visdrone_images": 20,
+          "feature_parity_M3": 247,
+          "feature_parity_M4": 247
+        },
+        {
+          "repeat": 2,
+          "policy": "C2_area2048",
+          "images": 1567,
+          "selected_visdrone_images": 247,
+          "trigger_rate_visdrone": 1.0,
+          "tile_crops": 988,
+          "total_seconds": 40.950701464898884,
+          "images_per_second": 38.26552278581021,
+          "mean_image_ms": 26.133185363687865,
+          "p95_image_ms": 56.23984606936571,
+          "read_seconds": 14.031281475909054,
+          "original_seconds": 20.602783769369125,
+          "feature_seconds": 0.0,
+          "selector_seconds": 0.0,
+          "tile_seconds": 6.076734294183552,
+          "fusion_seconds": 0.23990192543715239,
+          "measurement_pass_wall_seconds": 41.68293257150799,
+          "verified_original_images": 40,
+          "verified_c2_visdrone_images": 20,
+          "feature_parity_M3": 247,
+          "feature_parity_M4": 247
+        },
+        {
+          "repeat": 2,
+          "policy": "M3_Logistic_F0",
+          "images": 1567,
+          "selected_visdrone_images": 173,
+          "trigger_rate_visdrone": 0.7004048582995951,
+          "tile_crops": 692,
+          "total_seconds": 39.34829574171454,
+          "images_per_second": 39.82383405588688,
+          "mean_image_ms": 25.110590773270285,
+          "p95_image_ms": 55.05606299266212,
+          "read_seconds": 14.031281475909054,
+          "original_seconds": 20.602783769369125,
+          "feature_seconds": 0.05023457482457161,
+          "selector_seconds": 0.18713710829615593,
+          "tile_seconds": 4.294851008802652,
+          "fusion_seconds": 0.1820078045129776,
+          "measurement_pass_wall_seconds": 41.68293257150799,
+          "verified_original_images": 40,
+          "verified_c2_visdrone_images": 20,
+          "feature_parity_M3": 247,
+          "feature_parity_M4": 247
+        },
+        {
+          "repeat": 2,
+          "policy": "M4_Logistic_F1",
+          "images": 1567,
+          "selected_visdrone_images": 166,
+          "trigger_rate_visdrone": 0.6720647773279352,
+          "tile_crops": 664,
+          "total_seconds": 39.171067588962615,
+          "images_per_second": 40.004015628145396,
+          "mean_image_ms": 24.99749048434117,
+          "p95_image_ms": 54.77775875478981,
+          "read_seconds": 14.031281475909054,
+          "original_seconds": 20.602783769369125,
+          "feature_seconds": 0.07407632656395435,
+          "selector_seconds": 0.15094884391874075,
+          "tile_seconds": 4.13119653146714,
+          "fusion_seconds": 0.18078064173460007,
+          "measurement_pass_wall_seconds": 41.68293257150799,
+          "verified_original_images": 40,
+          "verified_c2_visdrone_images": 20,
+          "feature_parity_M3": 247,
+          "feature_parity_M4": 247
+        }
+      ]
+    },
+    {
+      "repeat": 3,
+      "status": "completed",
+      "measurement_pass_wall_seconds": 42.03191146906465,
+      "feature_parity": {
+        "M3_Logistic_F0": 247,
+        "M4_Logistic_F1": 247
+      },
+      "prediction_verification": {
+        "original_images": 40,
+        "c2_visdrone_images": 20
+      },
+      "selected_images": {
+        "M3_Logistic_F0": 173,
+        "M4_Logistic_F1": 166
+      },
+      "repeat_metrics": [
+        {
+          "repeat": 3,
+          "policy": "A_Original",
+          "images": 1567,
+          "selected_visdrone_images": 0,
+          "trigger_rate_visdrone": 0.0,
+          "tile_crops": 0,
+          "total_seconds": 34.94851637352258,
+          "images_per_second": 44.837382601659684,
+          "mean_image_ms": 22.3028183621714,
+          "p95_image_ms": 29.130187071859805,
+          "read_seconds": 14.102368565276265,
+          "original_seconds": 20.846147808246315,
+          "feature_seconds": 0.0,
+          "selector_seconds": 0.0,
+          "tile_seconds": 0.0,
+          "fusion_seconds": 0.0,
+          "measurement_pass_wall_seconds": 42.03191146906465,
+          "verified_original_images": 40,
+          "verified_c2_visdrone_images": 20,
+          "feature_parity_M3": 247,
+          "feature_parity_M4": 247
+        },
+        {
+          "repeat": 3,
+          "policy": "C2_area2048",
+          "images": 1567,
+          "selected_visdrone_images": 247,
+          "trigger_rate_visdrone": 1.0,
+          "tile_crops": 988,
+          "total_seconds": 41.295950095169246,
+          "images_per_second": 37.94560959098277,
+          "mean_image_ms": 26.353509952245847,
+          "p95_image_ms": 55.217011179775,
+          "read_seconds": 14.102368565276265,
+          "original_seconds": 20.846147808246315,
+          "feature_seconds": 0.0,
+          "selector_seconds": 0.0,
+          "tile_seconds": 6.110556629486382,
+          "fusion_seconds": 0.23687709216028452,
+          "measurement_pass_wall_seconds": 42.03191146906465,
+          "verified_original_images": 40,
+          "verified_c2_visdrone_images": 20,
+          "feature_parity_M3": 247,
+          "feature_parity_M4": 247
+        },
+        {
+          "repeat": 3,
+          "policy": "M3_Logistic_F0",
+          "images": 1567,
+          "selected_visdrone_images": 173,
+          "trigger_rate_visdrone": 0.7004048582995951,
+          "tile_crops": 692,
+          "total_seconds": 39.68110366165638,
+          "images_per_second": 39.48982904712358,
+          "mean_image_ms": 25.32297617208448,
+          "p95_image_ms": 54.530051629990325,
+          "read_seconds": 14.102368565276265,
+          "original_seconds": 20.846147808246315,
+          "feature_seconds": 0.050133646465837955,
+          "selector_seconds": 0.18535646330565214,
+          "tile_seconds": 4.316804924048483,
+          "fusion_seconds": 0.18029225431382656,
+          "measurement_pass_wall_seconds": 42.03191146906465,
+          "verified_original_images": 40,
+          "verified_c2_visdrone_images": 20,
+          "feature_parity_M3": 247,
+          "feature_parity_M4": 247
+        },
+        {
+          "repeat": 3,
+          "policy": "M4_Logistic_F1",
+          "images": 1567,
+          "selected_visdrone_images": 166,
+          "trigger_rate_visdrone": 0.6720647773279352,
+          "tile_crops": 664,
+          "total_seconds": 39.501410545781255,
+          "images_per_second": 39.66946947840969,
+          "mean_image_ms": 25.20830283712907,
+          "p95_image_ms": 54.51365644112228,
+          "read_seconds": 14.102368565276265,
+          "original_seconds": 20.846147808246315,
+          "feature_seconds": 0.07209435850381851,
+          "selector_seconds": 0.146510592661798,
+          "tile_seconds": 4.156785363331437,
+          "fusion_seconds": 0.17750385776162148,
+          "measurement_pass_wall_seconds": 42.03191146906465,
+          "verified_original_images": 40,
+          "verified_c2_visdrone_images": 20,
+          "feature_parity_M3": 247,
+          "feature_parity_M4": 247
+        }
+      ]
+    }
+  ],
+  "policies": {
+    "A_Original": {
+      "selected_visdrone_images_mean": 0.0,
+      "trigger_rate_visdrone_mean": 0.0,
+      "tile_crops_mean": 0.0,
+      "total_seconds": {
+        "mean": 35.04656724693874,
+        "std_between_repeats": 0.46927396763551793,
+        "min": 34.63406524527818,
+        "max": 35.557120122015476
+      },
+      "images_per_second": {
+        "mean": 44.71726350359978,
+        "std_between_repeats": 0.5964104015082617,
+        "min": 44.0699357715919,
+        "max": 45.24447213754777
+      },
+      "mean_image_ms": {
+        "mean": 22.365390712787967,
+        "std_between_repeats": 0.2994728574572551,
+        "min": 22.102147571970757,
+        "max": 22.691206204221746
+      },
+      "p95_image_ms": {
+        "mean": 29.666713532060367,
+        "std_between_repeats": 0.4865349453083672,
+        "min": 29.130187071859805,
+        "max": 30.079270806163535
+      },
+      "component_seconds_mean": {
+        "read": 14.161997150319317,
+        "original": 20.884570096619427,
+        "feature": 0.0,
+        "selector": 0.0,
+        "tile": 0.0,
+        "fusion": 0.0
+      },
+      "speedup_vs_C2": 1.1815334335243413,
+      "time_reduction_vs_C2_percent": 15.364223167418428,
+      "time_increase_vs_original_percent": 0.0
+    },
+    "C2_area2048": {
+      "selected_visdrone_images_mean": 247.0,
+      "trigger_rate_visdrone_mean": 1.0,
+      "tile_crops_mean": 988.0,
+      "total_seconds": {
+        "mean": 41.40869093251725,
+        "std_between_repeats": 0.5235446159890719,
+        "min": 40.950701464898884,
+        "max": 41.97942123748362
+      },
+      "images_per_second": {
+        "mean": 37.846315238343244,
+        "std_between_repeats": 0.4766752336410103,
+        "min": 37.327813338236744,
+        "max": 38.26552278581021
+      },
+      "mean_image_ms": {
+        "mean": 26.425456880993778,
+        "std_between_repeats": 0.33410632800834317,
+        "min": 26.133185363687865,
+        "max": 26.789675327047622
+      },
+      "p95_image_ms": {
+        "mean": 56.036305924256595,
+        "std_between_repeats": 0.7388593220818687,
+        "min": 55.217011179775,
+        "max": 56.65206052362907
+      },
+      "component_seconds_mean": {
+        "read": 14.161997150319317,
+        "original": 20.884570096619427,
+        "feature": 0.0,
+        "selector": 0.0,
+        "tile": 6.124188154004514,
+        "fusion": 0.23793553157399097
+      }
+    },
+    "M3_Logistic_F0": {
+      "selected_visdrone_images_mean": 173.0,
+      "trigger_rate_visdrone_mean": 0.7004048582995951,
+      "tile_crops_mean": 692.0,
+      "total_seconds": {
+        "mean": 39.792424596225224,
+        "std_between_repeats": 0.5090025825429301,
+        "min": 39.34829574171454,
+        "max": 40.34787438530475
+      },
+      "images_per_second": {
+        "mean": 39.383633698556565,
+        "std_between_repeats": 0.5017978049344415,
+        "min": 38.83723799265923,
+        "max": 39.82383405588688
+      },
+      "mean_image_ms": {
+        "mean": 25.394016972702758,
+        "std_between_repeats": 0.324826153505379,
+        "min": 25.110590773270285,
+        "max": 25.748483972753508
+      },
+      "p95_image_ms": {
+        "mean": 55.150981899350846,
+        "std_between_repeats": 0.6734255864999108,
+        "min": 54.530051629990325,
+        "max": 55.86683107540009
+      },
+      "component_seconds_mean": {
+        "read": 14.161997150319317,
+        "original": 20.884570096619427,
+        "feature": 0.0508637980868419,
+        "selector": 0.18752364069223404,
+        "tile": 4.3264305877188844,
+        "fusion": 0.18103932278851667
+      },
+      "speedup_vs_C2": 1.0406174379342883,
+      "time_reduction_vs_C2_percent": 3.9032055829198242,
+      "time_increase_vs_original_percent": 13.541575458295489
+    },
+    "M4_Logistic_F1": {
+      "selected_visdrone_images_mean": 166.0,
+      "trigger_rate_visdrone_mean": 0.6720647773279352,
+      "tile_crops_mean": 664.0,
+      "total_seconds": {
+        "mean": 39.61470977651576,
+        "std_between_repeats": 0.509822934785322,
+        "min": 39.171067588962615,
+        "max": 40.17165119480342
+      },
+      "images_per_second": {
+        "mean": 39.560364181990046,
+        "std_between_repeats": 0.5070850953462719,
+        "min": 39.00760743941505,
+        "max": 40.004015628145396
+      },
+      "mean_image_ms": {
+        "mean": 25.28060611136934,
+        "std_between_repeats": 0.32534967120952346,
+        "min": 24.99749048434117,
+        "max": 25.63602501263779
+      },
+      "p95_image_ms": {
+        "mean": 55.003880554189266,
+        "std_between_repeats": 0.6342721086029895,
+        "min": 54.51365644112228,
+        "max": 55.720226466655724
+      },
+      "component_seconds_mean": {
+        "read": 14.161997150319317,
+        "original": 20.884570096619427,
+        "feature": 0.0736073184137543,
+        "selector": 0.15007643029093742,
+        "tile": 4.1656756189962225,
+        "fusion": 0.1787831618761023
+      },
+      "speedup_vs_C2": 1.045285732651385,
+      "time_reduction_vs_C2_percent": 4.3323783379800656,
+      "time_increase_vs_original_percent": 13.03449349943406
+    }
+  },
+  "outputs": {
+    "summary": "runs/detect/stage6_scene_selector/stage6_3f_c_runtime/runtime_summary.json",
+    "repeat_metrics": "runs/detect/stage6_scene_selector/stage6_3f_c_runtime/runtime_repeat_metrics.csv",
+    "per_image": "runs/detect/stage6_scene_selector/stage6_3f_c_runtime/runtime_per_image.csv"
+  },
+  "interpretation_limit": "Runtime is measured on the 1567-image development validation set using the existing source-specific policy. It is not an accuracy estimate. The final selector was trained on the 247 VisDrone development labels; Stage 6.4 must evaluate accuracy once on the untouched independent test."
+}

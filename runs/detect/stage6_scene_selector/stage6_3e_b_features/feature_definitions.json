@@ -1,0 +1,38 @@
+{
+  "F0_original_3_features": [
+    "n_det_conf025",
+    "median_box_area_640",
+    "tiny_ratio"
+  ],
+  "F1_expanded_8_features": [
+    "n_det_conf025",
+    "median_box_area_640",
+    "tiny_ratio",
+    "tiny_count",
+    "det_density_per_mp",
+    "mean_confidence_025",
+    "box_area_cv_640",
+    "grid_occupancy_4x4"
+  ],
+  "feature_definitions": {
+    "n_det_conf025": "Number of original-image detections with score >= 0.25.",
+    "median_box_area_640": "Median detection box area after letterbox scale to 640; same definition as Stage 6.3C.",
+    "tiny_ratio": "Fraction of detections whose 640-scale area is < 32^2; same definition as Stage 6.3C.",
+    "tiny_count": "Absolute count of detections whose 640-scale area is < 32^2.",
+    "det_density_per_mp": "Number of score>=0.25 detections divided by original image megapixels.",
+    "mean_confidence_025": "Mean confidence of detections with score >= 0.25.",
+    "box_area_cv_640": "Population standard deviation / mean of 640-scale detection box areas.",
+    "grid_occupancy_4x4": "Number of occupied cells among a 4x4 grid using normalized original-image box centers, divided by 16."
+  },
+  "calculation": {
+    "source_predictions": "A_Original only",
+    "feature_confidence_threshold": 0.25,
+    "feature_imgsz": 640,
+    "tiny_area_threshold_640": 1024.0,
+    "coordinate_convention": "COCO xywh in original-image pixel coordinates",
+    "empty_detection_handling": {
+      "median_box_area_640": "empty CSV cell; converted to NaN by the model pipeline",
+      "other_numeric_features": 0
+    }
+  }
+}

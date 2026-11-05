@@ -1,0 +1,117 @@
+{
+  "experiment": "Stage6.3E-B_Expanded_Scene_Feature_Extraction",
+  "created_at": "2026-11-05T11:44:40",
+  "status": "completed",
+  "no_yolo_training": true,
+  "no_yolo_inference": true,
+  "utility_labels_read": false,
+  "source_counts": {
+    "uavdt": 1320,
+    "visdrone": 247
+  },
+  "visdrone_images": 247,
+  "visdrone_sequence_groups": 94,
+  "base_feature_reproduction": {
+    "checked_images": 1567,
+    "n_det_conf025": "passed",
+    "median_box_area_640": "passed",
+    "tiny_ratio": "passed",
+    "tiny_count": "passed",
+    "letterbox_scale": "passed"
+  },
+  "input_sha256": {
+    "corrected_scene_features.csv": "db33bd0a0cd47b32298d36fab9fd99e7f8835def5a03a28bed8c7cadc566106d",
+    "all_original_predictions.json": "4979c79d6966539b51f67592f8bdf10efc21d71f126065d13c730dc20a79fc23"
+  },
+  "output_sha256": {
+    "expanded_scene_features.csv": "72c7bd62fd1a422dfbfd009d1b1dcb9fe85b392e3f5fbb7e64484a5a21ffc622"
+  },
+  "spearman_correlation_visdrone": {
+    "n_det_conf025": {
+      "n_det_conf025": 1.0,
+      "median_box_area_640": -0.24829450927650332,
+      "tiny_ratio": 0.19240437044956804,
+      "tiny_count": 0.9733976456214467,
+      "det_density_per_mp": 0.9225242914530272,
+      "mean_confidence_025": -0.31300207091097465,
+      "box_area_cv_640": 0.2946904307919221,
+      "grid_occupancy_4x4": 0.7833974889199781
+    },
+    "median_box_area_640": {
+      "n_det_conf025": -0.24829450927650332,
+      "median_box_area_640": 1.0,
+      "tiny_ratio": -0.6429041378467668,
+      "tiny_count": -0.37498532972220655,
+      "det_density_per_mp": -0.2507241605195209,
+      "mean_confidence_025": 0.57469766617025,
+      "box_area_cv_640": -0.36779794568167934,
+      "grid_occupancy_4x4": 0.08538193588864158
+    },
+    "tiny_ratio": {
+      "n_det_conf025": 0.192404370449568,
+      "median_box_area_640": -0.6429041378467668,
+      "tiny_ratio": 1.0,
+      "tiny_count": 0.3491674484600334,
+      "det_density_per_mp": 0.19361141922880945,
+      "mean_confidence_025": -0.3821733314238507,
+      "box_area_cv_640": -0.18284295460970135,
+      "grid_occupancy_4x4": 0.005629069967528177
+    },
+    "tiny_count": {
+      "n_det_conf025": 0.9733976456214467,
+      "median_box_area_640": -0.3749853297222065,
+      "tiny_ratio": 0.34916744846003345,
+      "tiny_count": 1.0,
+      "det_density_per_mp": 0.9045885548413539,
+      "mean_confidence_025": -0.3844509688364947,
+      "box_area_cv_640": 0.3086747605714052,
+      "grid_occupancy_4x4": 0.7250371765827652
+    },
+    "det_density_per_mp": {
+      "n_det_conf025": 0.9225242914530272,
+      "median_box_area_640": -0.2507241605195209,
+      "tiny_ratio": 0.19361141922880945,
+      "tiny_count": 0.904588554841354,
+      "det_density_per_mp": 1.0,
+      "mean_confidence_025": -0.2647105146463197,
+      "box_area_cv_640": 0.25721303014590496,
+      "grid_occupancy_4x4": 0.7469302320027457
+    },
+    "mean_confidence_025": {
+      "n_det_conf025": -0.3130020709109746,
+      "median_box_area_640": 0.57469766617025,
+      "tiny_ratio": -0.3821733314238507,
+      "tiny_count": -0.3844509688364947,
+      "det_density_per_mp": -0.2647105146463197,
+      "mean_confidence_025": 0.9999999999999998,
+      "box_area_cv_640": -0.27690712565481956,
+      "grid_occupancy_4x4": -0.013009445573095038
+    },
+    "box_area_cv_640": {
+      "n_det_conf025": 0.2946904307919221,
+      "median_box_area_640": -0.36779794568167934,
+      "tiny_ratio": -0.18284295460970135,
+      "tiny_count": 0.30867476057140514,
+      "det_density_per_mp": 0.2572130301459049,
+      "mean_confidence_025": -0.27690712565481956,
+      "box_area_cv_640": 1.0,
+      "grid_occupancy_4x4": 0.07052014930936204
+    },
+    "grid_occupancy_4x4": {
+      "n_det_conf025": 0.783397488919978,
+      "median_box_area_640": 0.08538193588864158,
+      "tiny_ratio": 0.005629069967528177,
+      "tiny_count": 0.7250371765827652,
+      "det_density_per_mp": 0.7469302320027457,
+      "mean_confidence_025": -0.013009445573095038,
+      "box_area_cv_640": 0.07052014930936204,
+      "grid_occupancy_4x4": 1.0
+    }
+  },
+  "outputs": {
+    "features": "runs/detect/stage6_scene_selector/stage6_3e_b_features/expanded_scene_features.csv",
+    "image_audit": "runs/detect/stage6_scene_selector/stage6_3e_b_features/feature_image_audit.csv",
+    "definitions": "runs/detect/stage6_scene_selector/stage6_3e_b_features/feature_definitions.json",
+    "audit": "runs/detect/stage6_scene_selector/stage6_3e_b_features/feature_audit.json"
+  }
+}

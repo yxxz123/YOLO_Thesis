@@ -1,0 +1,68 @@
+{
+  "status": "completed",
+  "completed_at": "2026-11-06T20:27:20",
+  "metadata": {
+    "experiment": "Stage8_Environmental_Robustness",
+    "model": "YOLO11s",
+    "weights_sha256": "80626ed8713c03445a575c87c460d9980e4093c2440f10c81bb4d39ca6a56056",
+    "condition": {
+      "name": "backlight_s1",
+      "type": "backlight",
+      "severity": 1,
+      "parameters": {
+        "gain": 0.92,
+        "flare": 0.12
+      },
+      "method": "global exposure reduction plus deterministic upper-right Gaussian light flare"
+    },
+    "input_hashes": {
+      "manifest_sha256": "211953e130481db0b8e08e8ad65896a88c07569f28eb016f2811f7f57281291f",
+      "gt_sha256": "211b82e3914a7b99361cda9ba8ad519bd104f3df92913900be8781f019959338",
+      "stage7_reference_sha256": "7905b1542eee92be19fe77ce92eda6cd414cd1c85fa3e865a72ad29d6dbbbf54",
+      "source_counts": {
+        "uavdt": 1288,
+        "visdrone": 84
+      }
+    },
+    "inference": {
+      "imgsz": 640,
+      "conf": 0.001,
+      "nms_iou": 0.7,
+      "max_det": 300,
+      "half": false,
+      "augment": false,
+      "batch": 1,
+      "slice_inference": false
+    },
+    "device": "0",
+    "images": 1372
+  },
+  "metrics": {
+    "full": {
+      "images": 1372,
+      "AP50-95": 0.356980914496074,
+      "AP50": 0.7107317698680095,
+      "APs": 0.28215062444600086,
+      "APm": 0.5717243232191707,
+      "APl": 0.33264160909455104
+    },
+    "uavdt": {
+      "images": 1288,
+      "AP50-95": 0.3682829894838726,
+      "AP50": 0.743285626340487,
+      "APs": 0.3016244018545375,
+      "APm": 0.5917638605701034,
+      "APl": 0.0
+    },
+    "visdrone": {
+      "images": 84,
+      "AP50-95": 0.32965660085493753,
+      "AP50": 0.5822398359948356,
+      "APs": 0.20260045728641143,
+      "APm": 0.5148073068575628,
+      "APl": 0.7058157750240714
+    }
+  },
+  "prediction_count": 194672,
+  "prediction_sha256": "01f7a3e93ee6fa465acf9a25bcf17e8d4b87c733ddc65816eda529f6d974ba13"
+}

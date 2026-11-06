@@ -1,0 +1,67 @@
+{
+  "status": "completed",
+  "completed_at": "2026-11-06T20:55:39",
+  "metadata": {
+    "experiment": "Stage8_Environmental_Robustness",
+    "model": "YOLO11s_DySample_P2Bridge",
+    "weights_sha256": "8027bf248e086bde5a043ce33a541e924bf17b93bb81a31790052831e50180cd",
+    "condition": {
+      "name": "fog_s2",
+      "type": "fog",
+      "severity": 2,
+      "parameters": {
+        "alpha": 0.24
+      },
+      "method": "global atmospheric-light blending"
+    },
+    "input_hashes": {
+      "manifest_sha256": "211953e130481db0b8e08e8ad65896a88c07569f28eb016f2811f7f57281291f",
+      "gt_sha256": "211b82e3914a7b99361cda9ba8ad519bd104f3df92913900be8781f019959338",
+      "stage7_reference_sha256": "7905b1542eee92be19fe77ce92eda6cd414cd1c85fa3e865a72ad29d6dbbbf54",
+      "source_counts": {
+        "uavdt": 1288,
+        "visdrone": 84
+      }
+    },
+    "inference": {
+      "imgsz": 640,
+      "conf": 0.001,
+      "nms_iou": 0.7,
+      "max_det": 300,
+      "half": false,
+      "augment": false,
+      "batch": 1,
+      "slice_inference": false
+    },
+    "device": "0",
+    "images": 1372
+  },
+  "metrics": {
+    "full": {
+      "images": 1372,
+      "AP50-95": 0.3608615942206739,
+      "AP50": 0.7110804612012425,
+      "APs": 0.27999339203189844,
+      "APm": 0.5915735439480218,
+      "APl": 0.31437323394121786
+    },
+    "uavdt": {
+      "images": 1288,
+      "AP50-95": 0.37329425099656743,
+      "AP50": 0.7483060404939049,
+      "APs": 0.3003378841971905,
+      "APm": 0.6227818372758493,
+      "APl": 0.0
+    },
+    "visdrone": {
+      "images": 84,
+      "AP50-95": 0.3055663629700558,
+      "AP50": 0.5567303701569806,
+      "APs": 0.18631833471881376,
+      "APm": 0.4759264385055099,
+      "APl": 0.6611060840937305
+    }
+  },
+  "prediction_count": 144708,
+  "prediction_sha256": "1062434c09c7123030d01137f2ae6ebf7adc3749c4f930bb05863f1fa90e0614"
+}

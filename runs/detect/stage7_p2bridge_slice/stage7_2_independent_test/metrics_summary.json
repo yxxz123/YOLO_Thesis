@@ -1,0 +1,190 @@
+{
+  "experiment": "Stage7.2_P2Bridge_MLCA_TD_Independent_Test",
+  "created_at": "2026-11-06T17:40:25",
+  "status": "completed",
+  "dataset": {
+    "split": "independent_test_sequence_filtered_by_Stage6.4A2",
+    "images": 1372,
+    "source_counts": {
+      "uavdt": 1288,
+      "visdrone": 84
+    },
+    "group_counts": {
+      "uavdt": 5,
+      "visdrone": 84
+    },
+    "annotation_count": 19045,
+    "sequence_independence_scope": "Stage 6.4A2 sequence_id grouping heuristic"
+  },
+  "model": {
+    "name": "YOLO11s-DySample-P2Bridge-MLCA-TD",
+    "weights": "/root/autodl-tmp/YOLO_Thesis/runs/detect/stage3_fast_screen/YOLO11s-DySample-P2Bridge-MLCA-TD/weights/best.pt",
+    "weights_sha256": "06f713f6c5513661280d7530a095f196151041c232bbe27ddd3d7b8c0b914a84",
+    "same_weights_A_and_B": true
+  },
+  "protocol": {
+    "imgsz": 640,
+    "conf": 0.001,
+    "nms_iou": 0.7,
+    "max_det": 300,
+    "overlap": 0.15,
+    "tile_layout": "2x2",
+    "area_filter": "mapped tile area < 2048 px^2",
+    "half": false,
+    "augment": false,
+    "source_policy": "UAVDT original-only; VisDrone original+full tiled C2-2048",
+    "evaluator": "faster_coco_eval",
+    "evaluator_version": "1.8.0",
+    "coco_max_dets": [
+      1,
+      10,
+      100
+    ],
+    "coco_area_ranges": [
+      [
+        0,
+        10000000000.0
+      ],
+      [
+        0,
+        1024
+      ],
+      [
+        1024,
+        9216
+      ],
+      [
+        9216,
+        10000000000.0
+      ]
+    ],
+    "no_m3": true
+  },
+  "metrics": {
+    "A_original": {
+      "full": {
+        "images": 1372,
+        "AP50-95": 0.37203037626168145,
+        "AP50": 0.7457329897277348,
+        "AP75": 0.3254058237846897,
+        "APs": 0.28886330472938376,
+        "APm": 0.583142993940639,
+        "APl": 0.3388843886753514
+      },
+      "uavdt": {
+        "images": 1288,
+        "AP50-95": 0.3844832993201801,
+        "AP50": 0.7829919808519301,
+        "AP75": 0.3302293180928026,
+        "APs": 0.3091772622845649,
+        "APm": 0.6051417341402006,
+        "APl": 0.0
+      },
+      "visdrone": {
+        "images": 84,
+        "AP50-95": 0.35004192992207306,
+        "AP50": 0.6122843599906489,
+        "AP75": 0.34911845170605005,
+        "APs": 0.22011813953166498,
+        "APm": 0.5364100563483171,
+        "APl": 0.7160841913623561
+      }
+    },
+    "B_C2_area2048": {
+      "full": {
+        "images": 1372,
+        "AP50-95": 0.38257132814841055,
+        "AP50": 0.759377670349335,
+        "AP75": 0.3383372697992569,
+        "APs": 0.3019109920362578,
+        "APm": 0.5862292206072605,
+        "APl": 0.33692750874788124
+      },
+      "uavdt": {
+        "images": 1288,
+        "AP50-95": 0.3844832993201801,
+        "AP50": 0.7829919808519301,
+        "AP75": 0.3302293180928026,
+        "APs": 0.3091772622845649,
+        "APm": 0.6051417341402006,
+        "APl": 0.0
+      },
+      "visdrone": {
+        "images": 84,
+        "AP50-95": 0.3969183051337176,
+        "AP50": 0.662148392430954,
+        "AP75": 0.41438658015827406,
+        "APs": 0.293168805130067,
+        "APm": 0.5376615568955491,
+        "APl": 0.7112289379571451
+      }
+    }
+  },
+  "delta_B_minus_A": {
+    "full": {
+      "AP50-95": 0.0105409518867291,
+      "AP50": 0.01364468062160018,
+      "AP75": 0.012931446014567194,
+      "APs": 0.013047687306874056,
+      "APm": 0.0030862266666215055,
+      "APl": -0.0019568799274701787
+    },
+    "uavdt": {
+      "AP50-95": 0.0,
+      "AP50": 0.0,
+      "AP75": 0.0,
+      "APs": 0.0,
+      "APm": 0.0,
+      "APl": 0.0
+    },
+    "visdrone": {
+      "AP50-95": 0.04687637521164456,
+      "AP50": 0.04986403244030513,
+      "AP75": 0.06526812845222402,
+      "APs": 0.07305066559840201,
+      "APm": 0.0012515005472319984,
+      "APl": -0.00485525340521098
+    }
+  },
+  "runtime_component_only": {
+    "A_original": {
+      "component_sum_seconds": 32.43429761752486,
+      "mean_component_ms_per_image": 23.640158613356313,
+      "p95_component_ms_per_image": 27.721321722492576,
+      "images_per_component_second": 42.30090061388234
+    },
+    "B_C2_area2048": {
+      "component_sum_seconds": 34.789947813376784,
+      "mean_component_ms_per_image": 25.35710482024547,
+      "p95_component_ms_per_image": 50.53433533757926,
+      "images_per_component_second": 39.43667887516819
+    }
+  },
+  "component_timing_note": "Component-sum cost is not a standalone end-to-end wall-clock benchmark. It excludes checkpoints, Python orchestration, model loading and warm-up.",
+  "max_det_300_saturation": {
+    "A_original": 262,
+    "B_C2_area2048": 301,
+    "A_original_visdrone": 33,
+    "B_C2_area2048_visdrone": 72
+  },
+  "inputs_sha256": {
+    "weights": "06f713f6c5513661280d7530a095f196151041c232bbe27ddd3d7b8c0b914a84",
+    "manifest": "211953e130481db0b8e08e8ad65896a88c07569f28eb016f2811f7f57281291f",
+    "filter_summary": "68ff56eec7c7dde07980866b2416529c562cd0099ef1cbe94fa6a9a415a4c35f",
+    "dataset_audit": "15974dd21e901127c8a88c675a814bb2b91e9fa119748bdcf53263aa6f91debf",
+    "test_gt": "211b82e3914a7b99361cda9ba8ad519bd104f3df92913900be8781f019959338",
+    "stage6_metrics": "c71c905789374ff5736b05c408eb5397ee68d518730c4071ad6d666a59449476",
+    "source_script": "a2c8c6d1d0efe77d4b62cd63d18e8c66c8c7da51b447caeba72feaad67e83192"
+  },
+  "predictions_sha256": {
+    "A_original": "4dc9e12a2a7716122f56d87ad02f127967f0a51d79284e2a4a0a24b974587e93",
+    "B_C2_area2048": "7d8a2bd14d622cc29812a2326ed205db13c556b4d4dcdf2a6044683fcec91420"
+  },
+  "outputs": {
+    "predictions_A_original": "runs/detect/stage7_p2bridge_slice/stage7_2_independent_test/test_predictions_A_original.json",
+    "predictions_B_C2_area2048": "runs/detect/stage7_p2bridge_slice/stage7_2_independent_test/test_predictions_B_C2_area2048.json",
+    "runtime_per_image": "runs/detect/stage7_p2bridge_slice/stage7_2_independent_test/runtime_per_image.csv",
+    "checkpoint": "runs/detect/stage7_p2bridge_slice/stage7_2_independent_test/checkpoint_records.jsonl"
+  },
+  "interpretation_limit": "This evaluates an already selected/frozen slice strategy on the Stage 6.4A2 sequence-filtered independent split, which has been used previously to assess a different DySample detector. Do not use these scores to tune slice/fusion parameters or select a new M3 threshold. 84 VisDrone images represent 84 sequence-id groups; 1,288 UAVDT images represent five sequence-id groups."
+}

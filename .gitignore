@@ -110,6 +110,7 @@ datasets/
 !/runs/detect/stage6_size_aware_fusion_iou07
 !/runs/detect/stage6_original_priority_fusion_iou07
 !/runs/detect/stage6_scene_selector
+!/runs/detect/stage7_p2bridge_slice
 
 /tide_result/
 tide_result/
@@ -249,6 +250,7 @@ secrets.json
 !/runs/detect/stage6_size_aware_fusion_iou07/**
 !/runs/detect/stage6_original_priority_fusion_iou07/**
 !/runs/detect/stage6_scene_selector/**
+!/runs/detect/stage7_p2bridge_slice/**
 # 两个目录共同排除：权重、事件文件、大体积的预测结果
 /runs/detect/*/**/*.pt
 /runs/detect/*/**/*.pth
@@ -256,3 +258,20 @@ secrets.json
 /runs/detect/*/**/*.engine
 /runs/detect/*/**/events.out.tfevents.*
 /runs/detect/*/**/predictions.json
+
+# ==========================================
+# Stage 6 / Stage 7 大型原始预测结果
+# 保留summary、metrics、runtime和分析CSV
+# ==========================================
+
+# 原始COCO预测文件
+**/predictions*.json
+**/*_predictions*.json
+
+# 大型推理检查点
+**/inference_checkpoint.json
+**/checkpoint_records.jsonl
+
+# 原始推理中间结果
+**/*_raw_predictions*.json
+**/*_all_predictions*.json

@@ -1,0 +1,56 @@
+{
+  "experiment": "Stage7.2_P2Bridge_MLCA_TD_Independent_Test",
+  "protocol": {
+    "imgsz": 640,
+    "conf": 0.001,
+    "nms_iou": 0.7,
+    "max_det": 300,
+    "overlap": 0.15,
+    "tile_layout": "2x2",
+    "area_filter": "mapped tile area < 2048 px^2",
+    "half": false,
+    "augment": false,
+    "source_policy": "UAVDT original-only; VisDrone original+full tiled C2-2048",
+    "evaluator": "faster_coco_eval",
+    "evaluator_version": "1.8.0",
+    "coco_max_dets": [
+      1,
+      10,
+      100
+    ],
+    "coco_area_ranges": [
+      [
+        0,
+        10000000000.0
+      ],
+      [
+        0,
+        1024
+      ],
+      [
+        1024,
+        9216
+      ],
+      [
+        9216,
+        10000000000.0
+      ]
+    ],
+    "no_m3": true
+  },
+  "inputs": {
+    "weights": "06f713f6c5513661280d7530a095f196151041c232bbe27ddd3d7b8c0b914a84",
+    "manifest": "211953e130481db0b8e08e8ad65896a88c07569f28eb016f2811f7f57281291f",
+    "filter_summary": "68ff56eec7c7dde07980866b2416529c562cd0099ef1cbe94fa6a9a415a4c35f",
+    "dataset_audit": "15974dd21e901127c8a88c675a814bb2b91e9fa119748bdcf53263aa6f91debf",
+    "test_gt": "211b82e3914a7b99361cda9ba8ad519bd104f3df92913900be8781f019959338",
+    "stage6_metrics": "c71c905789374ff5736b05c408eb5397ee68d518730c4071ad6d666a59449476",
+    "source_script": "a2c8c6d1d0efe77d4b62cd63d18e8c66c8c7da51b447caeba72feaad67e83192"
+  },
+  "manifest_images": 1372,
+  "groups": {
+    "uavdt": 5,
+    "visdrone": 84
+  },
+  "device": "0"
+}

@@ -1,0 +1,163 @@
+{
+  "experiment": "Stage7.1_P2Bridge_MLCA_TD_Original_vs_C2_2048",
+  "status": "completed",
+  "created_at": "2026-11-06T16:41:31",
+  "weights": "/root/autodl-tmp/YOLO_Thesis/runs/detect/stage3_fast_screen/YOLO11s-DySample-P2Bridge-MLCA-TD/weights/best.pt",
+  "weights_sha256": "06f713f6c5513661280d7530a095f196151041c232bbe27ddd3d7b8c0b914a84",
+  "dataset": {
+    "split": "validation/development",
+    "images": 1567,
+    "source_counts": {
+      "uavdt": 1320,
+      "visdrone": 247
+    },
+    "annotations": 34364,
+    "gt_sha256": "75098d09c3a02e8f8e32eab99df6c977474748dd177a97b1692f766bbdcf0de4",
+    "source_map_sha256": "6219ae6ece660c482db9fc522bf5eb0193ddf137244be4511b0a1d9c645ecea9"
+  },
+  "protocol": {
+    "imgsz": 640,
+    "conf": 0.001,
+    "nms_iou": 0.7,
+    "max_det": 300,
+    "overlap": 0.15,
+    "tile_layout": "2x2",
+    "tile_area_filter": "mapped original-image tile box area < 2048 px^2",
+    "source_policy": "UAVDT original-only; VisDrone original + C2_area2048",
+    "half": false,
+    "augment": false,
+    "evaluator": "faster_coco_eval",
+    "evaluator_version": "1.8.0",
+    "coco_iou_thresholds": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.8999999999999999,
+      0.95
+    ],
+    "coco_max_dets": [
+      1,
+      10,
+      100
+    ],
+    "coco_area_ranges": [
+      [
+        0,
+        10000000000.0
+      ],
+      [
+        0,
+        1024
+      ],
+      [
+        1024,
+        9216
+      ],
+      [
+        9216,
+        10000000000.0
+      ]
+    ]
+  },
+  "metrics": {
+    "A_original": {
+      "full": {
+        "images": 1567,
+        "AP50-95": 0.4238953566741136,
+        "AP50": 0.7720322823933338,
+        "AP75": 0.42374340895162194,
+        "APs": 0.3247361875539241,
+        "APm": 0.5422936856456108,
+        "APl": 0.5985826455274824
+      },
+      "uavdt": {
+        "images": 1320,
+        "AP50-95": 0.44012765377724317,
+        "AP50": 0.8075794765162975,
+        "AP75": 0.43457898462021843,
+        "APs": 0.35617533157182507,
+        "APm": 0.5390494887048457,
+        "APl": 0.5509934766699731
+      },
+      "visdrone": {
+        "images": 247,
+        "AP50-95": 0.39315137396623867,
+        "AP50": 0.6681162947135434,
+        "AP75": 0.4165612545674209,
+        "APs": 0.25828536909605615,
+        "APm": 0.5797571635697633,
+        "APl": 0.7020564844735607
+      }
+    },
+    "B_C2_area2048": {
+      "full": {
+        "images": 1567,
+        "AP50-95": 0.4377891178392077,
+        "AP50": 0.7852926028948484,
+        "AP75": 0.44408540684289166,
+        "APs": 0.3484989797035558,
+        "APm": 0.5452414699698972,
+        "APl": 0.5976369821367121
+      },
+      "uavdt": {
+        "images": 1320,
+        "AP50-95": 0.44012765377724317,
+        "AP50": 0.8075794765162975,
+        "AP75": 0.43457898462021843,
+        "APs": 0.35617533157182507,
+        "APm": 0.5390494887048457,
+        "APl": 0.5509934766699731
+      },
+      "visdrone": {
+        "images": 247,
+        "AP50-95": 0.44531967956902213,
+        "AP50": 0.7157331647498316,
+        "AP75": 0.48995685284274426,
+        "APs": 0.3391974917306631,
+        "APm": 0.588506545957549,
+        "APl": 0.6952750634216093
+      }
+    }
+  },
+  "delta_B_minus_A": {
+    "full": {
+      "AP50-95": 0.01389376116509411,
+      "AP50": 0.0132603205015146,
+      "AP75": 0.020341997891269725,
+      "APs": 0.02376279214963173,
+      "APm": 0.00294778432428644,
+      "APl": -0.0009456633907702905
+    },
+    "uavdt": {
+      "AP50-95": 0.0,
+      "AP50": 0.0,
+      "AP75": 0.0,
+      "APs": 0.0,
+      "APm": 0.0,
+      "APl": 0.0
+    },
+    "visdrone": {
+      "AP50-95": 0.05216830560278346,
+      "AP50": 0.04761687003628823,
+      "AP75": 0.07339559827532338,
+      "APs": 0.08091212263460695,
+      "APm": 0.008749382387785776,
+      "APl": -0.006781421051951453
+    }
+  },
+  "prediction_sha256": {
+    "A_original": "f60857864b2512d0bb1dfacf965187e46f4b6dc5eef2572d8111c53a5ae62bf2",
+    "B_C2_area2048": "77cec1c3e4c5669dca47905393f8c4b49483b6128af849aef2aceaab0ef19230"
+  },
+  "runtime": {
+    "inference_loop_seconds": 1103.5822256915271,
+    "mean_original_ms": 15.037822283343212,
+    "mean_tile_ms_per_all_image": 4.180463287686952
+  },
+  "note": "Validation/development result, not untouched independent test. M3 is not used."
+}

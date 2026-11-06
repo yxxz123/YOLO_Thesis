@@ -1,0 +1,588 @@
+{
+  "experiment": "Stage6.4B_Frozen_M3_Independent_Test",
+  "created_at": "2026-11-06T14:39:14",
+  "status": "completed",
+  "protocol": {
+    "imgsz": 640,
+    "conf": 0.001,
+    "nms_iou": 0.7,
+    "max_det": 300,
+    "overlap": 0.15,
+    "tile_layout": "2x2",
+    "tile_area_filter": "tile box area < 2048 original-image pixels squared",
+    "half": false,
+    "augment": false,
+    "feature_conf": 0.25,
+    "feature_imgsz": 640,
+    "tiny_area_threshold": 1024,
+    "selector": "frozen M3 LogisticRegression F0",
+    "selector_features": [
+      "n_det_conf025",
+      "median_box_area_640",
+      "tiny_ratio"
+    ],
+    "selector_config": {
+      "C": 0.01,
+      "class_weight": "balanced"
+    },
+    "selector_threshold": 0.5071783812207581,
+    "coco_category_id": 1,
+    "coco_category_name": "vehicle",
+    "source_policy": "UAVDT original-only; VisDrone M3-gated C2_area2048",
+    "repeats": 3,
+    "accuracy_evaluation_repeat": 1,
+    "evaluator": "faster_coco_eval",
+    "evaluator_version": "1.8.0",
+    "coco_iou_thresholds": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.8999999999999999,
+      0.95
+    ],
+    "coco_recall_thresholds": [
+      0.0,
+      0.01,
+      0.02,
+      0.03,
+      0.04,
+      0.05,
+      0.06,
+      0.07,
+      0.08,
+      0.09,
+      0.1,
+      0.11,
+      0.12,
+      0.13,
+      0.14,
+      0.15,
+      0.16,
+      0.17,
+      0.18,
+      0.19,
+      0.2,
+      0.21,
+      0.22,
+      0.23,
+      0.24,
+      0.25,
+      0.26,
+      0.27,
+      0.28,
+      0.29,
+      0.3,
+      0.31,
+      0.32,
+      0.33,
+      0.34,
+      0.35000000000000003,
+      0.36,
+      0.37,
+      0.38,
+      0.39,
+      0.4,
+      0.41000000000000003,
+      0.42,
+      0.43,
+      0.44,
+      0.45,
+      0.46,
+      0.47000000000000003,
+      0.48,
+      0.49,
+      0.5,
+      0.51,
+      0.52,
+      0.53,
+      0.54,
+      0.55,
+      0.56,
+      0.5700000000000001,
+      0.58,
+      0.59,
+      0.6,
+      0.61,
+      0.62,
+      0.63,
+      0.64,
+      0.65,
+      0.66,
+      0.67,
+      0.68,
+      0.6900000000000001,
+      0.7000000000000001,
+      0.71,
+      0.72,
+      0.73,
+      0.74,
+      0.75,
+      0.76,
+      0.77,
+      0.78,
+      0.79,
+      0.8,
+      0.81,
+      0.8200000000000001,
+      0.8300000000000001,
+      0.84,
+      0.85,
+      0.86,
+      0.87,
+      0.88,
+      0.89,
+      0.9,
+      0.91,
+      0.92,
+      0.93,
+      0.9400000000000001,
+      0.9500000000000001,
+      0.96,
+      0.97,
+      0.98,
+      0.99,
+      1.0
+    ],
+    "coco_max_dets": [
+      1,
+      10,
+      100
+    ],
+    "coco_area_ranges": [
+      [
+        0,
+        10000000000.0
+      ],
+      [
+        0,
+        1024
+      ],
+      [
+        1024,
+        9216
+      ],
+      [
+        9216,
+        10000000000.0
+      ]
+    ]
+  },
+  "test_set": {
+    "images": 1372,
+    "source_counts": {
+      "uavdt": 1288,
+      "visdrone": 84
+    },
+    "sequence_groups": 89,
+    "uavdt_sequences": 5,
+    "visdrone_sequences": 84,
+    "visdrone_selector_test_images": 84,
+    "ground_truth_annotations": 19045
+  },
+  "selector": {
+    "selected_visdrone_images": 60,
+    "trigger_rate_visdrone": 0.7142857142857143,
+    "tile_crops_selected": 240,
+    "decision_file": "selector_decisions.csv"
+  },
+  "runtime": {
+    "A_Original": {
+      "total_seconds_mean": 30.463383394293487,
+      "total_seconds_std": 0.5585758305819599,
+      "images_per_second_mean": 45.04771222503217,
+      "p95_image_ms_mean": 26.11009237977366
+    },
+    "B_C2_area2048": {
+      "total_seconds_mean": 32.740844598039985,
+      "total_seconds_std": 0.5917914065194299,
+      "images_per_second_mean": 41.91391131653461,
+      "p95_image_ms_mean": 48.99663145964346
+    },
+    "C_M3_selective": {
+      "total_seconds_mean": 32.171207211601235,
+      "total_seconds_std": 0.5914475907519889,
+      "images_per_second_mean": 42.65637596003393,
+      "p95_image_ms_mean": 35.91074026189753
+    }
+  },
+  "runtime_repeats": [
+    {
+      "repeat": 1,
+      "status": "completed",
+      "wall_seconds": 34.586866543628275,
+      "images": 1372,
+      "visdrone_images": 84,
+      "selected_visdrone_images": 60,
+      "trigger_rate_visdrone": 0.7142857142857143,
+      "tile_crops_selected": 240,
+      "component_seconds": {
+        "read": 11.877446740865707,
+        "original": 19.198814146220684,
+        "feature": 0.018977110274136066,
+        "selector": 0.0701520973816514,
+        "tile_all_visdrone": 2.2296381322667003,
+        "fusion_all_visdrone": 0.09128351043909788,
+        "tile_selected_m3": 1.5912273665890098,
+        "fusion_selected_m3": 0.06957284640520811
+      },
+      "policies": {
+        "A_Original": {
+          "total_seconds": 31.07626088708639,
+          "images_per_second": 44.14945559200556,
+          "mean_image_ms": 22.650335923532356,
+          "p95_image_ms": 27.062807371839888
+        },
+        "B_C2_area2048": {
+          "total_seconds": 33.39718252979219,
+          "images_per_second": 41.08130974150583,
+          "mean_image_ms": 24.341969773901013,
+          "p95_image_ms": 49.84234692528846
+        },
+        "C_M3_selective": {
+          "total_seconds": 32.8261903077364,
+          "images_per_second": 41.79589489788129,
+          "mean_image_ms": 23.925794684939063,
+          "p95_image_ms": 37.81224391423167
+        }
+      },
+      "prediction_sha256": {
+        "A_Original": "ff7cd8f4cb73aa90445dd91e36b9895a6962f35a72eb2f1058206af3450c91bb",
+        "B_C2_area2048": "7c29d582bbc7cd6b2a6f3659913dc531dc5015852d36e935137a90b7c752b8b5",
+        "C_M3_selective": "dfd36db7289cdb06425f33db44d346f4f37e069263e5e0b06727cc4b003c0d48"
+      }
+    },
+    {
+      "repeat": 2,
+      "status": "completed",
+      "wall_seconds": 34.28187335655093,
+      "images": 1372,
+      "visdrone_images": 84,
+      "selected_visdrone_images": 60,
+      "trigger_rate_visdrone": 0.7142857142857143,
+      "tile_crops_selected": 240,
+      "component_seconds": {
+        "read": 11.713096726685762,
+        "original": 18.617896312847733,
+        "feature": 0.018734575249254704,
+        "selector": 0.06821004301309586,
+        "tile_all_visdrone": 2.157217244617641,
+        "fusion_all_visdrone": 0.08918468002229929,
+        "tile_selected_m3": 1.5254565495997667,
+        "fusion_selected_m3": 0.06782700959593058
+      },
+      "policies": {
+        "A_Original": {
+          "total_seconds": 30.330993039533496,
+          "images_per_second": 45.23425916888813,
+          "mean_image_ms": 22.107137783916542,
+          "p95_image_ms": 26.73976211808622
+        },
+        "B_C2_area2048": {
+          "total_seconds": 32.577394964173436,
+          "images_per_second": 42.1150924286254,
+          "mean_image_ms": 23.744456970971893,
+          "p95_image_ms": 48.509547440335155
+        },
+        "C_M3_selective": {
+          "total_seconds": 32.011221216991544,
+          "images_per_second": 42.85997059280397,
+          "mean_image_ms": 23.33179388993553,
+          "p95_image_ms": 34.40728653222332
+        }
+      },
+      "prediction_sha256": {
+        "A_Original": "ff7cd8f4cb73aa90445dd91e36b9895a6962f35a72eb2f1058206af3450c91bb",
+        "B_C2_area2048": "7c29d582bbc7cd6b2a6f3659913dc531dc5015852d36e935137a90b7c752b8b5",
+        "C_M3_selective": "dfd36db7289cdb06425f33db44d346f4f37e069263e5e0b06727cc4b003c0d48"
+      }
+    },
+    {
+      "repeat": 3,
+      "status": "completed",
+      "wall_seconds": 33.56905645597726,
+      "images": 1372,
+      "visdrone_images": 84,
+      "selected_visdrone_images": 60,
+      "trigger_rate_visdrone": 0.7142857142857143,
+      "tile_crops_selected": 240,
+      "component_seconds": {
+        "read": 11.609029311686754,
+        "original": 18.37386694457382,
+        "feature": 0.018914125859737396,
+        "selector": 0.06727018672972918,
+        "tile_all_visdrone": 2.1755343014374375,
+        "fusion_all_visdrone": 0.08952574245631695,
+        "tile_selected_m3": 1.5385879781097174,
+        "fusion_selected_m3": 0.068541563116014
+      },
+      "policies": {
+        "A_Original": {
+          "total_seconds": 29.982896256260574,
+          "images_per_second": 45.759421914202825,
+          "mean_image_ms": 21.853422927303626,
+          "p95_image_ms": 24.527707649394873
+        },
+        "B_C2_area2048": {
+          "total_seconds": 32.24795630015433,
+          "images_per_second": 42.54533177947261,
+          "mean_image_ms": 23.504341326643097,
+          "p95_image_ms": 48.63800001330675
+        },
+        "C_M3_selective": {
+          "total_seconds": 31.676210110075772,
+          "images_per_second": 43.313262389416515,
+          "mean_image_ms": 23.087616698305958,
+          "p95_image_ms": 35.5126903392376
+        }
+      },
+      "prediction_sha256": {
+        "A_Original": "ff7cd8f4cb73aa90445dd91e36b9895a6962f35a72eb2f1058206af3450c91bb",
+        "B_C2_area2048": "7c29d582bbc7cd6b2a6f3659913dc531dc5015852d36e935137a90b7c752b8b5",
+        "C_M3_selective": "dfd36db7289cdb06425f33db44d346f4f37e069263e5e0b06727cc4b003c0d48"
+      }
+    }
+  ],
+  "metrics": {
+    "A_Original": {
+      "full": {
+        "images": 1372,
+        "AP50-95": 0.35692598386327984,
+        "AP50": 0.7067129070283225,
+        "APs": 0.2717763466448206,
+        "APm": 0.5767041087752295,
+        "APl": 0.3324234543216812
+      },
+      "uavdt": {
+        "images": 1288,
+        "AP50-95": 0.3684306928532028,
+        "AP50": 0.7407737370526307,
+        "APs": 0.2902335167499316,
+        "APm": 0.5988745710978057,
+        "APl": 0.0
+      },
+      "visdrone": {
+        "images": 84,
+        "AP50-95": 0.3424280739050393,
+        "AP50": 0.5994944667108933,
+        "APs": 0.21685391532383,
+        "APm": 0.5236689537834901,
+        "APl": 0.6990702790682735
+      }
+    },
+    "B_C2_area2048": {
+      "full": {
+        "images": 1372,
+        "AP50-95": 0.3667835896797355,
+        "AP50": 0.7201166210658246,
+        "APs": 0.2841741132705125,
+        "APm": 0.5784946205478787,
+        "APl": 0.3283401933688032
+      },
+      "uavdt": {
+        "images": 1288,
+        "AP50-95": 0.3684306928532028,
+        "AP50": 0.7407737370526307,
+        "APs": 0.2902335167499316,
+        "APm": 0.5988745710978057,
+        "APl": 0.0
+      },
+      "visdrone": {
+        "images": 84,
+        "AP50-95": 0.38651637165165126,
+        "AP50": 0.6456342097198892,
+        "APs": 0.28789954089544734,
+        "APm": 0.5156542017219796,
+        "APl": 0.689041272496179
+      }
+    },
+    "C_M3_selective": {
+      "full": {
+        "images": 1372,
+        "AP50-95": 0.3661819952563232,
+        "AP50": 0.7197092494872925,
+        "APs": 0.2836933907638811,
+        "APm": 0.5781268039878823,
+        "APl": 0.3283071602349312
+      },
+      "uavdt": {
+        "images": 1288,
+        "AP50-95": 0.3684306928532028,
+        "AP50": 0.7407737370526307,
+        "APs": 0.2902335167499316,
+        "APm": 0.5988745710978057,
+        "APl": 0.0
+      },
+      "visdrone": {
+        "images": 84,
+        "AP50-95": 0.38523619106417484,
+        "AP50": 0.645532339202793,
+        "APs": 0.2857604612849358,
+        "APm": 0.5171579646600154,
+        "APl": 0.6889574406765502
+      }
+    }
+  },
+  "delta_vs_original": {
+    "A_Original": {
+      "full": {
+        "AP50-95": 0.0,
+        "AP50": 0.0,
+        "APs": 0.0,
+        "APm": 0.0,
+        "APl": 0.0
+      },
+      "uavdt": {
+        "AP50-95": 0.0,
+        "AP50": 0.0,
+        "APs": 0.0,
+        "APm": 0.0,
+        "APl": 0.0
+      },
+      "visdrone": {
+        "AP50-95": 0.0,
+        "AP50": 0.0,
+        "APs": 0.0,
+        "APm": 0.0,
+        "APl": 0.0
+      }
+    },
+    "B_C2_area2048": {
+      "full": {
+        "AP50-95": 0.00985761,
+        "AP50": 0.01340371,
+        "APs": 0.01239777,
+        "APm": 0.00179051,
+        "APl": -0.00408326
+      },
+      "uavdt": {
+        "AP50-95": 0.0,
+        "AP50": 0.0,
+        "APs": 0.0,
+        "APm": 0.0,
+        "APl": 0.0
+      },
+      "visdrone": {
+        "AP50-95": 0.0440883,
+        "AP50": 0.04613974,
+        "APs": 0.07104563,
+        "APm": -0.00801475,
+        "APl": -0.01002901
+      }
+    },
+    "C_M3_selective": {
+      "full": {
+        "AP50-95": 0.00925601,
+        "AP50": 0.01299634,
+        "APs": 0.01191704,
+        "APm": 0.0014227,
+        "APl": -0.00411629
+      },
+      "uavdt": {
+        "AP50-95": 0.0,
+        "AP50": 0.0,
+        "APs": 0.0,
+        "APm": 0.0,
+        "APl": 0.0
+      },
+      "visdrone": {
+        "AP50-95": 0.04280812,
+        "AP50": 0.04603787,
+        "APs": 0.06890655,
+        "APm": -0.00651099,
+        "APl": -0.01011284
+      }
+    }
+  },
+  "delta_vs_c2_area2048": {
+    "A_Original": {
+      "full": {
+        "AP50-95": -0.00985761,
+        "AP50": -0.01340371,
+        "APs": -0.01239777,
+        "APm": -0.00179051,
+        "APl": 0.00408326
+      },
+      "uavdt": {
+        "AP50-95": 0.0,
+        "AP50": 0.0,
+        "APs": 0.0,
+        "APm": 0.0,
+        "APl": 0.0
+      },
+      "visdrone": {
+        "AP50-95": -0.0440883,
+        "AP50": -0.04613974,
+        "APs": -0.07104563,
+        "APm": 0.00801475,
+        "APl": 0.01002901
+      }
+    },
+    "B_C2_area2048": {
+      "full": {
+        "AP50-95": 0.0,
+        "AP50": 0.0,
+        "APs": 0.0,
+        "APm": 0.0,
+        "APl": 0.0
+      },
+      "uavdt": {
+        "AP50-95": 0.0,
+        "AP50": 0.0,
+        "APs": 0.0,
+        "APm": 0.0,
+        "APl": 0.0
+      },
+      "visdrone": {
+        "AP50-95": 0.0,
+        "AP50": 0.0,
+        "APs": 0.0,
+        "APm": 0.0,
+        "APl": 0.0
+      }
+    },
+    "C_M3_selective": {
+      "full": {
+        "AP50-95": -0.00060159,
+        "AP50": -0.00040737,
+        "APs": -0.00048072,
+        "APm": -0.00036782,
+        "APl": -3.303e-05
+      },
+      "uavdt": {
+        "AP50-95": 0.0,
+        "AP50": 0.0,
+        "APs": 0.0,
+        "APm": 0.0,
+        "APl": 0.0
+      },
+      "visdrone": {
+        "AP50-95": -0.00128018,
+        "AP50": -0.00010187,
+        "APs": -0.00213908,
+        "APm": 0.00150376,
+        "APl": -8.383e-05
+      }
+    }
+  },
+  "input_sha256": {
+    "independent_test_manifest": "211953e130481db0b8e08e8ad65896a88c07569f28eb016f2811f7f57281291f",
+    "sequence_filter_summary": "68ff56eec7c7dde07980866b2416529c562cd0099ef1cbe94fa6a9a415a4c35f",
+    "dataset_audit": "15974dd21e901127c8a88c675a814bb2b91e9fa119748bdcf53263aa6f91debf",
+    "yolo_weights": "1a63af9a02c3970a71a2971890b84773851875971620c6eb9336becb090030bb",
+    "m3_selector": "cbc403801df42769fac96ae30cf5751f83ffd59513d7c5f37733b452f76affda",
+    "selector_metadata": "372aacb6c9500aed105573a36c89051880b96e58f3d78db078bcbdbd4337a596",
+    "baseline_coco_category_schema": "75098d09c3a02e8f8e32eab99df6c977474748dd177a97b1692f766bbdcf0de4"
+  },
+  "ground_truth_sha256": "211b82e3914a7b99361cda9ba8ad519bd104f3df92913900be8781f019959338",
+  "prediction_sha256": {
+    "A_Original": "dc34f4cff3f2004748c854dde44f2c97deedd7ffe1c02be9b9726bded73db4ee",
+    "B_C2_area2048": "52ca6247a6c4ba50f78fd1eea80df75135f39928cc2ef4dd1da811b6e5c318e8",
+    "C_M3_selective": "68d51311f8fa749d66186fc5cad2a25d494aab20d6653b3c386f5a91ba6bf5a6"
+  },
+  "interpretation_limit": "The independent test has 1,288 UAVDT images from 5 sequences and 84 VisDrone images from 84 sequences. The selector is only applied to VisDrone; therefore the independent sample for evaluating M3 selection is 84 images/sequences. Report source-specific VisDrone metrics and this sample size explicitly. Do not claim that all 1,372 images independently validate selector decisions."
+}

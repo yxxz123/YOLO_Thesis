@@ -1,0 +1,57 @@
+{
+  "status": "completed",
+  "input_sha256": {
+    "independent_test_manifest": "211953e130481db0b8e08e8ad65896a88c07569f28eb016f2811f7f57281291f",
+    "sequence_filter_summary": "68ff56eec7c7dde07980866b2416529c562cd0099ef1cbe94fa6a9a415a4c35f",
+    "dataset_audit": "15974dd21e901127c8a88c675a814bb2b91e9fa119748bdcf53263aa6f91debf",
+    "yolo_weights": "1a63af9a02c3970a71a2971890b84773851875971620c6eb9336becb090030bb",
+    "m3_selector": "cbc403801df42769fac96ae30cf5751f83ffd59513d7c5f37733b452f76affda",
+    "selector_metadata": "372aacb6c9500aed105573a36c89051880b96e58f3d78db078bcbdbd4337a596",
+    "baseline_coco_category_schema": "75098d09c3a02e8f8e32eab99df6c977474748dd177a97b1692f766bbdcf0de4"
+  },
+  "result": {
+    "repeat": 2,
+    "status": "completed",
+    "wall_seconds": 34.28187335655093,
+    "images": 1372,
+    "visdrone_images": 84,
+    "selected_visdrone_images": 60,
+    "trigger_rate_visdrone": 0.7142857142857143,
+    "tile_crops_selected": 240,
+    "component_seconds": {
+      "read": 11.713096726685762,
+      "original": 18.617896312847733,
+      "feature": 0.018734575249254704,
+      "selector": 0.06821004301309586,
+      "tile_all_visdrone": 2.157217244617641,
+      "fusion_all_visdrone": 0.08918468002229929,
+      "tile_selected_m3": 1.5254565495997667,
+      "fusion_selected_m3": 0.06782700959593058
+    },
+    "policies": {
+      "A_Original": {
+        "total_seconds": 30.330993039533496,
+        "images_per_second": 45.23425916888813,
+        "mean_image_ms": 22.107137783916542,
+        "p95_image_ms": 26.73976211808622
+      },
+      "B_C2_area2048": {
+        "total_seconds": 32.577394964173436,
+        "images_per_second": 42.1150924286254,
+        "mean_image_ms": 23.744456970971893,
+        "p95_image_ms": 48.509547440335155
+      },
+      "C_M3_selective": {
+        "total_seconds": 32.011221216991544,
+        "images_per_second": 42.85997059280397,
+        "mean_image_ms": 23.33179388993553,
+        "p95_image_ms": 34.40728653222332
+      }
+    },
+    "prediction_sha256": {
+      "A_Original": "ff7cd8f4cb73aa90445dd91e36b9895a6962f35a72eb2f1058206af3450c91bb",
+      "B_C2_area2048": "7c29d582bbc7cd6b2a6f3659913dc531dc5015852d36e935137a90b7c752b8b5",
+      "C_M3_selective": "dfd36db7289cdb06425f33db44d346f4f37e069263e5e0b06727cc4b003c0d48"
+    }
+  }
+}

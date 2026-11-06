@@ -1,0 +1,39 @@
+{
+  "experiment": "Stage6.4A2_Sequence_Independent_Test_Filter",
+  "created_at": "2026-11-06T14:35:23",
+  "status": "READY_FOR_STAGE6_4B",
+  "original_test_images": 1536,
+  "excluded_overlap_images": 164,
+  "excluded_overlap_groups": 18,
+  "excluded_source_counts": {
+    "visdrone": 164
+  },
+  "independent_test_images": 1372,
+  "independent_test_source_counts": {
+    "uavdt": 1288,
+    "visdrone": 84
+  },
+  "independent_test_groups": 89,
+  "independent_test_group_source_counts": {
+    "visdrone": 84,
+    "uavdt": 5
+  },
+  "independent_test_visdrone_groups": 84,
+  "independent_test_uavdt_groups": 5,
+  "test_train_overlap_after_filter": 0,
+  "test_val_overlap_after_filter": 0,
+  "train_val_overlap_groups_remain_in_original_splits": 21,
+  "input_sha256": {
+    "dataset_audit.json": "15974dd21e901127c8a88c675a814bb2b91e9fa119748bdcf53263aa6f91debf",
+    "test_manifest.csv": "36edad7e93a7c7aae1cabb354c5253f9e425199525e604152a4fbff591ccf000"
+  },
+  "output_sha256": {
+    "independent_test_manifest.csv": "211953e130481db0b8e08e8ad65896a88c07569f28eb016f2811f7f57281291f",
+    "excluded_sequence_overlap.csv": "741e09cb0e8e0ab5afe7486563422320c811cb4e202a2e8023f75b597cdde15b"
+  },
+  "interpretation_limit": "The filtered independent test contains 1,288 UAVDT images from 5 sequences and only 84 VisDrone images from 84 sequences. The M3 selector is activated only for VisDrone, so its independent selector evaluation sample is 84 images/sequences. Report this sample size explicitly; do not imply that all 1,372 images test the selector.",
+  "files": {
+    "independent_manifest": "runs/detect/stage6_scene_selector/stage6_4_preflight/independent_test_manifest.csv",
+    "excluded_manifest": "runs/detect/stage6_scene_selector/stage6_4_preflight/excluded_sequence_overlap.csv"
+  }
+}

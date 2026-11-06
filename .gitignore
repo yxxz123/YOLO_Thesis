@@ -111,6 +111,7 @@ datasets/
 !/runs/detect/stage6_original_priority_fusion_iou07
 !/runs/detect/stage6_scene_selector
 !/runs/detect/stage7_p2bridge_slice
+!/runs/detect/stage8_complex_robustness_4models_smoke
 
 /tide_result/
 tide_result/
@@ -251,6 +252,8 @@ secrets.json
 !/runs/detect/stage6_original_priority_fusion_iou07/**
 !/runs/detect/stage6_scene_selector/**
 !/runs/detect/stage7_p2bridge_slice/**
+!/runs/detect/stage8_complex_robustness_4models_smoke/**
+
 # 两个目录共同排除：权重、事件文件、大体积的预测结果
 /runs/detect/*/**/*.pt
 /runs/detect/*/**/*.pth

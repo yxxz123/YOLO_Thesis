@@ -1,0 +1,67 @@
+{
+  "status": "completed",
+  "completed_at": "2026-11-06T20:18:47",
+  "metadata": {
+    "experiment": "Stage8_Environmental_Robustness",
+    "model": "YOLO11s_DySample_P2Bridge_MLCA_TD",
+    "weights_sha256": "06f713f6c5513661280d7530a095f196151041c232bbe27ddd3d7b8c0b914a84",
+    "condition": {
+      "name": "blur_s3",
+      "type": "blur",
+      "severity": 3,
+      "parameters": {
+        "kernel": 9
+      },
+      "method": "Gaussian blur"
+    },
+    "input_hashes": {
+      "manifest_sha256": "211953e130481db0b8e08e8ad65896a88c07569f28eb016f2811f7f57281291f",
+      "gt_sha256": "211b82e3914a7b99361cda9ba8ad519bd104f3df92913900be8781f019959338",
+      "stage7_reference_sha256": "7905b1542eee92be19fe77ce92eda6cd414cd1c85fa3e865a72ad29d6dbbbf54",
+      "source_counts": {
+        "uavdt": 1288,
+        "visdrone": 84
+      }
+    },
+    "inference": {
+      "imgsz": 640,
+      "conf": 0.001,
+      "nms_iou": 0.7,
+      "max_det": 300,
+      "half": false,
+      "augment": false,
+      "batch": 1,
+      "slice_inference": false
+    },
+    "device": "0",
+    "images": 20
+  },
+  "metrics": {
+    "full": {
+      "images": 20,
+      "AP50-95": 0.3347419819384463,
+      "AP50": 0.5758484745856443,
+      "APs": 0.18473763682529815,
+      "APm": 0.49608734857572256,
+      "APl": 0.732294964820863
+    },
+    "uavdt": {
+      "images": 10,
+      "AP50-95": 0.23395603803676607,
+      "AP50": 0.6418332161433277,
+      "APs": 0.06764269022639617,
+      "APm": 0.5270627062706271,
+      "APl": -1.0
+    },
+    "visdrone": {
+      "images": 10,
+      "AP50-95": 0.34033974812668694,
+      "AP50": 0.5678413541016342,
+      "APs": 0.1920828928237666,
+      "APm": 0.49869540511832766,
+      "APl": 0.732294964820863
+    }
+  },
+  "prediction_count": 4076,
+  "prediction_sha256": "71d8c9b57e37af4dde282468672a8627f19a95b530ef394e05f30558279aefce"
+}

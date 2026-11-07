@@ -1,0 +1,45 @@
+{
+  "status": "completed",
+  "model": "YOLO11s_DySample_P2Bridge",
+  "weights": "/root/autodl-tmp/YOLO_Thesis/runs/detect/stage2_screening/YOLO11s-DySample-P2Bridge/weights/best.pt",
+  "sha256": "8027bf248e086bde5a043ce33a541e924bf17b93bb81a31790052831e50180cd",
+  "layers": 104,
+  "parameters": 9503459,
+  "parameters_M": 9.503459,
+  "gradients": 0,
+  "GFLOPs_640_batch1": 21.8999296,
+  "latency": {
+    "original_only": {
+      "full": {
+        "n": 4701,
+        "mean_ms": 14.12999592749198,
+        "median_ms": 13.888929970562458,
+        "p95_ms": 15.608478337526321,
+        "p99_ms": 17.252804711461067,
+        "min_ms": 12.954898178577423,
+        "max_ms": 24.815363809466362,
+        "FPS_from_mean_latency": 70.77142874856413
+      },
+      "uavdt": {
+        "n": 3960,
+        "mean_ms": 13.975220293070029,
+        "median_ms": 13.788413722068071,
+        "p95_ms": 15.224690036848187,
+        "p99_ms": 16.85645857825875,
+        "min_ms": 12.954898178577423,
+        "max_ms": 24.668470956385136,
+        "FPS_from_mean_latency": 71.55522267479931
+      },
+      "visdrone": {
+        "n": 741,
+        "mean_ms": 14.957136969746928,
+        "median_ms": 14.837394468486309,
+        "p95_ms": 16.437224112451077,
+        "p99_ms": 18.632568232715133,
+        "min_ms": 13.393722474575043,
+        "max_ms": 24.815363809466362,
+        "FPS_from_mean_latency": 66.85771495057185
+      }
+    }
+  }
+}

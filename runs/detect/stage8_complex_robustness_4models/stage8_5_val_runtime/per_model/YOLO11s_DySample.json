@@ -1,0 +1,45 @@
+{
+  "status": "completed",
+  "model": "YOLO11s_DySample",
+  "weights": "/root/autodl-tmp/YOLO_Thesis/runs/detect/stage2_screening/YOLO11s-DySample/weights/best.pt",
+  "sha256": "1a63af9a02c3970a71a2971890b84773851875971620c6eb9336becb090030bb",
+  "layers": 103,
+  "parameters": 9462467,
+  "parameters_M": 9.462467,
+  "gradients": 0,
+  "GFLOPs_640_batch1": 21.3756416,
+  "latency": {
+    "original_only": {
+      "full": {
+        "n": 4701,
+        "mean_ms": 13.99238196999418,
+        "median_ms": 13.807136565446854,
+        "p95_ms": 15.32219722867012,
+        "p99_ms": 16.905952244997025,
+        "min_ms": 12.760496698319912,
+        "max_ms": 20.604338496923447,
+        "FPS_from_mean_latency": 71.46746008967163
+      },
+      "uavdt": {
+        "n": 3960,
+        "mean_ms": 13.877118011992989,
+        "median_ms": 13.726958073675632,
+        "p95_ms": 14.997726259753103,
+        "p99_ms": 16.732472945004698,
+        "min_ms": 12.760496698319912,
+        "max_ms": 20.162735134363174,
+        "FPS_from_mean_latency": 72.06107198452678
+      },
+      "visdrone": {
+        "n": 741,
+        "mean_ms": 14.608367494534948,
+        "median_ms": 14.486439526081085,
+        "p95_ms": 15.999515540897846,
+        "p99_ms": 17.760734632611275,
+        "min_ms": 13.001097366213799,
+        "max_ms": 20.604338496923447,
+        "FPS_from_mean_latency": 68.45391864451003
+      }
+    }
+  }
+}

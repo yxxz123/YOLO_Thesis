@@ -62,7 +62,7 @@ def print_highlight_table(table, header_color_value_cols=None, color_first_col=T
 
 if __name__ == '__main__':
     # 选择训练好的权重路径
-    model_path = 'runs/detect/stage2_screening/YOLO11s-DySample/weights/best.pte:\Postgrad\stage6_analyze_selector_gain_coco.py'
+    model_path = 'runs/detect/stage3_fast_screen/YOLO11s-DySample-P2Bridge-MLCA-TD-PKINetV2-P32/weights/best.pt'
     # 设置用于计算指标的图像尺寸
     imgsz = 640
 
@@ -75,8 +75,8 @@ if __name__ == '__main__':
                         auto_coco_eval=True, # 一步到位计算COCO指标
                         #iou=0.8,
                         save_json=True,
-                        project='source_validation',
-                        name='YOLO11s-DySample-Mosaic050', # 结果保存的文件夹名称
+                        project='test',
+                        name='YOLO11s-DySample-P2Bridge-MLCA-TD-MSAM-P3', # 结果保存的文件夹名称
                         device=os.environ.get("CUDA_VISIBLE_DEVICES", 0), # 训练设备选择，不在这里设置，在头部设置，详细可以看UserGuide.md中的常见问题第4点
                         # end2end=False # 如果训练的是NMSFree类型的模型，不想用一对一的头可以设置False
                         )

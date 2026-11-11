@@ -9,29 +9,30 @@ from ultralytics import YOLO
 
 if __name__ == '__main__':
 
-    yaml_path = 'ultralytics/cfg/models/improve/YOLO11s-DySample-P2Bridge-MLCA-TD-EDDConv-P3.yaml'
+    yaml_path = 'ultralytics/cfg/models/improve/YOLO11s-DySample-P2Bridge-MLCA-TD-MSAM-P3.yaml'
 
     # 初始化 YOLO 模型，从 yaml 配置文件构建网络结构
     model = YOLO(yaml_path)
     model.train(
     data='datasets/HighwayVehicle-v1.0/highway_vehicle_v1.0.yaml',
-    epochs=150,
     imgsz=640,
+    epochs=150,
     batch=16,
     device=0,
     workers=4,
-    optimizer="AdamW",
-    lr0=0.003,
-    lrf=0.01,
+    # optimizer="AdamW",
+    optimizer="SGD",
     cos_lr=True,
+    lr0=0.01,
+    lrf=0.01,
     close_mosaic=10,
     amp=True,
     cache=False,
-    patience=150,
+    patience=50,
     seed=42,
-    deterministic=True,
+    # deterministic=True,
     project="stage3_fast_screen",
-    name="YOLO11s-DySample-P2Bridge-MLCA-TD-EDDConv-P3",
+    name="YOLO11s-DySample-P2Bridge-MLCA-TD-MSAM-P3",
 )
 
     # model.train(

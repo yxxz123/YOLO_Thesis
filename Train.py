@@ -9,7 +9,7 @@ from ultralytics import YOLO
 
 if __name__ == '__main__':
 
-    yaml_path = 'ultralytics/cfg/models/improve/YOLO11s-DySample-P2Bridge-MLCA-TD-C3k2-LEG-G-P3.yaml'
+    yaml_path = 'ultralytics/cfg/models/improve/YOLO11s-DySample-P2Bridge-MLCA-TD-C3k2-DCNv2-P3.yaml'
 
     # 初始化 YOLO 模型，从 yaml 配置文件构建网络结构
     model = YOLO(yaml_path)
@@ -32,7 +32,7 @@ if __name__ == '__main__':
     seed=42,
     deterministic=True,
     project="stage3_fast_screen",
-    name="YOLO11s-DySample-P2Bridge-MLCA-TD-C3k2-LEG-G-P3",
+    name="YOLO11s-DySample-P2Bridge-MLCA-TD-C3k2-DCNv2-P3",
 )
 
     # model.train(
